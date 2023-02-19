@@ -23,6 +23,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import { Routes, Route } from 'react-router-dom';
 import ProductsAdmin from './ProductsAdmin';
 import CreateProductForm from './CreateProductForm';
+import UpdateProductForm from './UpdateProductForm';
 
 
 function Copyright(props) {
@@ -168,8 +169,10 @@ function DashboardContent() {
                             <Grid item xs={12}>
                                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                                     <Routes>
-                                         <Route path='products/new' element={<CreateProductForm />} />
+                                         
                                          <Route path='products' element={<ProductsAdmin />} />
+                                         <Route path='products/new' element={<CreateProductForm />} />
+                                         <Route path='products/edit/:id' element={<UpdateProductForm />} />
                                         
                                     </Routes>
                                 </Paper>

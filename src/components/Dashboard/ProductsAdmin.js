@@ -71,7 +71,7 @@ export default function AdminProducts() {
                     variant="contained"
                     size="small"
                     component={Link}
-                    to={`/admin/products/${product._id}`}
+                    to={`/admin/products/edit/${product._id}`}
                   >
                     Editar
                   </Button>

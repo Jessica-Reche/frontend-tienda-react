@@ -1,4 +1,3 @@
-
 export const getProducts = () => {
   return fetch("http://localhost:4000/product/getProducts", {
     method: "GET",
@@ -30,8 +29,7 @@ export const deleteProduct = async(id, token) => {
   }
   console.log(data);
   return data.message;
-
-}
+};
 
 //Add product
 export const addProduct = async(product, token) => {
@@ -45,12 +43,38 @@ export const addProduct = async(product, token) => {
   }
   console.log(data);
   return data;
+};
 
+//Update poster
+export const updatePoster = async(productId, poster, token) => {
+  const headers = { 'Authorization': `${token}`};
+  const ENDPOINT = `http://localhost:4000/product/updateProductPoster/${productId}`;
+  const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: poster });
+  const data = await response.json();
+  if (data.error) {
+    console.log(data.error);
+    return data.error;
+  }
+  console.log(data);
+  return data;
+};
 
-
-
-
+//Update product
+export const updateProduct = async(productId, productData,token) => {
+  const headers = { 'Authorization': `${token}`};
+  const ENDPOINT = `http://localhost:4000/product/updateProduct/${productId}`;
+  const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: productData });
+  const data = await response.json();
+  if (data.error) {
+    console.log(data.error);
+    return data.error;
+  }
+  console.log(data);
+  return data;
+  
+  
 }
+
 
 
 
