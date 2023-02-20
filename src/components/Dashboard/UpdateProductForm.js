@@ -1,7 +1,10 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { useProducts } from "../../context/productsContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
+import { useEffect,useState } from "react";
+
+
 
 import {
   Box,
@@ -20,71 +23,94 @@ const FormBox = styled(Box)({
   borderRadius: "4px",
 });
 
-const CreateProductForm = () => {
-  const { handleCreateProduct } = useProducts();
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [poster, setPoster] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [discount, setDiscount] = React.useState("");
-  const [stock, setStock] = React.useState("");
-  const [rating, setRating] = React.useState("");
-  const [error, setError] = React.useState("");
-  const [sku, setSku] = React.useState("");
+const UpdateProductForm = () => {
+  const [product, setProduct] = useState({
+    name: "",
+    description: "",
+    poster: "",
+    price: "",
+    stock: "",
+    sku: "",
+    rating: "",
+    discount: "",
+  });
+  const [error, setError] = useState("");
+  const{ id } = useParams();
+   const { products, handleUpdateProduct } = useProducts();
   const navigate = useNavigate();
+  const productData = new FormData();
+  const fileData = new FormData();
 
-  const handlePosterFileChange = (event) => {
-    const [file] = event.target.files;
-    setPoster(file);
+  useEffect(() => {
+    const product = products.find((product) => product._id === id);
+    setProduct(product);
+  }, [id, products]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
-  const handleSubmit = async (event) => {
+  const handleImageChange = (event) => {
+    const [file] = event.target.files;
+    setProduct((prevProduct) => ({ ...prevProduct, poster: file }));
+  };
+  
+  const  handleSubmit =async (event) => {
     event.preventDefault();
-
-    //formData
-    const productData = new FormData();
+    const { name, description, poster, price, stock, sku, rating, discount } = product;
+     console.log(poster);
     productData.append("name", name);
     productData.append("description", description);
     productData.append("poster", poster);
     productData.append("price", price);
-    productData.append("discount", discount);
     productData.append("stock", stock);
-    productData.append("rating", rating);
     productData.append("sku", sku);
-
+    productData.append("rating", rating);
+    productData.append("discount", discount);
+    fileData.append("poster", poster);
     console.log(productData);
-    const result = await handleCreateProduct(productData);
-    if (result.status === true) {
-      navigate("/admin/products");
-      setError(result.message);
-      if (!result)
-        setError(result.message);
-    } else {
-      setError("");
-      setName("");
-      setDescription("");
-      setPoster("");
-      setPrice("");
-      setDiscount("");
-      setStock("");
-      setSku("");
-      setRating("");
+   const posterFile = productData.get("poster");
+    console.log(posterFile);
+    if (posterFile instanceof File) {
+      productData.append("poster", posterFile);
+    }else{
+      console.log("no es un archivo");
     }
+
+
+
+
+    const result = await handleUpdateProduct(id,productData,fileData);
+    if (result[0].status === true) {
+      navigate(-1);
+    }else{
+      setError(result.message);
+    }
+
+   
+
+
+
   };
+
+
+
+
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
-        Crear Producto
+        Editar Producto
       </Typography>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormBox>
           <TextField
             fullWidth
             label="Nombre"
             name="name"
-            onChange={(event) => setName(event.target.value)}
-            value={name}
+            onChange={handleInputChange}
+            value={product.name}
             variant="outlined"
             margin="normal"
           />
@@ -92,29 +118,30 @@ const CreateProductForm = () => {
             fullWidth
             label="Descripción"
             name="description"
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
+            onChange={handleInputChange}
+            value={product.description}
             variant="outlined"
             margin="normal"
           />
           <TextField
             fullWidth
             label="Imagen principal"
-            name="poster"
-            // onChange={handlePosterChange}
+          
             variant="outlined"
             margin="normal"
             type="file"
+            accept="image/*"
+            name="poster"
 
-            onChange={handlePosterFileChange}
+            onChange={handleImageChange}
           />
 
           <TextField
             fullWidth
             label="Precio"
             name="price"
-            onChange={(event) => setPrice(event.target.value)}
-            value={price}
+            onChange={handleInputChange}
+            value={product.price}
             variant="outlined"
             margin="normal"
             type="number"
@@ -123,8 +150,8 @@ const CreateProductForm = () => {
             fullWidth
             label="Descuento"
             name="discount"
-            onChange={(event) => setDiscount(parseFloat(event.target.value))}
-            value={discount}
+            onChange={handleInputChange}
+            value={product.discount}
             variant="outlined"
             margin="normal"
             type="number"
@@ -134,8 +161,8 @@ const CreateProductForm = () => {
             fullWidth
             label="Stock"
             name="stock"
-            onChange={(event) => setStock(event.target.value)}
-            value={stock}
+            onChange={handleInputChange}
+            value={product.stock}
             variant="outlined"
             margin="normal"
             type="number"
@@ -144,8 +171,8 @@ const CreateProductForm = () => {
             fullWidth
             label="SKU"
             name="sku"
-            onChange={(event) => setSku(event.target.value)}
-            value={sku}
+            onChange={handleInputChange}
+            value={product.sku}
             variant="outlined"
             margin="normal"
           />
@@ -153,8 +180,8 @@ const CreateProductForm = () => {
             fullWidth
             label="Rating"
             name="rating"
-            onChange={(event) => setRating(event.target.value)}
-            value={rating}
+            onChange={handleInputChange}
+            value={product.rating}
             variant="outlined"
             margin="normal"
             type="number"
@@ -186,4 +213,4 @@ const CreateProductForm = () => {
 
 }
 
-export default CreateProductForm;
+export default UpdateProductForm;
