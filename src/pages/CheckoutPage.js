@@ -9,13 +9,20 @@ import { useStateValue } from '../context/StateProvider';
 const BoxStyled = {
     flexGrow: 1,
     padding: "2rem",
-    marginTop: "7rem",    
+   
 };
 const TotalStyled = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
 };
+const titleStyle = {
+    color: "#fff",
+    backgroundColor: "#3f51b5",
+    padding: "1rem",
+    
+};
+
 
 export default function CheckoutPage() {
     const [{basket} , dispatch] = useStateValue();
@@ -35,9 +42,10 @@ export default function CheckoutPage() {
         <Box sx={BoxStyled}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Typography align='center' gutterBottom variant='h4'>
-                        Shopping Cart
-                    </Typography>
+                     <Typography sx={titleStyle} align='center' gutterBottom variant='h4'>
+                         Checkout
+                     </Typography>
+
                 </Grid>
                 <Grid item xs={12} sm={8} md={6} container spacing={2}>
                     <FormRow />

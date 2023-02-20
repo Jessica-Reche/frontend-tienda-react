@@ -101,6 +101,8 @@ function DashboardContent() {
                     <Toolbar
                         sx={{
                             pr: '24px', // keep right padding when drawer closed
+                            //trasparente
+                            backgroundColor: '#3f51b5',
                         }}
                     >
                         <IconButton
@@ -138,6 +140,7 @@ function DashboardContent() {
                             alignItems: 'center',
                             justifyContent: 'flex-end',
                             px: [1],
+                            
                         }}
                     >
                         <IconButton onClick={toggleDrawer}>
@@ -161,6 +164,7 @@ function DashboardContent() {
                         flexGrow: 1,
                         height: '100vh',
                         overflow: 'auto',
+                       
                     }}
                 >
                     <Toolbar />

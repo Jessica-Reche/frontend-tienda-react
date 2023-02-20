@@ -10,11 +10,13 @@ import { actionTypes } from './utils';
 import { useEffect } from 'react';
 import { useStateValue } from './context/StateProvider';
 import Dashboard from './components/Dashboard/Dashboard';
+import Checkout from './components/Checkout/Checkout';
+import NotFound from './pages/NotFound';
 
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
-  const { token, userAuth } = useAuth();
+  const { token, userAuth, isAdmin } = useAuth();
   useEffect(() => {
     const updateUser = async () => {
       console.log(userAuth);
@@ -32,16 +34,21 @@ function App() {
 
 
     <div className="App">
-      <Navbar />
+      <Navbar admin={isAdmin} />
       <Routes>
         <Route index path='/' element={<Products />} />
         <Route path='/checkout-page' element={<CheckoutPage />} />
+        <Route path='/checkout' element={<Checkout />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/admin/*' element={<Dashboard />} />
+        
+        <Route path='/admin/*' render={
+          () => isAdmin ? <Dashboard /> : <NotFound/> 
+
+        } />
 
 
-        <Route path='*' element={<h1>404: Not Found</h1>} />
+        <Route path='*' element={ <NotFound/> } />
       </Routes>
 
 

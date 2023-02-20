@@ -22,7 +22,7 @@ const BoxStyled = styled(Box)({
   },
   tableContainer: {
     width: "80%",
-    marginTop: "2rem",
+    marginTop: "4rem",
   },
 });
 

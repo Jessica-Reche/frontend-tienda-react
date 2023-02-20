@@ -9,6 +9,7 @@ import { AuthProvider } from './context/authContext';
 import { ProductProvider } from './context/productsContext';
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

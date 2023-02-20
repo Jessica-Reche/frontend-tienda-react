@@ -51,7 +51,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
 
 
   return (
-    <Card sx={{ maxWidth: 345, marginTop: "7rem" }}>
+    <Card sx={{ maxWidth: 345}}>
       <CardHeader
         action={
           <Typography sx={{ fontSize: 25 }} variant="h5" color="textSecondary">
@@ -94,11 +94,12 @@ export default function Product({ product: { _id, name, poster, price, descripti
           <ExpandMoreIcon />
         </ExpandMoreButton>
 
-        {isAdmin && (
-          <IconButton aria-label="Delete" onClick={handleDeleteClick}>
+        {isAdmin && (  <IconButton aria-label="Delete" onClick={handleDeleteClick}>
             <Delete fontSize="large" />
-          </IconButton>
-        )}
+          </IconButton>)}
+
+
+
 
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

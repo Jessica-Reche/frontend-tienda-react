@@ -194,7 +194,7 @@ const UpdateProductForm = () => {
             variant="contained"
             onClick={handleSubmit}
           >
-            Crear Producto
+            Editar Producto
           </Button>
           {error && (
             <Typography variant="body1" color="error" align="center">

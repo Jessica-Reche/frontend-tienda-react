@@ -52,8 +52,10 @@ export const loginUser = (email, password) => {
       if (data.status === true) {
       const { token, user } = data;
        const username = user.username;
+     
+       localStorage.setItem("user", username);
         localStorage.setItem("token", token);
-        localStorage.setItem("user", username);
+        
         localStorage.setItem("isAdmin", isAdmin(user));
         
         return data;
@@ -73,7 +75,7 @@ export const getProducts = () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+     
       return data;
     })
     .catch((error) => {
@@ -99,19 +101,5 @@ export const getToken = () => {
     return false;
   }
 };
-
-//funcion que añade el token a los headers de las peticiones
-export const addTokenToHeaders = () => {
-  const token = getToken();
-  if (token) {
-    return {
-      headers: {
-        Authorization: ` ${token}`,
-      },
-    };
-  } else {
-    return alert("No token found");
-  }
-}
 
 
