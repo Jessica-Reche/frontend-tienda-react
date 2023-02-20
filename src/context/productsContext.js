@@ -22,13 +22,17 @@ export const ProductProvider = ({ children }) => {
     return result;
   };
 
-  const handleUpdateProduct = async (productId, productData,fileData) => {
-    const result = await updateProduct(productId, productData, token);
-   console.log(fileData);
-    const posterResult = await updatePoster(productId, fileData, token);
+  const handleUpdateProduct = async (id, productData) => {
+    const result = await updateProduct(id, productData, token);
     const updatedProducts = await getProducts();
     setProducts(updatedProducts);
-    return [result, posterResult];
+    return result;
+  };
+  const handleUpdatePoster = async (id, posterData) => {
+    const result = await updatePoster(id, posterData, token);
+    const updatedProducts = await getProducts();
+    setProducts(updatedProducts);
+    return result;
   };
   
 
@@ -43,7 +47,7 @@ export const ProductProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct}}>
+    <ProductContext.Provider value={{ products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct, handleUpdatePoster}}>
       {children}
     </ProductContext.Provider>
   );

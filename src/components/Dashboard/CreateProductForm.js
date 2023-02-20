@@ -39,8 +39,6 @@ const CreateProductForm = () => {
     const [file] = event.target.files;
     setPoster(file);
 
-
-
   };
 
   const handleSubmit = async (event) => {

@@ -1,10 +1,8 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { useProducts } from "../../context/productsContext";
-import { useNavigate, useParams} from "react-router-dom";
-import { useEffect,useState } from "react";
-
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -27,19 +25,18 @@ const UpdateProductForm = () => {
   const [product, setProduct] = useState({
     name: "",
     description: "",
-    poster: "",
     price: "",
     stock: "",
     sku: "",
     rating: "",
     discount: "",
   });
-  const [error, setError] = useState("");
-  const{ id } = useParams();
-   const { products, handleUpdateProduct } = useProducts();
   const navigate = useNavigate();
-  const productData = new FormData();
-  const fileData = new FormData();
+  const [error, setError] = useState("");
+  const { id } = useParams();
+  const { products, handleUpdateProduct, handleUpdatePoster } = useProducts()
+  const [posterMsg, setPosterMsg] = useState("");
+  const [isPoster, setIsposter] = useState(false);
 
   useEffect(() => {
     const product = products.find((product) => product._id === id);
@@ -53,44 +50,47 @@ const UpdateProductForm = () => {
   const handleImageChange = (event) => {
     const [file] = event.target.files;
     setProduct((prevProduct) => ({ ...prevProduct, poster: file }));
+    setIsposter(true);
   };
-  
-  const  handleSubmit =async (event) => {
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const { name, description, poster, price, stock, sku, rating, discount } = product;
-     console.log(poster);
+    const productData = new FormData();
     productData.append("name", name);
     productData.append("description", description);
-    productData.append("poster", poster);
     productData.append("price", price);
     productData.append("stock", stock);
     productData.append("sku", sku);
     productData.append("rating", rating);
     productData.append("discount", discount);
-    fileData.append("poster", poster);
-    console.log(productData);
-   const posterFile = productData.get("poster");
-    console.log(posterFile);
-    if (posterFile instanceof File) {
-      productData.append("poster", posterFile);
-    }else{
-      console.log("no es un archivo");
+
+    const resProduct = await handleUpdateProduct(id, productData);
+    let allUpdatesSuccessful = true;
+
+    if (resProduct.status === false) {
+      allUpdatesSuccessful = false;
     }
+    if (isPoster) {
+     
+      const posterData = new FormData();
+      posterData.append("poster", poster);
+      const resPoster = await handleUpdatePoster(id, posterData);
+      if (resPoster.status === false) {
+        allUpdatesSuccessful = false;
+        setPosterMsg(resPoster.message);
+      };
 
+    };
 
-
-
-    const result = await handleUpdateProduct(id,productData,fileData);
-    if (result[0].status === true) {
-      navigate(-1);
-    }else{
-      setError(result.message);
+    if (allUpdatesSuccessful) {
+      navigate("/admin/products");
+    } else {
+      //concatenar los mensajes de error de los dos fetch
+      const mensaje = resProduct.message + ','+ posterMsg;
+      setError(mensaje);
     }
-
-   
-
-
-
   };
 
 
@@ -126,7 +126,7 @@ const UpdateProductForm = () => {
           <TextField
             fullWidth
             label="Imagen principal"
-          
+
             variant="outlined"
             margin="normal"
             type="file"

@@ -46,21 +46,32 @@ export const addProduct = async(product, token) => {
 };
 
 //Update poster
-export const updatePoster = async(productId, poster, token) => {
-  const headers = { 'Authorization': `${token}`};
-  const ENDPOINT = `http://localhost:4000/product/updateProductPoster/${productId}`;
-  const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: poster });
-  const data = await response.json();
-  return data;
+export const updatePoster = async(id, posterData, token) => {
+  const posterResponse = await fetch(`http://localhost:4000/product/updateProductPoster/${id}`, {
+        method: "PUT",
+        headers: { Authorization: `${token}` },
+        body: posterData,
+      });
+      const posterResult = await posterResponse.json();
+      console.log(posterResult);
+      return posterResult;
 };
 
 //Update product
-export const updateProduct = async(productId, productData,token) => {
-  const headers = { 'Authorization': `${token}`};
-  const ENDPOINT = `http://localhost:4000/product/updateProduct/${productId}`;
-  const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: productData });
-  const data = await response.json();
-  return data;
+export const updateProduct = async(id, productData,token) => {
+  const data = Object.fromEntries(productData);
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ` ${token}`
+      },
+      body: JSON.stringify(data)
+    };
+    const response = await fetch( `http://localhost:4000/product/updateProduct/${id}`, requestOptions);
+    const result = await response.json();
+    console.log(result);
+    return result;
   
   
 }
