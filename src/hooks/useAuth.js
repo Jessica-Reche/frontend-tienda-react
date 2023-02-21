@@ -1,9 +1,6 @@
 import AuthContext from "../context/authContext";
 import { useContext, useCallback, useState } from "react";
 import { loginUser, registerUser } from "../database/auth/auth";
-
-
-
 export default function useAuth() {
     const {token, setToken, user,setUser,admin,setAdmin} = useContext(AuthContext);
     const [state, setState] = useState({loading:false, error:true});
@@ -15,8 +12,7 @@ export default function useAuth() {
             window.sessionStorage.setItem('user', data.user);
             setState({loading:false, error:false})
             setToken(data.token);
-            setUser(data.user);
-            //si el usuario es administrador, se setea asmin a true
+            setUser(data.user.username);
             if(data.user.rol.name === "admin"){ 
                 setAdmin(true);
             }

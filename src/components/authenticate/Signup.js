@@ -47,18 +47,6 @@ export default function SignUp() {
     navigate('/singin')
    }
 
-
-
-    // if (response.status === true) {
-    //   navigate(-1)
-    //   console.log(response.message)
-    // } else {
-    //   navigate(0)
-    //   console.log(response.message)
-    //   alert(response.message)
-   
-      
-    // }
   };
 
   return (

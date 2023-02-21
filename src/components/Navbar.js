@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import logo from '../assets/logo-tarta.png';
 import { styled } from "@mui/material/styles";
 import { Badge, Button } from '@mui/material';
-import { Logout, ShoppingCart } from '@mui/icons-material';
+import { ShoppingCart } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useStateValue } from '../context/StateProvider';
 
@@ -36,32 +36,25 @@ const StyledAppBar = styled(AppBar)({
         marginRight: "1rem",
         height: "11rem",
     },
-   
-    '.hide-element': {
-       opacity: 0,
-    },
 
+    '.hide-element': {
+        opacity: 0,
+    },
 
 });
 
 export default function Navbar() {
-
-
-//Si no hay usuario se vacía
     const [{ basket }, dispatch] = useStateValue();
-   // const { token, userAuth, isAdmin } = useAuth();
-    const { isLogged,logout, user } = useAuth();
-
+    const { isLogged, logout, user, admin } = useAuth();
     const handleAuth = () => {
         if (isLogged) {
             dispatch({
                 type: actionTypes.EMPTY_BASKET,
                 basket: [],
-            }); 
+            });
             logout();
-           
-           // dispatch({ type: actionTypes.SET_USER, user: null });
-        }  
+            // dispatch({ type: actionTypes.SET_USER, user: null });
+        }
     };
     return (
 
@@ -73,25 +66,18 @@ export default function Navbar() {
                             <img className='image' src={logo} alt="logo" />
                         </IconButton>
                     </Link>
-
                     <div className='grow' />
                     <Typography variant="h6" color="textPrimary" component="p">
-                     Hello {user ? user : 'Guest'} 
+                        Hello {user ? user : 'Guest'}
                     </Typography>
                     <div className='button' >
-
-                        <Link to="/admin/products">
+                        {admin && <Link to="/admin/products">
                             <IconButton aria-label='show cart items' color='inherit'>
                                 <Badge color="secondary">
                                     <DashboardIcon fontSize='medium' color='primary' />
                                 </Badge>
                             </IconButton>
-                        </Link>
-
-
-
-
-
+                            </Link>}
                         <Link to="/checkout-page">
                             <IconButton aria-label='show cart items' color='inherit'>
                                 <Badge badgeContent={basket.length} color="secondary">
@@ -99,22 +85,15 @@ export default function Navbar() {
                                 </Badge>
                             </IconButton>
                         </Link>
+                        <Link to="/signin" onClick={handleAuth}>
 
-                       
+                            <Button variant="outlined" color="secondary" href="#contained-buttons">
+                                <strong>{isLogged ? "Sing Out" : "Sing In"}</strong>
+                            </Button>
+                        </Link>
 
-                         
-                                {/* <strong>{user ? "Sing Out" : "Sing In"}</strong> */}
-                             
-                                  
-                                <Link to="/signin" onClick={handleAuth}>
-                            
-                                   <Button variant="outlined" color="secondary" href="#contained-buttons">
-                                      <strong>{isLogged ? "Sing Out" : "Sing In"}</strong>
-                                   </Button> 
-                                </Link>
 
-                           
-                       
+
                     </div>
                 </Toolbar>
             </StyledAppBar>
