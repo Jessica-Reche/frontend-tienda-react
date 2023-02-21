@@ -1,63 +1,26 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { loginUser, logoutUser } from "../database/auth/auth";
+//context 
+ import { createContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext();
-
-export const AuthProvider = ({ children }) => {
-    const [userAuth, setUser] = useState(localStorage.getItem("user"));
-    const [token, setToken] = useState(localStorage.getItem("token"));
-    const  [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin"));
-
-    useEffect(() => {
+ const AuthContext = createContext({});
 
 
-        if (userAuth) {
-            // Si hay un token en el local storage, actualiza el token en el estado del contexto.
-            setToken(token);
-            setUser(userAuth);
-            setIsAdmin(isAdmin);
-           
-        }
-    }, [userAuth]);
-
-    const login = useCallback(async (email, password) => {
-        const response = await loginUser(email, password);
-        if (response.status === true) {
-            setToken(response.token);
-            setUser(response.user);
-            
-            setIsAdmin(localStorage.getItem("isAdmin"));
-            return response;
-        } else {
-            logoutUser();
+export  function AuthProvider({children}) {
+    
+    const [token, setToken] = useState( () => window.sessionStorage.getItem('token'));
+    const [user,setUser] = useState(()=>  window.sessionStorage.getItem('user'));
+    const [admin,setAdmin] = useState(()=>  window.sessionStorage.getItem('admin'));
+ useEffect(() => {
+        if (!token) {
             setUser(null);
-            setToken(null);
-         
-            return null;
+            setAdmin(false);
         }
-    }, []);
-
-
-    const logout = useCallback(() => {
-        setUser(null);
-        setToken(null);
-        logoutUser();
-    }, []);
-
+   },[token])
     return (
-        <AuthContext.Provider
-            value={{
-                userAuth,
-                token,
-                isAdmin,
-                login,
-                logout,
-                
-            }}
-        >
+        <AuthContext.Provider value={{token, setToken, user, setUser, admin, setAdmin}}>
             {children}
         </AuthContext.Provider>
     );
-};
+}
 
-export const useAuth = () => useContext(AuthContext);
+export default AuthContext
+

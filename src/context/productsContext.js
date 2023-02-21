@@ -1,13 +1,16 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import {  getProducts, updatePoster, updateProduct } from '../database/products';
-import { useAuth } from './authContext';
+
 import { deleteProduct ,addProduct } from '../database/products'
+
+
 
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const { token } = useAuth();
+  const token = localStorage.getItem('token');
+
 
   const handleDeleteProduct = async (id) => {
     await deleteProduct(id, token);

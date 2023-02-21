@@ -14,8 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { registerUser } from '../../database/auth/auth';
-
+import useAuth from '../../hooks/useAuth';
 
 
 function Copyright(props) {
@@ -37,23 +36,29 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  
   const navigate = useNavigate();
+  const { register, hasLoginError } = useAuth();
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const response = await registerUser(username, email, password);
-    console.log(response);
+    register({ email, password, username });
+   if(!hasLoginError){
+    navigate('/singin')
+   }
 
-    if (response.status === true) {
-      navigate(-1)
-      console.log(response.message)
-    } else {
-      navigate(0)
-      console.log(response.message)
-      alert(response.message)
+
+
+    // if (response.status === true) {
+    //   navigate(-1)
+    //   console.log(response.message)
+    // } else {
+    //   navigate(0)
+    //   console.log(response.message)
+    //   alert(response.message)
    
       
-    }
+    // }
   };
 
   return (

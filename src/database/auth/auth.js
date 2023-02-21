@@ -10,26 +10,11 @@ export const registerUser = (username, email, password) => {
       email,
       password,
     }),
+  }).then(res => {
+    if (!res.ok) throw new Error('Response is NOT ok')
+    return true
   })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error(error);
-      return error;
-    });
 };
-//funcion qque coomprueba si tiene permisos de administracion o no
-export const isAdmin = (user) => {
-  if (user.rol.name === "admin") {
-    localStorage.setItem("isAdmin", true);
-    return true;
-  } else {
-    return false;
-  }
-};
-
 
 
 
@@ -49,22 +34,10 @@ export const loginUser = (email, password) => {
       return res.json()
     })
     .then((data) => {
-      if (data.status === true) {
-      const { token, user } = data;
-       const username = user.username;
-     
-       localStorage.setItem("user", username);
-        localStorage.setItem("token", token);
-        
-        localStorage.setItem("isAdmin", isAdmin(user));
-        
-        return data;
 
-      }
-      logoutUser();
-
-     
-      return data
+    
+   return  data;
+      
     });
 };
 //Metodo temporal para obtener los productos hay que quitarlo de LoginUser
@@ -82,24 +55,6 @@ export const getProducts = () => {
       console.error(error);
       return error;
     });
-};
-
-
-export const logoutUser = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-  localStorage.removeItem("isAdmin");
-  return true;
-};
-//funcion que desencripta el token para añdirlo a los headers de las peticiones
-
-export const getToken = () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    return token;
-  } else {
-    return false;
-  }
 };
 
 

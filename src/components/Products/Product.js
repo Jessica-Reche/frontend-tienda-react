@@ -13,7 +13,7 @@ import { AddShoppingCart, Delete } from "@mui/icons-material";
 import accounting from "accounting";
 import { actionTypes } from "../../utils";
 import { useStateValue } from "../../context/StateProvider";
-import { useAuth } from "../../context/authContext";
+//import { useAuth } from "../../hooks/useAuth";
 
 const ExpandMoreButton = styled((props) => {
   const { expand, ...other } = props;
@@ -30,7 +30,7 @@ const ExpandMoreButton = styled((props) => {
 export default function Product({ product: { _id, name, poster, price, description, rating, discount }, handleDelete }) {
   const [expanded, setExpanded] = React.useState(false);
   const [{ basket }, dispatch] = useStateValue();
-  const { isAdmin } = useAuth();
+ // const { isAdmin } = useAuth();
   const baseImageUrl = 'http://localhost:4000';
    poster = `${baseImageUrl}${poster.link}`;
 
@@ -94,9 +94,9 @@ export default function Product({ product: { _id, name, poster, price, descripti
           <ExpandMoreIcon />
         </ExpandMoreButton>
 
-        {isAdmin && (  <IconButton aria-label="Delete" onClick={handleDeleteClick}>
+       <IconButton aria-label="Delete" onClick={handleDeleteClick}>
             <Delete fontSize="large" />
-          </IconButton>)}
+          </IconButton>
 
 
 

@@ -6,7 +6,7 @@ import { useProducts } from '../context/productsContext';
 
 export default function Products() {
 
-  const { products, handleDeleteProduct, isAdmin } = useProducts();
+  const { products, handleDeleteProduct } = useProducts();
 
 const productList =  products.map((product) => {
     return { 
@@ -20,7 +20,7 @@ const productList =  products.map((product) => {
         <Grid container spacing={1}>
           {productList.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-              <Product key={product._id} product={product} handleDelete={product.handleDelete} isAdmin={isAdmin} />
+              <Product key={product._id} product={product} handleDelete={product.handleDelete} />
             </Grid>
           ))}
         </Grid>

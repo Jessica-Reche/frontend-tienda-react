@@ -11,9 +11,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
-import { useState } from 'react';
-import { useAuth } from '../../context/authContext';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
 
 function Copyright(props) {
   return (
@@ -35,22 +35,18 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { isLoginLoading, hasLoginError, isLogged, login } = useAuth();
+
+  useEffect(() => {
+    if (isLogged) navigate('/')
+  }, [isLogged, navigate])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await login(email, password);
-    console.log(response);
-    if (response.status === true) {
-      navigate('/', { replace: true })
-      console.log(response.message)
-    } else {
-      navigate('/signup', { replace: true })
-      console.log(response.message)
-      alert(response.message)
-    }
+    login({ email, password });
   };
-  
+
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -69,7 +65,8 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          {isLoginLoading && <strong> Checking credentials...</strong>}
+          {!isLoginLoading && <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -119,7 +116,8 @@ export default function SignIn() {
                 </RouterLink>
               </Grid>
             </Grid>
-          </Box>
+          </Box>}
+
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

@@ -1,13 +1,11 @@
 export const initialState = {
    // basket: JSON.parse(localStorage.getItem("basket")) || [],
     basket: [],
-    user: null,
 
 };
 export const actionTypes = {
     ADD_TO_BASKET: "ADD_TO_BASKET",
     REMOVE_ITEM: "REMOVE_ITEM",
-    SET_USER: "SET_USER",
     EMPTY_BASKET: "EMPTY_BASKET",
 };
 
@@ -17,8 +15,6 @@ const reducer = (state, action) => {
     console.log(action.item);
     switch (action.type) {
         case "ADD_TO_BASKET":
-           // localStorage.setItem("basket", JSON.stringify([...state.basket, action.item]));
-
             return {
 
                 ...state,
@@ -35,8 +31,7 @@ const reducer = (state, action) => {
                 console.warn(`Can't remove product (id: ${action._id}) as it's not in basket!`);
             }
             return { ...state, basket: newBasket, };
-        case "SET_USER":
-            return { ...state, user: action.user };
+    
         case "EMPTY_BASKET":
            // localStorage.removeItem("basket");
             return { ...state, basket: action.basket };

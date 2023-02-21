@@ -5,8 +5,12 @@ import App from './App';
 import { StateProvider } from './context/StateProvider';
 import reducer, { initialState } from './utils';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './context/authContext';
+
+
+
 import { ProductProvider } from './context/productsContext';
+import { AuthProvider } from './context/authContext';
+
 
 
 
@@ -23,6 +27,8 @@ root.render(
       </StateProvider>
       </ProductProvider>
     </AuthProvider>
+
+  
   </React.StrictMode>
 );
 

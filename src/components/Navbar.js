@@ -14,8 +14,7 @@ import { useStateValue } from '../context/StateProvider';
 import { actionTypes } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { useAuth } from '../context/authContext';
-
+import useAuth from '../hooks/useAuth';
 const StyledAppBar = styled(AppBar)({
     background: "whitesmoke",
     boxShadow: "none",
@@ -48,25 +47,25 @@ const StyledAppBar = styled(AppBar)({
 export default function Navbar() {
 
 
+//Si no hay usuario se vacía
+    const [{ basket }, dispatch] = useStateValue();
+   // const { token, userAuth, isAdmin } = useAuth();
+    const { isLogged } = useAuth();
 
-    const [{ basket, user }, dispatch] = useStateValue();
-    const { token, userAuth, isAdmin } = useAuth();
+   
+
+
     
     const navigate = useNavigate();
     const handleAuth = () => {
-        if (user) {
+        console.log(isLogged)
+        if (isLogged) {
             dispatch({
                 type: actionTypes.EMPTY_BASKET,
                 basket: [],
             });
-            dispatch({ type: actionTypes.SET_USER, user: null });
+           // dispatch({ type: actionTypes.SET_USER, user: null });
             navigate('/', { replace: true })
-            //mostrar el estado del usuario en el navbar
-
-      
-
-          
-
         }  
     };
 
@@ -86,11 +85,11 @@ export default function Navbar() {
 
                     <div className='grow' />
                     <Typography variant="h6" color="textPrimary" component="p">
-                        Hello {user ? user : 'Guest'}
+                      Hello Guest  {/* Hello {user ? user : 'Guest'} */}
                     </Typography>
                     <div className='button' >
 
-                        <Link to="/admin/products" className={isAdmin.admin===false?"hide-element":null}>
+                        <Link to="/admin/products">
                             <IconButton aria-label='show cart items' color='inherit'>
                                 <Badge color="secondary">
                                     <DashboardIcon fontSize='medium' color='primary' />
@@ -110,12 +109,21 @@ export default function Navbar() {
                             </IconButton>
                         </Link>
 
-                        <Link to="/signin" onClick={handleAuth}>
+                       
 
-                            <Button variant="outlined" color="secondary" href="#contained-buttons">
-                                <strong>{user ? "Sing Out" : "Sing In"}</strong>
-                            </Button>
-                        </Link>
+                         
+                                {/* <strong>{user ? "Sing Out" : "Sing In"}</strong> */}
+                             
+                                  
+                                <Link to="/signin" onClick={handleAuth}>
+                            
+                                   <Button variant="outlined" color="secondary" href="#contained-buttons">
+                                      <strong>{isLogged ? "Sing Out" : "Sing In"}</strong>
+                                   </Button> 
+                                </Link>
+
+                           
+                       
                     </div>
                 </Toolbar>
             </StyledAppBar>
