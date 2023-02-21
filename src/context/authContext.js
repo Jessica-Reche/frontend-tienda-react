@@ -13,7 +13,9 @@ export  function AuthProvider({children}) {
         if (!token) {
             setUser(null);
             setAdmin(false);
+
         }
+        
    },[token])
     return (
         <AuthContext.Provider value={{token, setToken, user, setUser, admin, setAdmin}}>

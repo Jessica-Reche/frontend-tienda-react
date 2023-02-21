@@ -43,7 +43,8 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    login({ email, password });
+    console.log(email, password)
+    login( email, password );
   };
 
 
@@ -66,7 +67,7 @@ export default function SignIn() {
             Sign in
           </Typography>
           {isLoginLoading && <strong> Checking credentials...</strong>}
-          {!isLoginLoading && <Box component="form" noValidate sx={{ mt: 1 }}>
+          {!isLoginLoading && <Box component="form" onSubmit={handleSubmit}  noValidate sx={{ mt: 1 }}>
             <TextField
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -96,7 +97,7 @@ export default function SignIn() {
               label="Remember me"
             />
             <Button
-              onClick={handleSubmit}
+            
               type="submit"
               fullWidth
               variant="contained"

@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import logo from '../assets/logo-tarta.png';
 import { styled } from "@mui/material/styles";
 import { Badge, Button } from '@mui/material';
-import { ShoppingCart } from '@mui/icons-material';
+import { Logout, ShoppingCart } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useStateValue } from '../context/StateProvider';
 
@@ -50,28 +50,19 @@ export default function Navbar() {
 //Si no hay usuario se vacía
     const [{ basket }, dispatch] = useStateValue();
    // const { token, userAuth, isAdmin } = useAuth();
-    const { isLogged } = useAuth();
+    const { isLogged,logout, user } = useAuth();
 
-   
-
-
-    
-    const navigate = useNavigate();
     const handleAuth = () => {
-        console.log(isLogged)
         if (isLogged) {
             dispatch({
                 type: actionTypes.EMPTY_BASKET,
                 basket: [],
-            });
+            }); 
+            logout();
+           
            // dispatch({ type: actionTypes.SET_USER, user: null });
-            navigate('/', { replace: true })
         }  
     };
-
-
-
-
     return (
 
         <Box className='root'>
@@ -85,7 +76,7 @@ export default function Navbar() {
 
                     <div className='grow' />
                     <Typography variant="h6" color="textPrimary" component="p">
-                      Hello Guest  {/* Hello {user ? user : 'Guest'} */}
+                     Hello {user ? user : 'Guest'} 
                     </Typography>
                     <div className='button' >
 

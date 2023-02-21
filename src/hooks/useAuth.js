@@ -6,14 +6,11 @@ import { loginUser, registerUser } from "../database/auth/auth";
 
 export default function useAuth() {
     const {token, setToken, user,setUser,admin,setAdmin} = useContext(AuthContext);
-
     const [state, setState] = useState({loading:false, error:true});
-
- 
-
-    const login = useCallback(({username, password}) => {
+    const login = useCallback((email, password) => {
+        console.log(email, password)
         setState({loading:true, error:false})
-        loginUser(username, password).then((data) => {
+        loginUser(email, password).then((data) => {
             window.sessionStorage.setItem('token', data.token);
             window.sessionStorage.setItem('user', data.user);
             setState({loading:false, error:false})
@@ -23,9 +20,6 @@ export default function useAuth() {
             if(data.user.rol.name === "admin"){ 
                 setAdmin(true);
             }
-
-  
-
         })
         .catch((error) => {
             window.sessionStorage.removeItem('token');
