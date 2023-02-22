@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import { registerUser } from '../../database/auth/auth';
+import { useEffect } from 'react';
 
 
 function Copyright(props) {
@@ -31,22 +33,34 @@ function Copyright(props) {
 };
 
 const theme = createTheme();
-
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { register, hasLoginError } = useAuth();
+  const { isLogged , login} = useAuth();
+
+  //useEffecte para redirigir a la pagina de inicio si el usuario esta logueado
+  useEffect(() => {
+    if (isLogged) navigate('/')
+  }, [isLogged, navigate])
+
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    register({ email, password, username });
-   if(!hasLoginError){
-    navigate('/singin')
-   }
-
+    const { email, password, username } = event.target.elements;
+    try {
+    let result=  await registerUser( username.value,email.value, password.value);
+     if (result.status===true){
+       login(email.value, password.value);
+     }else{
+        setMessage(result.message);
+     }
+    }
+    catch (error) {
+      setMessage(error.message);
+    }
   };
 
   return (
@@ -67,7 +81,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate  sx={{ mt: 3 }}>
+          <Box component="form" noValidate  onSubmit={handleSignUp} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -117,8 +131,11 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
+            <Typography color="error" variant="body2">
+              {message}
+            </Typography>
             <Button
-              onClick={handleSignUp}
+             
               type="submit"
               fullWidth
               variant="contained"

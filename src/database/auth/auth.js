@@ -1,20 +1,29 @@
 
-export const registerUser = (username, email, password) => {
-  return fetch("http://localhost:4000/user/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
-  }).then(res => {
-    if (!res.ok) throw new Error('Response is NOT ok')
-    return true
-  })
-};
+//registro de usuario
+  export const registerUser = async (username, email, password) => {
+    //registro de usuario
+  
+      const URI = "http://localhost:4000/user/register";
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      const body = JSON.stringify({ username, email, password });
+      const options = {
+        method: "POST",
+        headers,
+        body,
+      };
+      const response = await fetch(URI, options);
+      if (!response.ok) {
+        throw new Error(`Error al enviar solicitud: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    
+    
+  };
+  
+
 
 
 

@@ -2,65 +2,76 @@ import AuthContext from "../context/authContext";
 import { useContext, useCallback, useState } from "react";
 import { loginUser, registerUser } from "../database/auth/auth";
 export default function useAuth() {
-    const {token, setToken, user,setUser,admin,setAdmin} = useContext(AuthContext);
-    const [state, setState] = useState({loading:false, error:true});
+    const { token, setToken, user, setUser, admin, setAdmin } = useContext(AuthContext);
+    const [state, setState] = useState({ loading: false, error: true });
     const login = useCallback((email, password) => {
         console.log(email, password)
-        setState({loading:true, error:false})
+        setState({ loading: true, error: false })
         loginUser(email, password).then((data) => {
             window.sessionStorage.setItem('token', data.token);
             window.sessionStorage.setItem('user', data.user);
-            setState({loading:false, error:false})
+            setState({ loading: false, error: false })
             setToken(data.token);
             setUser(data.user.username);
-            if(data.user.rol.name === "admin"){ 
+            if (data.user.rol.name === "admin") {
                 setAdmin(true);
             }
         })
-        .catch((error) => {
-            window.sessionStorage.removeItem('token');
-            window.sessionStorage.removeItem('user');
-            window.sessionStorage.removeItem('admin');
-            setState({loading:false, error:true})
-            console.error(error);
-        }
-        );
+            .catch((error) => {
+                window.sessionStorage.removeItem('token');
+                window.sessionStorage.removeItem('user');
+                window.sessionStorage.removeItem('admin');
+                setState({ loading: false, error: true })
+                console.error(error);
+            }
+            );
     }, [setToken]);
 
-   const registrer = useCallback(({username, email, password})=>{
-        setState({loading:true, error:false})
+    const register = useCallback(({ username, email, password }) => {
+        setState({ loading: true, error: false })
         registerUser(username, email, password).then((data) => {
-            setState({loading:false, error:false})
-           
-        })
-        .catch((error) => {
-            setState({loading:false, error:true})
-            console.error(error);
-        }
-        );
-      
-    }
-    ,[])
+            if (data.status===true) {
+                setState({ loading: false, error: false });
+                login(email, password)
+            } else {
+                setState({ loading: false, error: true });
+                console.log(data)
+                return data;
+            }
 
-    
-   const logout = useCallback (()=>{
-    window.sessionStorage.removeItem('token');
-    window.sessionStorage.removeItem('user');
+
+
+
+
+        })
+            .catch((error) => {
+                setState({ loading: false, error: true })
+                console.error(error);
+                return error;
+            }
+            );
+    }
+        , [])
+
+
+    const logout = useCallback(() => {
+        window.sessionStorage.removeItem('token');
+        window.sessionStorage.removeItem('user');
         setToken(null);
         setUser(null);
-    
-   },[setToken])
+
+    }, [setToken])
 
 
 
 
-    return  {
+    return {
         isLogged: Boolean(token),
         login,
         logout,
         isLoginLoading: state.loading,
         hasLoginError: state.error,
-        registrer,
+        register,
         user,
         admin
     }
