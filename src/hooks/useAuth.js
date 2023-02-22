@@ -9,7 +9,7 @@ export default function useAuth() {
         setState({ loading: true, error: false })
         loginUser(email, password).then((data) => {
             window.sessionStorage.setItem('token', data.token);
-            window.sessionStorage.setItem('user', data.user);
+            window.sessionStorage.setItem('user', data.user.username);
             setState({ loading: false, error: false })
             setToken(data.token);
             setUser(data.user.username);
@@ -73,7 +73,8 @@ export default function useAuth() {
         hasLoginError: state.error,
         register,
         user,
-        admin
+        admin,
+        token
     }
 
 }

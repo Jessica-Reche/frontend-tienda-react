@@ -74,9 +74,6 @@ const CreateProductForm = () => {
       setSku("");
       setRating("");
     }
-
-
-
   };
 
 

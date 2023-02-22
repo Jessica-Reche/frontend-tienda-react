@@ -17,7 +17,6 @@ export const getProducts = () => {
 //Delete product
 export const deleteProduct = async(id, token) => {
   console.log(id);
-  console.log('este es el token'+token);
   const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
   const ENDPOINT = `http://localhost:4000/product/deleteProduct/${id}`;
 
