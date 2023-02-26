@@ -10,9 +10,7 @@ import { Badge, Button } from '@mui/material';
 import { ShoppingCart } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useStateValue } from '../context/StateProvider';
-
 import { actionTypes } from '../utils';
-import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import useAuth from '../hooks/useAuth';
 const StyledAppBar = styled(AppBar)({
@@ -77,7 +75,7 @@ export default function Navbar() {
                                     <DashboardIcon fontSize='medium' color='primary' />
                                 </Badge>
                             </IconButton>
-                            </Link>}
+                        </Link>}
                         <Link to="/checkout-page">
                             <IconButton aria-label='show cart items' color='inherit'>
                                 <Badge badgeContent={basket.length} color="secondary">
