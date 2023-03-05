@@ -12,7 +12,6 @@ import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
 import { useProducts } from "../../context/productsContext";
 import Grid from "@mui/material/Grid";
-import { width } from "@mui/system";
 
 const BoxStyled = styled(Box)({
   ".root": {
@@ -25,6 +24,7 @@ const BoxStyled = styled(Box)({
     marginTop: "4rem",
     overflowX: "auto",
   },
+  marginTop:"9rem"
 });
 
 export default function AdminProducts() {

@@ -58,7 +58,7 @@ export default function Navbar() {
     return (
 
         <Box className='root'>
-            <StyledAppBar position="sticky">
+            <StyledAppBar position="fixed">
                 <Toolbar>
                     <Link to="/">
                         <IconButton>
