@@ -47,7 +47,7 @@ export const addProduct = async(product, token) => {
 //Update poster
 export const updatePoster = async(id, posterData, token) => {
   const posterResponse = await fetch(`https://backend-tienda-7n96eutm5-jessica-reche.vercel.app/product/updateProductPoster/${id}`, {
-        method: "PUT",
+        method: "PUT", 
         headers: { Authorization: `${token}` },
         body: posterData,
       });
