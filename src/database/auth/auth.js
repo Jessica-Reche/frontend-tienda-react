@@ -3,7 +3,7 @@
   export const registerUser = async (username, email, password) => {
     //registro de usuario
   
-      const URI = "http://localhost:4000/user/register";
+      const URI = "https://mundo-tarta-server.up.railway.app/user/register";
       const headers = {
         "Content-Type": "application/json",
       };
@@ -30,7 +30,7 @@
 export const loginUser = (email, password) => {
 
  
-  return fetch("http://localhost:4000/user/login", {
+  return fetch("https://mundo-tarta-server.up.railway.app/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export const loginUser = (email, password) => {
 };
 //Metodo temporal para obtener los productos hay que quitarlo de LoginUser
 export const getProducts = () => {
-  return fetch("http://localhost:4000/product/getProducts", {
+  return fetch("https://mundo-tarta-server.up.railway.app/product/getProducts", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   })

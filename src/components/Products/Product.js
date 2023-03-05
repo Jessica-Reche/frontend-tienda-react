@@ -13,7 +13,6 @@ import { AddShoppingCart, Delete } from "@mui/icons-material";
 import accounting from "accounting";
 import { actionTypes } from "../../utils";
 import { useStateValue } from "../../context/StateProvider";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 
@@ -36,7 +35,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
-  const baseImageUrl = 'http://localhost:4000';
+  const baseImageUrl = 'https://mundo-tarta-server.up.railway.app';
   poster = `${baseImageUrl}${poster.link}`;
 
 
