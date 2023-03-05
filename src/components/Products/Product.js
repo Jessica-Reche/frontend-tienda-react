@@ -32,6 +32,7 @@ const ExpandMoreButton = styled((props) => {
 
 export default function Product({ product: { _id, name, poster, price, description, rating, discount }, handleDelete }) {
   const [expanded, setExpanded] = React.useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
@@ -74,7 +75,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {discount == 0 ? "" : discount}
+          {discount === 0 ? "" : discount}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
