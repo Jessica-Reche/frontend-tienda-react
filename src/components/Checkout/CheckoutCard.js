@@ -42,7 +42,7 @@ export default function CheckoutCard({ product: { _id, name, poster, price, rati
     console.log(poster);
     console.log(price);
     console.log(rating);
-
+  // eslint-disable-next-line no-unused-vars
     const [{ basket }, dispatch] = useStateValue();
     const removeItem = () => {
         dispatch({

@@ -26,6 +26,8 @@ export default function useAuth() {
                 console.error(error);
             }
             );
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setToken]);
 
     const register = useCallback(({ username, email, password }) => {
@@ -47,6 +49,7 @@ export default function useAuth() {
             }
             );
     }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         , [])
 
 
@@ -58,6 +61,7 @@ export default function useAuth() {
         setUser(null);
         setAdmin(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setToken])
 
     return {

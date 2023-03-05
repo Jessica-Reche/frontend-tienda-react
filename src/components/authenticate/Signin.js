@@ -35,7 +35,8 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { isLoginLoading, hasLoginError, isLogged, login } = useAuth();
+
+  const { isLoginLoading, isLogged, login } = useAuth();
 
   useEffect(() => {
     if (isLogged) navigate('/')
@@ -54,7 +55,6 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
