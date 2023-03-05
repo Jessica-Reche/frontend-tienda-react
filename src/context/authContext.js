@@ -6,9 +6,9 @@
 
 export  function AuthProvider({children}) {
     
-    const [token, setToken] = useState( () => window.localStorage.getItem('token'));
-    const [user,setUser] = useState(()=>  window.localStorage.getItem('user'));
-    const [admin,setAdmin] = useState(()=>  window.localStorage.getItem('admin'));
+    const [token, setToken] = useState( () => window.sessionStorage.getItem('token'));
+    const [user,setUser] = useState(()=>  window.sessionStorage.getItem('user'));
+    const [admin,setAdmin] = useState(()=>  window.sessionStorage.getItem('admin'));
  useEffect(() => {
         if (!token) {
             setUser(null);

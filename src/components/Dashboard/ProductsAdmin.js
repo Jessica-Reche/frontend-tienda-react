@@ -10,8 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
-
 import { useProducts } from "../../context/productsContext";
+import Grid from "@mui/material/Grid";
+import { width } from "@mui/system";
 
 const BoxStyled = styled(Box)({
   ".root": {
@@ -21,8 +22,8 @@ const BoxStyled = styled(Box)({
     padding: "2rem",
   },
   tableContainer: {
-    width: "80%",
     marginTop: "4rem",
+    overflowX: "auto",
   },
 });
 
@@ -37,8 +38,6 @@ export default function AdminProducts() {
     };
   });
 
-  // Aquí iría la lógica para obtener los productos de la base de datos
-
   return (
     <BoxStyled className="root">
       <h1>Administración de Productos</h1>
@@ -50,7 +49,6 @@ export default function AdminProducts() {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-
               <TableCell>Nombre</TableCell>
               <TableCell>Precio</TableCell>
               <TableCell>Descripción</TableCell>
@@ -67,22 +65,28 @@ export default function AdminProducts() {
                 <TableCell>{product.price}</TableCell>
                 <TableCell>{product.description}</TableCell>
                 <TableCell>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    component={Link}
-                    to={`/admin/products/edit/${product._id}`}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    size="small"
-                    onClick={product.handleDelete}
-                  >
-                    Eliminar
-                  </Button>
+                  <Grid container spacing={1} justifyContent="center">
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        component={Link}
+                        to={`/admin/products/edit/${product._id}`}
+                      >
+                        Editar
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        size="small"
+                        onClick={product.handleDelete}
+                      >
+                        Eliminar
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </TableCell>
               </TableRow>
             ))}

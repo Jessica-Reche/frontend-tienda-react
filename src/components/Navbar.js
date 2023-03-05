@@ -51,6 +51,7 @@ export default function Navbar() {
                 basket: [],
             });
             logout();
+            
             // dispatch({ type: actionTypes.SET_USER, user: null });
         }
     };

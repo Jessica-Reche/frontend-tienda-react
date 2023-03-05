@@ -5,15 +5,16 @@ export default function useAuth() {
     const { token, setToken, user, setUser, admin, setAdmin } = useContext(AuthContext);
     const [state, setState] = useState({ loading: false, error: true });
     const login = useCallback((email, password) => {
-        console.log(email, password)
         setState({ loading: true, error: false })
         loginUser(email, password).then((data) => {
             window.sessionStorage.setItem('token', data.token);
             window.sessionStorage.setItem('user', data.user.username);
+
             setState({ loading: false, error: false })
             setToken(data.token);
             setUser(data.user.username);
             if (data.user.rol.name === "admin") {
+                window.sessionStorage.setItem('admin', true);
                 setAdmin(true);
             }
         })
@@ -38,11 +39,6 @@ export default function useAuth() {
                 console.log(data)
                 return data;
             }
-
-
-
-
-
         })
             .catch((error) => {
                 setState({ loading: false, error: true })
@@ -55,15 +51,14 @@ export default function useAuth() {
 
 
     const logout = useCallback(() => {
-        window.sessionStorage.removeItem('token');
         window.sessionStorage.removeItem('user');
+        window.sessionStorage.removeItem('token');
+        window.sessionStorage.removeItem('admin');
         setToken(null);
         setUser(null);
+        setAdmin(false);
 
     }, [setToken])
-
-
-
 
     return {
         isLogged: Boolean(token),
