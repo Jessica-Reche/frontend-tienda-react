@@ -3,7 +3,7 @@
   export const registerUser = async (username, email, password) => {
     //registro de usuario
   
-      const URI = "https://backend-tienda.vercel.app/user/register";
+      const URI = "https://backend-tienda.onrender.com/user/register";
       const headers = {
         "Content-Type": "application/json",
       };
@@ -30,7 +30,7 @@
 export const loginUser = (email, password) => {
 
  
-  return fetch("https://backend-tienda.vercel.app/user/login", {
+  return fetch("https://backend-tienda.onrender.com/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export const loginUser = (email, password) => {
 };
 //Metodo temporal para obtener los productos hay que quitarlo de LoginUser
 export const getProducts = () => {
-  return fetch("https://backend-tienda.vercel.app/product/getProducts", {
+  return fetch("https://backend-tienda.onrender.com/product/getProducts", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   })

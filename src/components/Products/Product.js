@@ -36,7 +36,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
-  const baseImageUrl = 'https://backend-tienda.vercel.app';
+  const baseImageUrl = 'https://backend-tienda.onrender.com';
   poster = `${baseImageUrl}${poster.link}`;
 
 
