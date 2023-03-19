@@ -24,7 +24,7 @@ const BoxStyled = styled(Box)({
     marginTop: "4rem",
     overflowX: "auto",
   },
-  marginTop:"9rem"
+  marginTop:"2rem"
 });
 
 export default function AdminProducts() {

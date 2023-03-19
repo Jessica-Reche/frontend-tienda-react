@@ -22,9 +22,15 @@ import { mainListItems, secondaryListItems } from './listItems';
 //import Deposits from './Deposits';
 import { Routes, Route } from 'react-router-dom';
 import ProductsAdmin from './ProductsAdmin';
-import CreateProductForm from './CreateProductForm';
-import UpdateProductForm from './UpdateProductForm';
+import CreateProductForm from './forms/CreateProductForm';
+import UpdateProductForm from './forms/UpdateProductForm';
 import { useMediaQuery } from '@mui/material';
+
+import {UpdateUserForm} from './forms/UpdateUserForm';
+import {CreateUserForm} from './forms/CreateUserForm';
+import UsersAdmin from './UsersAdmin';
+
+
 
 
 function Copyright(props) {
@@ -89,6 +95,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  
     const isMobile = useMediaQuery('(max-width:768px)');
     const [open, setOpen] = React.useState(!isMobile);
     const toggleDrawer = () => {
@@ -149,7 +156,7 @@ function DashboardContent() {
                             alignItems: 'center',
                             justifyContent: 'flex-end',
                             px: [1],
-                            
+
                         }}
                     >
                         <IconButton onClick={toggleDrawer}>
@@ -173,7 +180,7 @@ function DashboardContent() {
                         flexGrow: 1,
                         height: '100vh',
                         overflow: 'auto',
-                       
+
                     }}
                 >
                     <Toolbar />
@@ -182,11 +189,14 @@ function DashboardContent() {
                             <Grid item xs={12}>
                                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                                     <Routes>
-                                         
-                                         <Route path='products' element={<ProductsAdmin />} />
-                                         <Route path='products/new' element={<CreateProductForm />} />
-                                         <Route path='products/edit/:id' element={<UpdateProductForm />} />
-                                        
+
+                                        <Route path='products' element={<ProductsAdmin />} />
+                                        <Route path='products/new' element={<CreateProductForm />} />
+                                        <Route path='products/edit/:id' element={<UpdateProductForm />} />
+                                        <Route path='users' element={<UsersAdmin />} />
+                                        <Route path='users/new' element={<CreateUserForm />} />
+                                        <Route path='users/edit/:id' element={<UpdateUserForm />} />
+
                                     </Routes>
                                 </Paper>
                             </Grid>

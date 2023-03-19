@@ -21,7 +21,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Products" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/admin/users">
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>

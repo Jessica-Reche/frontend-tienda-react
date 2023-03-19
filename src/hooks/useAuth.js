@@ -1,9 +1,11 @@
 import AuthContext from "../context/authContext";
 import { useContext, useCallback, useState } from "react";
-import { loginUser, registerUser } from "../database/auth/auth";
+import { loginUser, registerUser, getUsers } from "../database/auth/auth";
+import { useEffect } from "react";
 export default function useAuth() {
     const { token, setToken, user, setUser, admin, setAdmin } = useContext(AuthContext);
     const [state, setState] = useState({ loading: false, error: true });
+    const [users, setUsers] = useState([]);
     const login = useCallback((email, password) => {
         setState({ loading: true, error: false })
         loginUser(email, password).then((data) => {
@@ -26,14 +28,14 @@ export default function useAuth() {
                 console.error(error);
             }
             );
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setToken]);
 
     const register = useCallback(({ username, email, password }) => {
         setState({ loading: true, error: false })
         registerUser(username, email, password).then((data) => {
-            if (data.status===true) {
+            if (data.status === true) {
                 setState({ loading: false, error: false });
                 login(email, password)
             } else {
@@ -50,8 +52,7 @@ export default function useAuth() {
             );
     }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        , [])
-
+        , []);
 
     const logout = useCallback(() => {
         window.sessionStorage.removeItem('user');
@@ -61,8 +62,17 @@ export default function useAuth() {
         setUser(null);
         setAdmin(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [setToken])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setToken]);
+
+    const getUsersCallback = useCallback(async () => {
+        const data = await getUsers(token);
+        setUsers(data.users);
+      }, [token]);
+    
+      useEffect(() => {
+        getUsersCallback();
+      }, [getUsersCallback]);
 
     return {
         isLogged: Boolean(token),
@@ -73,7 +83,8 @@ export default function useAuth() {
         register,
         user,
         admin,
-        token
+        token,
+        users
     }
 
 }
