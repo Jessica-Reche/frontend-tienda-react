@@ -2,7 +2,7 @@ import './App.css';
 import Products from './pages/ProductsPage';
 import Navbar from './components/Navbar';
 import CheckoutPage from './pages/CheckoutPage';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation} from 'react-router-dom';
 import SignIn from './components/authenticate/Signin';
 import SignUp from './components/authenticate/Signup';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -12,9 +12,10 @@ import useAuth from './hooks/useAuth';
 
 function App() {
   const { admin } = useAuth();
+  const location = useLocation();
   return (
     <div className="App">
-      <Navbar/>
+     {location.pathname.startsWith("/admin") ? null : <Navbar />}
       <Routes>
         <Route index path='/' element={<Products />} />
         <Route path='/checkout-page' element={<CheckoutPage />} />

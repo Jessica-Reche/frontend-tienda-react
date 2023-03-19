@@ -24,6 +24,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProductsAdmin from './ProductsAdmin';
 import CreateProductForm from './CreateProductForm';
 import UpdateProductForm from './UpdateProductForm';
+import { useMediaQuery } from '@mui/material';
 
 
 function Copyright(props) {
@@ -88,10 +89,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-    const [open, setOpen] = React.useState(true);
+    const isMobile = useMediaQuery('(max-width:768px)');
+    const [open, setOpen] = React.useState(!isMobile);
     const toggleDrawer = () => {
         setOpen(!open);
     };
+    React.useEffect(() => {
+        if (isMobile) {
+            setOpen(false);
+        } else {
+            setOpen(true);
+        }
+    }, [isMobile]);
 
     return (
         <ThemeProvider theme={mdTheme}>
