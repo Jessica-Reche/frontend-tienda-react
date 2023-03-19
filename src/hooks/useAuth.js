@@ -1,6 +1,6 @@
 import AuthContext from "../context/authContext";
 import { useContext, useCallback, useState } from "react";
-import { loginUser, registerUser, getUsers } from "../database/auth/auth";
+import { loginUser, registerUser, getUsers, deleteUser } from "../database/auth/auth";
 import { useEffect } from "react";
 export default function useAuth() {
     const { token, setToken, user, setUser, admin, setAdmin } = useContext(AuthContext);
@@ -69,6 +69,13 @@ export default function useAuth() {
         const data = await getUsers(token);
         setUsers(data.users);
       }, [token]);
+
+    const deleteUsersCallback = useCallback(async (id) => {
+        const data = await deleteUser(id,token);
+        setUsers(data.users);
+        }, [token]);
+
+
     
       useEffect(() => {
         getUsersCallback();
@@ -84,7 +91,8 @@ export default function useAuth() {
         user,
         admin,
         token,
-        users
+        users,
+        deleteUsersCallback
     }
 
 }

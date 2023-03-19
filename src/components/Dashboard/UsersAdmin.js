@@ -29,13 +29,12 @@ const BoxStyled = styled(Box)({
 });
 
 export default function UsersAdmin() {
-  const { users } = useAuth();
+  const { users,deleteUsersCallback } = useAuth();
   const usersList = users.map((user) => {
     return {
       ...user,
       handleDelete: () => {
-        // handleDeleteProduct(user._id);
-    
+        deleteUsersCallback(user._id);
       }
     };
   });
