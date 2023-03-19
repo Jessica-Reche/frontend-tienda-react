@@ -70,16 +70,18 @@ export default function useAuth() {
         setUsers(data.users);
       }, [token]);
 
-    const deleteUsersCallback = useCallback(async (id) => {
-        const data = await deleteUser(id,token);
-        setUsers(data.users);
-        }, [token]);
-
+      const deleteUserById = useCallback(async (id) => {
+        await deleteUser(id, token);
+        const updatedUsers = users.filter(user => user._id !== id);
+        setUsers(updatedUsers);
+      }, [token, users]);
+      
 
     
       useEffect(() => {
         getUsersCallback();
-      }, [getUsersCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
 
     return {
         isLogged: Boolean(token),
@@ -92,7 +94,7 @@ export default function useAuth() {
         admin,
         token,
         users,
-        deleteUsersCallback
+        deleteUserById
     }
 
 }

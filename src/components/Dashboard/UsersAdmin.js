@@ -10,9 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
+
 import Grid from "@mui/material/Grid";
 import useAuth from "../../hooks/useAuth";
-
 
 const BoxStyled = styled(Box)({
   ".root": {
@@ -28,13 +28,14 @@ const BoxStyled = styled(Box)({
   marginTop:"2rem"
 });
 
-export default function UsersAdmin() {
-  const { users,deleteUsersCallback } = useAuth();
+export default function AdminProducts() {
+  const { users,deleteUserById  } = useAuth();
   const usersList = users.map((user) => {
     return {
       ...user,
       handleDelete: () => {
-        deleteUsersCallback(user._id);
+        deleteUserById(user._id);
+    
       }
     };
   });
@@ -99,5 +100,3 @@ export default function UsersAdmin() {
     </BoxStyled>
   );
 }
-
-

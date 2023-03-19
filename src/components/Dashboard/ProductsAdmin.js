@@ -28,12 +28,12 @@ const BoxStyled = styled(Box)({
 });
 
 export default function AdminProducts() {
-  const { products, handleDeleteProduct } = useProducts();
+  const { products, deleteUserById } = useProducts();
   const productList = products.map((product) => {
     return {
       ...product,
       handleDelete: () => {
-        handleDeleteProduct(product._id);
+        deleteUserById(product._id);
       },
     };
   });

@@ -39,8 +39,6 @@ export const ProductProvider = ({ children }) => {
     setProducts(updatedProducts);
     return result;
   };
-  
-
 
   useEffect(() => {
     async function fetchProducts() {
