@@ -26,8 +26,8 @@ import CreateProductForm from './forms/CreateProductForm';
 import UpdateProductForm from './forms/UpdateProductForm';
 import { useMediaQuery } from '@mui/material';
 
-import {UpdateUserForm} from './forms/UpdateUserForm';
-import {CreateUserForm} from './forms/CreateUserForm';
+// import {UpdateUserForm} from './forms/UpdateUserForm';
+// import {CreateUserForm} from './forms/CreateUserForm';
 import UsersAdmin from './UsersAdmin';
 
 
@@ -194,8 +194,8 @@ function DashboardContent() {
                                         <Route path='products/new' element={<CreateProductForm />} />
                                         <Route path='products/edit/:id' element={<UpdateProductForm />} />
                                         <Route path='users' element={<UsersAdmin />} />
-                                        <Route path='users/new' element={<CreateUserForm />} />
-                                        <Route path='users/edit/:id' element={<UpdateUserForm />} />
+                                        {/* <Route path='users/new' element={<CreateUserForm />} />
+                                        <Route path='users/edit/:id' element={<UpdateUserForm />} /> */}
 
                                     </Routes>
                                 </Paper>

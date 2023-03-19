@@ -67,7 +67,7 @@ export default function UsersAdmin() {
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.username}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.rol}</TableCell>
+                <TableCell>{user.rol.name}</TableCell>
                 <TableCell>
                   <Grid container spacing={1} justifyContent="center">
                     <Grid item>
