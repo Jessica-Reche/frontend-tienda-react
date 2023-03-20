@@ -11,6 +11,7 @@ export const ProductContext = createContext();
 export const ProductProvider = ({ children }) => {
   const {token} = useAuth();
   const [products, setProducts] = useState([]);
+  const [state, setState] = useState({ loading: false, error: true });
 
 
 
@@ -21,14 +22,18 @@ export const ProductProvider = ({ children }) => {
   };
 
   const handleCreateProduct = async (productData) => {
-   let result = await addProduct(productData, token);
+    setState({ loading: true, error: false });
+    let result = await addProduct(productData, token);
+    setState({ loading: false, error: false });
     const updatedProducts = await getProducts();
     setProducts(updatedProducts);
     return result;
   };
 
   const handleUpdateProduct = async (id, productData) => {
+    setState({ loading: true, error: false });
     const result = await updateProduct(id, productData, token);
+    setState({ loading: false, error: false });
     const updatedProducts = await getProducts();
     setProducts(updatedProducts);
     return result;
@@ -42,7 +47,9 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchProducts() {
+      setState({ loading: true, error: false });
       const data = await getProducts();
+      setState({ loading: false, error: false });
       setProducts(data);
     }
 
@@ -50,7 +57,7 @@ export const ProductProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct, handleUpdatePoster}}>
+    <ProductContext.Provider value={{ products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct, handleUpdatePoster,  isLoginLoading: state.loading,}}>
       {children}
     </ProductContext.Provider>
   );

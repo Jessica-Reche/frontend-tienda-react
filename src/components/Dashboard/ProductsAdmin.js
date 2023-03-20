@@ -28,12 +28,12 @@ const BoxStyled = styled(Box)({
 });
 
 export default function AdminProducts() {
-  const { products, deleteUserById } = useProducts();
+  const { products, handleDeleteProduct,  isLoginLoading} = useProducts();
   const productList = products.map((product) => {
     return {
       ...product,
       handleDelete: () => {
-        deleteUserById(product._id);
+        handleDeleteProduct(product._id);
       },
     };
   });
@@ -44,7 +44,9 @@ export default function AdminProducts() {
       <Button variant="contained" component={Link} to="/admin/products/new">
         Crear Nuevo Producto
       </Button>
-      <TableContainer component={Paper} className="tableContainer">
+      <br/>
+      {isLoginLoading &&<strong> Loading products...</strong>}
+      {!isLoginLoading && <TableContainer component={Paper} className="tableContainer">
         <Table aria-label="Productos">
           <TableHead>
             <TableRow>
@@ -92,7 +94,9 @@ export default function AdminProducts() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> }
+
+      
     </BoxStyled>
   );
 }

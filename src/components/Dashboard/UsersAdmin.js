@@ -29,7 +29,7 @@ const BoxStyled = styled(Box)({
 });
 
 export default function AdminProducts() {
-  const { users,deleteUserById  } = useAuth();
+  const { users,deleteUserById, isLoginLoading  } = useAuth();
   const usersList = users.map((user) => {
     return {
       ...user,
@@ -42,11 +42,13 @@ export default function AdminProducts() {
 
   return (
     <BoxStyled className="root">
-      <h1>Administración de Productos</h1>
-      <Button variant="contained" component={Link} to="/admin/products/new">
-        Crear Nuevo Producto
+      <h1>Administración de usuarios</h1>
+      <Button variant="contained" component={Link} to="/admin/users/new">
+        Añadir nuevo usuario
       </Button>
-      <TableContainer component={Paper} className="tableContainer">
+      <br/>
+      {isLoginLoading &&<strong> Loading users...</strong>}
+      {!isLoginLoading && <TableContainer component={Paper} className="tableContainer">
         <Table aria-label="Productos">
           <TableHead>
             <TableRow>
@@ -75,7 +77,7 @@ export default function AdminProducts() {
                         variant="contained"
                         size="small"
                         component={Link}
-                        to={`/admin/products/edit/${user._id}`}
+                        to={`/admin/users/edit/${user._id}`}
                       >
                         Editar
                       </Button>
@@ -96,7 +98,8 @@ export default function AdminProducts() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>}
+      
     </BoxStyled>
   );
 }

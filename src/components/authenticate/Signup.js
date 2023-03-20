@@ -15,7 +15,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { registerUser } from '../../database/auth/auth';
 import { useEffect } from 'react';
 
 
@@ -36,10 +35,11 @@ const theme = createTheme();
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { isLogged , login} = useAuth();
+  const { isLogged, isLoginLoading, login, register} = useAuth();
 
   //useEffecte para redirigir a la pagina de inicio si el usuario esta logueado
   useEffect(() => {
@@ -49,14 +49,21 @@ export default function SignUp() {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const { email, password, username } = event.target.elements;
+
+    const userData = {
+      name,
+      username,
+      email,
+      password,
+    };
     try {
-    let result=  await registerUser( username.value,email.value, password.value);
-     if (result.status===true){
-       login(email.value, password.value);
-     }else{
+      let result = await register(userData);
+
+      if (result.status === true) {
+        login(email, password);
+      } else {
         setMessage(result.message);
-     }
+      }
     }
     catch (error) {
       setMessage(error.message);
@@ -81,9 +88,24 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate  onSubmit={handleSignUp} sx={{ mt: 3 }}>
+          {isLoginLoading && <strong> Checking credentials...</strong>}
+          {!isLoginLoading && <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
+                <TextField
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  autoComplete="given-username"
+                  name="name"
+                  required
+                  fullWidth
+                  id="name"
+                  label="name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+
                 <TextField
 
 
@@ -98,6 +120,7 @@ export default function SignUp() {
                   autoFocus
                 />
               </Grid>
+
 
               <Grid item xs={12}>
                 <TextField
@@ -135,7 +158,7 @@ export default function SignUp() {
               {message}
             </Typography>
             <Button
-             
+
               type="submit"
               fullWidth
               variant="contained"
@@ -151,7 +174,8 @@ export default function SignUp() {
                 </RouterLink>
               </Grid>
             </Grid>
-          </Box>
+          </Box> }
+          
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
