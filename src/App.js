@@ -9,6 +9,11 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Checkout from './components/Checkout/Checkout';
 import NotFound from './pages/NotFound';
 import useAuth from './hooks/useAuth';
+import CarouselComponent from './components/Carousel';
+
+
+
+
 
 function App() {
   const { admin } = useAuth();
@@ -17,7 +22,11 @@ function App() {
     <div className="App">
      {location.pathname.startsWith("/admin") ? null : <Navbar />}
       <Routes>
-        <Route index path='/' element={<Products />} />
+        <Route index path='/' element={<CarouselComponent/>} />
+        {/* TODO:Falta añadir componentes de las secciones de la página principal
+        y añadir la sección de productos y sus respectivas rutas */}
+        {/* <Route path='/products' element={<Products />} /> */}
+
         <Route path='/checkout-page' element={<CheckoutPage />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/signin' element={<SignIn />} />
@@ -25,6 +34,7 @@ function App() {
         <Route path='/admin/*' element={admin ? <Dashboard /> : <NotFound />} />
         <Route path='*' element={ <NotFound/> } />
       </Routes>
+      <Products />
     </div >
   );
 }
