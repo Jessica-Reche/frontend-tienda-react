@@ -26,10 +26,8 @@ import useAuth from '../hooks/useAuth';
 const StyledAppBar = styled(AppBar)({
     background: "whitesmoke",
     boxShadow: "none",
-
     '.root': {
         flexGrow: 1,
-
     },
     '.grow': {
         flexGrow: 1,
@@ -37,6 +35,7 @@ const StyledAppBar = styled(AppBar)({
     '.button': {
         ' .MuiButton-root': {
             marginLeft: '0.3em',
+            fontSize: '0.8rem',
         }
     },
     '.image': {
@@ -86,8 +85,6 @@ export default function Navbar() {
                             <MenuIcon />
                         </IconButton>
                     )}
-            
-
                     <Link to="/">
                         <IconButton>
                             <img className='image' src={logo} alt="logo" />
@@ -112,15 +109,15 @@ export default function Navbar() {
                                 </Badge>
                             </IconButton>
                         </Link>
-                        {!isMobile && <Link to="/signin" onClick={handleAuth}>
+                        {!isMobile && <Link to="/signin"  onClick={handleAuth}>
 
-                            <Button variant="outlined" color="secondary" href="#contained-buttons">
+                            <Button size="small" variant="outlined" color="secondary" href="#contained-buttons">
                                 <strong>{isLogged ? "Cerrar sesión" : "Iniciar sesión"}</strong>
                             </Button>
 
                         </Link>}
                         {!isLogged && <Link to="/register">
-                            <Button variant="contained" color="secondary" href="#contained-buttons">
+                            <Button size="small" variant="contained" color="secondary" href="#contained-buttons">
                                 <strong>Registrarse</strong>
                             </Button>
                         </Link>}
