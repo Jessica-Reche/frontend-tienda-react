@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { useStateValue } from '../context/StateProvider';
 import { actionTypes } from '../utils';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Menu, MenuItem } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
