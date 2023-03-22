@@ -16,6 +16,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useEffect } from 'react';
+import { Input } from '@mui/material';
 
 
 function Copyright(props) {
@@ -39,7 +40,7 @@ export default function SignUp() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { isLogged, isLoginLoading, login, register} = useAuth();
+  const { isLogged, isLoginLoading, login, register } = useAuth();
 
   //useEffecte para redirigir a la pagina de inicio si el usuario esta logueado
   useEffect(() => {
@@ -97,7 +98,7 @@ export default function SignUp() {
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="given-username"
                   name="name"
-                  required
+
                   fullWidth
                   id="name"
                   label="name"
@@ -123,29 +124,34 @@ export default function SignUp() {
 
 
               <Grid item xs={12}>
-                <TextField
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
+                <TextField label="Email Address" required>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    fullWidth
+                    id="email"
+
+                    name="email"
+                    autoComplete="email"
+                  />
+                </TextField>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
+                <TextField label="Password" required>
+                  <Input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </TextField>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -174,8 +180,8 @@ export default function SignUp() {
                 </RouterLink>
               </Grid>
             </Grid>
-          </Box> }
-          
+          </Box>}
+
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
