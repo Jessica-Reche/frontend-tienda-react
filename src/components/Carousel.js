@@ -21,7 +21,7 @@ const items = [
 ];
 
 const StyledCarousel = styled(Carousel)(({ theme }) => ({
-  marginTop: theme.spacing(23),
+  marginTop: theme.spacing(18),
   marginBottom: theme.spacing(2),
   '& .CarouselItem': {
     textAlign: 'center',
@@ -38,7 +38,7 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
   '& .CarouselItem img': {
     objectFit: 'cover',
     width: '100%', // ancho de la imagen reducido
-    height: '45rem', // altura ajustada automáticamente
+    height: '30rem', // altura ajustada automáticamente
   },
   '& .CarouselItem h2': {
     fontSize: '32px',

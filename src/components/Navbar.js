@@ -40,7 +40,7 @@ const StyledAppBar = styled(AppBar)({
     },
     '.image': {
         marginRight: "1rem",
-        height: "11rem",
+        height: "8rem",
     },
 
     '.hide-element': {
