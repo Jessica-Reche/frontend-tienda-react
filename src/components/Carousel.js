@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel';
-import { Paper, Button, Input, Typography } from '@mui/material';
+import { Paper,Grid, Button, Typography, Input } from '@mui/material';
 import useAuth from '../hooks/useAuth';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 
@@ -45,7 +45,7 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
     fontWeight: 'bold',
     marginBottom: theme.spacing(2),
     position: 'absolute', // posición absoluta para el título
-    top: '50%', // centrado verticalmente
+    top: '40%', // centrado verticalmente
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
     color: 'black'
@@ -54,22 +54,19 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
     fontSize: '18px',
     marginBottom: theme.spacing(2),
     position: 'absolute', // posición absoluta para la descripción
-    top: '70%', // debajo del título
+    top: '60%', // debajo del título
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
 
   },
   '& .buttonVerMas': {
     position: 'absolute', // posición absoluta para el botón
-    top: '80%', // debajo de la descripción
+    top: '70%', // debajo de la descripción
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
   },
- 
+
 }));
-    
-
-
 
 const CarouselItem = ({ item }) => {
   const { register, login, isLogged } = useAuth();
@@ -80,12 +77,11 @@ const CarouselItem = ({ item }) => {
     if (isLogged) navigate('/')
   }, [isLogged, navigate])
 
-
   const handleSignUp = async (event) => {
-    const actionStatusTrue = (email, password) =>{
-      login( email, password);
+    const actionStatusTrue = (email, password) => {
+      login(email, password);
       //navigate('/products'); TODO:Descomentar cuando esté habilitada la ruta de productos
-      
+
     }
     event.preventDefault();
     const userData = {
@@ -98,7 +94,7 @@ const CarouselItem = ({ item }) => {
       console.log(userData);
       let result = await register(userData);
       result.status === true
-        ? actionStatusTrue(email,password) 
+        ? actionStatusTrue(email, password)
         : setMessage(result.message);
     } catch (error) {
       setMessage(error.message);
@@ -106,44 +102,58 @@ const CarouselItem = ({ item }) => {
   };
 
 
-    return (
-      <Paper className="CarouselItem">
-        
-        <img src={item.image} alt={item.name} />
-        <h2>{item.name}</h2>
-        <p className='CarouselItemP'>{item.description}</p>
-        <Button className="buttonVerMas" variant="contained">Ver más</Button>
-        <div className="marketing-info" sx={{display:'flex' }}>
-          <h3>¡Regístrate ahora y obtén un 10% de descuento en tu primer pedido!</h3>
-          <form onSubmit={handleSignUp}>
-            <Input name='username' type="text" placeholder="Usuario" sx={{ backgroundColor: '#f5f5f5', marginRight:'0.5rem', width:'125px' }} />
-            <Input name='email' type="email" placeholder="Email" sx={{ backgroundColor: '#f5f5f5' }} />
-            <Input name="password" type="text" placeholder="contraseña" sx={{ backgroundColor: '#f5f5f5', marginLeft: '0.5rem' }} />
-            <Button variant='contained' color='secondary' sx={{ marginLeft: '0.5rem' }} type="submit">Registrarse</Button>
-            <Typography  sx={{ textTransform: "none" }}  className='errorMessage' color="error" variant="body2">
+  return (
+    <Paper className="CarouselItem">
+
+      <img src={item.image} alt={item.name} />
+      <h2>{item.name}</h2>
+      <p className='CarouselItemP'>{item.description}</p>
+      <Button className="buttonVerMas" variant="contained">Ver más</Button>
+      <div className="marketing-info" sx={{ display: 'flex' }}>
+        <h3>¡Regístrate ahora y obtén un 10% de descuento en tu primer pedido!</h3>
+        <form onSubmit={handleSignUp}>
+
+
+          <Grid container spacing={2}>
+            <Grid item xs={6} sm={3}>
+              <Input name='username' type="text" placeholder="Usuario" sx={{ backgroundColor: '#f5f5f5' }} />
+            </Grid>
+            <Grid item xs={6} sm={3}>
+              <Input name='email' type="email" placeholder="Email" sx={{ backgroundColor: '#f5f5f5' }} />
+            </Grid>
+            <Grid item xs={6} sm={3} >
+              <Input name="password" type="text" placeholder="contraseña" sx={{ backgroundColor: '#f5f5f5' }} />
+            </Grid>
+            <Grid item xs={6} sm={3}>
+              <Button variant='contained' color='secondary' type="submit">Registrarse</Button>
+            </Grid>
+          </Grid>
+
+
+          <Typography sx={{ textTransform: "none" }} className='errorMessage' color="error" variant="body2">
             {message}
           </Typography>
-          </form>
-   
-        </div>
-      </Paper>
-    );
-  };
+        </form>
 
-  const CarouselComponent = () => {
-    return (
-      <StyledCarousel
-        animation="slide"
-        autoPlay={false}
-        swipe={true}
-        navButtonsAlwaysVisible={true}
-        indicators={true}
-      >
-        {items.map((item, index) => (
-          <CarouselItem key={index} item={item} />
-        ))}
-      </StyledCarousel>
-    );
-  };
+      </div>
+    </Paper>
+  );
+};
 
-  export default CarouselComponent;
+const CarouselComponent = () => {
+  return (
+    <StyledCarousel
+      animation="slide"
+      autoPlay={false}
+      swipe={true}
+      navButtonsAlwaysVisible={true}
+      indicators={true}
+    >
+      {items.map((item, index) => (
+        <CarouselItem key={index} item={item} />
+      ))}
+    </StyledCarousel>
+  );
+};
+
+export default CarouselComponent;

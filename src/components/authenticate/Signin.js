@@ -70,6 +70,8 @@ export default function SignIn() {
           {isLoginLoading && <strong> Checking credentials...</strong>}
           {!isLoginLoading && <Box component="form" onSubmit={handleSubmit}  noValidate sx={{ mt: 1 }}>
             <TextField
+            color="secondary" 
+             
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               margin="normal"
@@ -82,6 +84,7 @@ export default function SignIn() {
               autoFocus
             />
             <TextField
+              color="secondary" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"

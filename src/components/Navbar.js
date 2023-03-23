@@ -58,7 +58,6 @@ export default function Navbar() {
         setIsDrawerOpen(!isDrawerOpen);
     };
 
-
     const handleAuth = () => {
         if (isLogged) {
             dispatch({
@@ -116,7 +115,7 @@ export default function Navbar() {
                             </Button>
 
                         </Link>}
-                        {!isLogged && <Link to="/register">
+                        {!isLogged && <Link to="/signup">
                             <Button size="small" variant="contained" color="secondary" href="#contained-buttons">
                                 <strong>Registrarse</strong>
                             </Button>

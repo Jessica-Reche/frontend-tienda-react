@@ -94,6 +94,7 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  color="secondary" 
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="given-username"
@@ -109,7 +110,7 @@ export default function SignUp() {
 
                 <TextField
 
-
+                  color="secondary"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   autoComplete="given-username"
@@ -124,8 +125,9 @@ export default function SignUp() {
 
 
               <Grid item xs={12}>
-                <TextField label="Email Address" required>
+                <TextField   color="secondary"  label="Email Address" required>
                   <Input
+                    
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -139,8 +141,9 @@ export default function SignUp() {
                 </TextField>
               </Grid>
               <Grid item xs={12}>
-                <TextField label="Password" required>
+                <TextField color="secondary"  label="Password" required>
                   <Input
+                     
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
