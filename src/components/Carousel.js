@@ -6,7 +6,6 @@ import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-
 const items = [
   {
     name: "Tenemos tartas de todos los sabores, cupcakes, cookies",
@@ -81,7 +80,6 @@ const CarouselItem = ({ item }) => {
     const actionStatusTrue = (email, password) => {
       login(email, password);
       //navigate('/products'); TODO:Descomentar cuando esté habilitada la ruta de productos
-
     }
     event.preventDefault();
     const userData = {
@@ -101,10 +99,8 @@ const CarouselItem = ({ item }) => {
     }
   };
 
-
   return (
     <Paper className="CarouselItem">
-
       <img src={item.image} alt={item.name} />
       <h2>{item.name}</h2>
       <p className='CarouselItemP'>{item.description}</p>
@@ -112,7 +108,6 @@ const CarouselItem = ({ item }) => {
       <div className="marketing-info" sx={{ display: 'flex' }}>
         <h3>¡Regístrate ahora y obtén un 10% de descuento en tu primer pedido!</h3>
         <form onSubmit={handleSignUp}>
-
 
           <Grid container spacing={2}>
             <Grid item xs={6} sm={3}>
@@ -128,7 +123,6 @@ const CarouselItem = ({ item }) => {
               <Button variant='contained' color='secondary' type="submit">Registrarse</Button>
             </Grid>
           </Grid>
-
 
           <Typography sx={{ textTransform: "none" }} className='errorMessage' color="error" variant="body2">
             {message}
