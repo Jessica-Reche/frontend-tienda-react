@@ -30,7 +30,7 @@ const ExpandMoreButton = styled((props) => {
 }));
 
 
-export default function Product({ product: { _id, name, poster, price, description, rating, discount, category }, handleDelete }) {
+export default function Product({ product: { _id, name, poster, price, description, rating, discount, category, created_at }, handleDelete }) {
   const [expanded, setExpanded] = React.useState(false);
   // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
@@ -50,9 +50,17 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const addToBasket = () => {
     dispatch({
       type: actionTypes.ADD_TO_BASKET,
-      item: { _id, name, poster, price, description, rating },
+      item: { _id, name, poster, price, description, rating, discount, category, created_at },
     });
   };
+
+  // dar formato a la fecha
+  const date = new Date(created_at);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  created_at = `${day}/${month}/${year}`;
+  
 
 
   return (
@@ -65,7 +73,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
         }
         title={name}
         alt={name}
-        subheader="September 14, 2016"
+        subheader={created_at}
       />
       <CardMedia
         component="img"
