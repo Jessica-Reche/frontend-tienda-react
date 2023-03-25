@@ -108,7 +108,6 @@ const CarouselItem = ({ item }) => {
       <div className="marketing-info" sx={{ display: 'flex' }}>
         <h3>¡Regístrate ahora y obtén un 10% de descuento en tu primer pedido!</h3>
         <form onSubmit={handleSignUp}>
-
           <Grid container spacing={2}>
             <Grid item xs={6} sm={3}>
               <Input name='username' type="text" placeholder="Usuario" sx={{ backgroundColor: '#f5f5f5' }} />
@@ -128,7 +127,6 @@ const CarouselItem = ({ item }) => {
             {message}
           </Typography>
         </form>
-
       </div>
     </Paper>
   );
