@@ -7,6 +7,8 @@ import {
   Box,
   Button,
   Container,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -31,6 +33,7 @@ const CreateProductForm = () => {
   const [discount, setDiscount] = React.useState("");
   const [stock, setStock] = React.useState("");
   const [rating, setRating] = React.useState("");
+  const [category, setCategory] = React.useState("tartas");
   const [error, setError] = React.useState("");
   const [sku, setSku] = React.useState("");
   const navigate = useNavigate();
@@ -54,6 +57,7 @@ const CreateProductForm = () => {
     productData.append("stock", stock);
     productData.append("rating", rating);
     productData.append("sku", sku);
+    productData.append("category", category);
 
     console.log(productData);
     const result = await handleCreateProduct(productData);
@@ -73,6 +77,7 @@ const CreateProductForm = () => {
       setStock("");
       setSku("");
       setRating("");
+      setCategory("");
     }
   };
 
@@ -89,6 +94,22 @@ const CreateProductForm = () => {
 
       <form>
         <FormBox>
+          <Select
+            fullWidth
+            label="Categoría"
+            name="category"
+            onChange={(event) => setCategory(event.target.value)}
+            value={category}
+            variant="outlined"
+            margin="normal"
+          >
+            <MenuItem value="tartas">Tartas</MenuItem>
+            <MenuItem value="cupcakes">Cupcakes</MenuItem>
+            <MenuItem value="donnuts">Donnuts</MenuItem>
+            <MenuItem value="cookies">Cookies</MenuItem>
+            <MenuItem value="cajasdulces">Cajadulce</MenuItem>
+          </Select>
+      
           <TextField
             fullWidth
             label="Nombre"

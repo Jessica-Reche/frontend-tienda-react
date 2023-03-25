@@ -30,13 +30,13 @@ const ExpandMoreButton = styled((props) => {
 }));
 
 
-export default function Product({ product: { _id, name, poster, price, description, rating, discount }, handleDelete }) {
+export default function Product({ product: { _id, name, poster, price, description, rating, discount, category }, handleDelete }) {
   const [expanded, setExpanded] = React.useState(false);
   // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
-  const baseImageUrl = 'https://mundo-tarta-server.up.railway.app';
+  const baseImageUrl = 'https://localhost:4000';
   poster = `${baseImageUrl}${poster.link}`;
 
 
@@ -75,7 +75,8 @@ export default function Product({ product: { _id, name, poster, price, descripti
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {discount === 0 ? "" : discount}
+          {category}
+          {/* {discount === 0 ? "" : discount} */}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

@@ -51,6 +51,7 @@ export default function AdminProducts() {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
+              <TableCell>Categoría</TableCell>
               <TableCell>Nombre</TableCell>
               <TableCell>Precio</TableCell>
               <TableCell>Descripción</TableCell>
@@ -63,6 +64,7 @@ export default function AdminProducts() {
                 <TableCell component="th" scope="row">
                   {product._id}
                 </TableCell>
+                <TableCell>{product.category}</TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.price}</TableCell>
                 <TableCell>{product.description}</TableCell>
