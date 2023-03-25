@@ -36,7 +36,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
-  const baseImageUrl = 'https://localhost:4000';
+  const baseImageUrl = 'https://mundo-tarta-server.up.railway.app';
   poster = `${baseImageUrl}${poster.link}`;
 
 
