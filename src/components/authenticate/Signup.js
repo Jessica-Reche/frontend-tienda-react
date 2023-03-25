@@ -57,6 +57,7 @@ export default function SignUp() {
       email,
       password,
     };
+    console.log(userData);
     try {
       let result = await register(userData);
 
@@ -125,25 +126,27 @@ export default function SignUp() {
 
 
               <Grid item xs={12}>
-                <TextField   color="secondary"  label="Email Address" required>
-                  <Input
+                <Input   
+                  color="secondary"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="Email"
                     
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    fullWidth
-                    id="email"
-
-                    name="email"
-                    autoComplete="email"
-                  />
-                </TextField>
+                    />
+               
+              
               </Grid>
               <Grid item xs={12}>
-                <TextField color="secondary"  label="Password" required>
+          
                   <Input
-                     
+
+                    color="secondary"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -153,8 +156,9 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    placeholder="Password"
                   />
-                </TextField>
+           
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel

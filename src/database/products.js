@@ -32,16 +32,14 @@ export const deleteProduct = async(id, token) => {
 
 //Add product
 export const addProduct = async(product, token) => {
+
   const headers = { 'Authorization': `${token}`};
   const ENDPOINT = `https://mundo-tarta-server.up.railway.app/product/createProduct`;
   const response = await fetch(ENDPOINT, { method: 'POST', headers: headers, body: product });
   const data = await response.json();
-  if (data.error) {
-    console.log(data.error);
-    return data.error;
-  }
   console.log(data);
   return data;
+
 };
 
 //Update poster

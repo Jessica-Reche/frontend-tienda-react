@@ -13,8 +13,6 @@ export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [state, setState] = useState({ loading: false, error: true });
 
-
-
   const handleDeleteProduct = async (id) => {
     await deleteProduct(id, token);
     const updatedProducts = await getProducts();
@@ -23,7 +21,9 @@ export const ProductProvider = ({ children }) => {
 
   const handleCreateProduct = async (productData) => {
     setState({ loading: true, error: false });
+    console.log(productData);
     let result = await addProduct(productData, token);
+    console.log(result);
     setState({ loading: false, error: false });
     const updatedProducts = await getProducts();
     setProducts(updatedProducts);

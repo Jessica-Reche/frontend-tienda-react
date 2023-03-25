@@ -60,30 +60,17 @@ const CreateProductForm = () => {
     productData.append("category", category);
 
     console.log(productData);
-    const result = await handleCreateProduct(productData);
-    if (result.status === true) {
-      navigate("/admin/products");
-      setError(result.message);
-      if (!result)
-        setError(result.message);
-
-    } else {
-      setError("");
-      setName("");
-      setDescription("");
-      setPoster("");
-      setPrice("");
-      setDiscount("");
-      setStock("");
-      setSku("");
-      setRating("");
-      setCategory("");
+ //si algún campo está vacío, no se envía el formulario
+    if (!name || !description || !poster || !price || !stock || !rating || !sku || !category) {
+      setError("Rellena los campos obligatorios");
+      return;
     }
+ 
+    
+    const result = await handleCreateProduct(productData);
+    console.log("reeees:"+result);
+    result.status === true? navigate("/admin/products"): setError(result.message);
   };
-
-
-
-
 
 
   return (
@@ -95,6 +82,7 @@ const CreateProductForm = () => {
       <form>
         <FormBox>
           <Select
+            required
             fullWidth
             label="Categoría"
             name="category"
@@ -111,6 +99,7 @@ const CreateProductForm = () => {
           </Select>
       
           <TextField
+            required
             fullWidth
             label="Nombre"
             name="name"
@@ -120,6 +109,7 @@ const CreateProductForm = () => {
             margin="normal"
           />
           <TextField
+            required
             fullWidth
             label="Descripción"
             name="description"
@@ -129,6 +119,7 @@ const CreateProductForm = () => {
             margin="normal"
           />
           <TextField
+            required
             fullWidth
             label="Imagen principal"
             name="poster"
@@ -141,6 +132,7 @@ const CreateProductForm = () => {
           />
 
           <TextField
+            required
             fullWidth
             label="Precio"
             name="price"
@@ -162,6 +154,7 @@ const CreateProductForm = () => {
           />
 
           <TextField
+          required
             fullWidth
             label="Stock"
             name="stock"
@@ -172,6 +165,7 @@ const CreateProductForm = () => {
             type="number"
           />
           <TextField
+            required
             fullWidth
             label="SKU"
             name="sku"
@@ -181,6 +175,7 @@ const CreateProductForm = () => {
             margin="normal"
           />
           <TextField
+            required
             fullWidth
             label="Rating"
             name="rating"

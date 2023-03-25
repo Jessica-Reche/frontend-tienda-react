@@ -4,12 +4,15 @@ import { useProducts } from "../../../context/productsContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
 import {
   Box,
   Button,
   Container,
   TextField,
   Typography,
+  MenuItem,
+  Select,
 } from "@mui/material";
 
 const FormBox = styled(Box)({
@@ -31,6 +34,7 @@ const UpdateProductForm = () => {
     sku: "",
     rating: "",
     discount: "",
+    category: "",
   });
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -57,7 +61,7 @@ const UpdateProductForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { name, description, poster, price, stock, sku, rating, discount } = product;
+    const { name, description, poster, price, stock, sku, rating, discount, category } = product;
     const productData = new FormData();
     productData.append("name", name);
     productData.append("description", description);
@@ -66,6 +70,7 @@ const UpdateProductForm = () => {
     productData.append("sku", sku);
     productData.append("rating", rating);
     productData.append("discount", discount);
+    productData.append("category", category);
 
     const resProduct = await handleUpdateProduct(id, productData);
     let allUpdatesSuccessful = true;
@@ -77,7 +82,10 @@ const UpdateProductForm = () => {
 
       const posterData = new FormData();
       posterData.append("poster", poster);
+
+
       const resPoster = await handleUpdatePoster(id, posterData);
+    
       if (resPoster.status === false) {
         allUpdatesSuccessful = false;
         setPosterMsg(resPoster.message);
@@ -95,9 +103,6 @@ const UpdateProductForm = () => {
   };
 
 
-
-
-
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
@@ -106,6 +111,27 @@ const UpdateProductForm = () => {
 
       <form onSubmit={handleSubmit}>
         <FormBox>
+        <Select
+            fullWidth
+            label="Categoría"
+            name="category"
+            onChange={handleInputChange}
+            value={product.category }
+            variant="outlined"
+            margin="normal"
+          >
+
+        <MenuItem value="tartas">Tartas</MenuItem>
+            <MenuItem value="cupcakes">Cupcakes</MenuItem>
+            <MenuItem value="donnuts">Donnuts</MenuItem>
+            <MenuItem value="cookies">Cookies</MenuItem>
+            <MenuItem value="cajasdulces">Cajadulce</MenuItem>
+          </Select>
+ 
+
+
+
+
           <TextField
             fullWidth
             label="Nombre"
