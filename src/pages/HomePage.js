@@ -96,12 +96,15 @@ const Section = ({ title, subtitle, children }) => {
 
 const Home = () => {
     const { products } = useProducts(); 
+    const baseImageUrl = 'https://mundo-tarta-server.up.railway.app';
 
     const productList = products.map((product) => {
         return {
             ...product,
+            poster: `${baseImageUrl}${product.poster.link}`,
         };
     });
+   
 
 
     return (
