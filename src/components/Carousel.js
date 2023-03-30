@@ -75,7 +75,7 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
   '.buttoRegister':{
 
      backgroundColor: '#F1225F'
-  }
+  } 
 
 }));
 
