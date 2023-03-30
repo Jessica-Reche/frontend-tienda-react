@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import logo from '../assets/logo-tarta.png';
+import logo from '../assets/logo-2.png';
 import { styled } from "@mui/material/styles";
 import { Badge, Button } from '@mui/material';
 import { ShoppingCart } from '@mui/icons-material';
@@ -24,8 +24,9 @@ import HomeIcon from '@mui/icons-material/Home';
 
 import useAuth from '../hooks/useAuth';
 const StyledAppBar = styled(AppBar)({
-    background: "whitesmoke",
+    background: " #e8e9ef",
     boxShadow: "none",
+
     '.root': {
         flexGrow: 1,
     },
@@ -36,6 +37,9 @@ const StyledAppBar = styled(AppBar)({
         ' .MuiButton-root': {
             marginLeft: '0.3em',
             fontSize: '0.8rem',
+            backgroundColor: '#F1225F',
+           
+           
         }
     },
     '.image': {
@@ -110,13 +114,13 @@ export default function Navbar() {
                         </Link>
                         {!isMobile && <Link to="/signin"  onClick={handleAuth}>
 
-                            <Button size="small" variant="outlined" color="secondary" href="#contained-buttons">
+                            <Button size="small" variant="contained"  href="#contained-buttons">
                                 <strong>{isLogged ? "Cerrar sesión" : "Iniciar sesión"}</strong>
                             </Button>
 
                         </Link>}
                         {!isLogged && <Link to="/signup">
-                            <Button size="small" variant="contained" color="secondary" href="#contained-buttons">
+                            <Button size="small" variant="contained" href="#contained-buttons">
                                 <strong>Registrarse</strong>
                             </Button>
                         </Link>}

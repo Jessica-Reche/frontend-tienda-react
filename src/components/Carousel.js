@@ -8,14 +8,17 @@ import { useState, useEffect } from 'react';
 
 const items = [
   {
-    name: "Tenemos tartas de todos los sabores, cupcakes, cookies",
+    name: "Disfruta de nuestros postres orgánicos y respetuosos con el medio ambiente, además de ser deliciosos",
     description: "¡No te quedes sin tu postre favorito!",
-    image: "https://i.ibb.co/4ZQ4bkQ/cupcakes-san-valentin.jpg"
+    image: "https://i.ibb.co/sKKR2z9/befunky-collage-7.jpg"
+    
   },
-  {
-    name: "Tartas de cumpleaños, tartas de boda, tartas de comunión",
+ {
+    name: "Tartas de cumpleaños, tartas de boda, tartas de comunión, cuidamos cada detalle para que tu evento sea único, todo hecho a mano y con mucho amor",
     description: "Añade un toque especial a tu evento, ¡pide tu tarta personalizada!",
-    image: "https://i.ibb.co/4ZQ4bkQ/cupcakes-san-valentin.jpg"
+
+    image: "https://i.ibb.co/mCww6y3/tarta-abecedario-01b.jpg"
+
   }
 ];
 
@@ -30,15 +33,17 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
     justifyContent: 'center',
     backgroundColor: 'black', // fondo negro semitransparente
     color: theme.palette.primary.contrastText,
-    padding: theme.spacing(2),
-    minHeight: '400px',
+    padding: theme.spacing(1),
+    minHeight: '500px',
     position: 'relative', // posición relativa para los elementos de texto y botón
   },
   '& .CarouselItem img': {
     objectFit: 'cover',
     width: '100%', // ancho de la imagen reducido
-    height: '30rem', // altura ajustada automáticamente
+    height: '30rem',
+    maxWidth: '100%', // máximo ancho de la imagen
   },
+  
   '& .CarouselItem h2': {
     fontSize: '32px',
     fontWeight: 'bold',
@@ -47,23 +52,30 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
     top: '40%', // centrado verticalmente
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
-    color: 'black'
+    color: '#AEB6F1',
+    '-webkit-text-stroke': '1px black', // agregar borde negro al texto
   },
   '& .CarouselItemP': {
-    fontSize: '18px',
+    fontSize: '25px',
+    fontWeight: 'bold',
     marginBottom: theme.spacing(2),
     position: 'absolute', // posición absoluta para la descripción
-    top: '60%', // debajo del título
+    top: '75%', // debajo del título
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
+    '-webkit-text-stroke': '1px black', // agregar borde negro al texto
 
   },
   '& .buttonVerMas': {
     position: 'absolute', // posición absoluta para el botón
-    top: '70%', // debajo de la descripción
+    top: '83%', // debajo de la descripción
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
   },
+  '.buttoRegister':{
+
+     backgroundColor: '#F1225F'
+  }
 
 }));
 
@@ -101,6 +113,7 @@ const CarouselItem = ({ item }) => {
 
   return (
     <Paper className="CarouselItem">
+
       <img src={item.image} alt={item.name} />
       <h2>{item.name}</h2>
       <p className='CarouselItemP'>{item.description}</p>
@@ -119,7 +132,7 @@ const CarouselItem = ({ item }) => {
               <Input name="password" type="text" placeholder="contraseña" sx={{ backgroundColor: '#f5f5f5' }} />
             </Grid>
             <Grid item xs={6} sm={3}>
-              <Button variant='contained' color='secondary' type="submit">Registrarse</Button>
+              <Button className='buttoRegister' variant='contained' type="submit">Registrarse</Button>
             </Grid>
           </Grid>
 

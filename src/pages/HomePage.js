@@ -3,8 +3,10 @@ import styled from "@emotion/styled";
 import { Container, Grid, Paper } from "@mui/material";
 import { useProducts } from '../context/productsContext';
 
+
 const SectionContainer = styled(Container)`
   padding: 80px 0;
+  background-color:  #e8e9ef;
 `;
 
 const SectionTitle = styled.h2`
@@ -55,6 +57,9 @@ const ProductCard = styled(Paper)`
 `;
 const HeroSection = styled.section`
   text-align: center;
+  background: #f5f5f5;
+  padding: 2rem;
+
 `;
 
 const HeroTitle = styled.h1`
@@ -62,11 +67,11 @@ const HeroTitle = styled.h1`
   margin-bottom: 2rem;
 `;
 
-const HeroImage = styled.img`
-  width: 100%;
-  max-width: 800px;
-  height: auto;
-`;
+// const HeroImage = styled.img`
+//   width: 100%;
+//   max-width: 10rem;
+//   height: auto;
+// `;
 const PromoSection = styled.section`
   display: flex
   y justify-content: center;
@@ -102,8 +107,8 @@ const Home = () => {
     return (
         <>
             <HeroSection>
-                <HeroTitle>Bienvenidos a Natural Cherry!</HeroTitle>
-                <HeroImage src="/images/cake-hero.jpg" alt="Cake" />
+                <HeroTitle>Bienvenido a Natural Cherry!</HeroTitle>
+                {/* <HeroImage src={logo} alt="Cake" /> */}
             </HeroSection>
 
             <Section title="Tartas">

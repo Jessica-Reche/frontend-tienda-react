@@ -6,6 +6,7 @@ import CheckoutCard from '../components/Checkout/CheckoutCard';
 import Total from '../components/Total';
 import { useStateValue } from '../context/StateProvider';
 
+
 const BoxStyled = {
     flexGrow: 1,
     padding: "2rem",
