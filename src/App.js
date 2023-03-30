@@ -1,5 +1,4 @@
 import './App.css';
-import Products from './pages/ProductsPage';
 import Navbar from './components/Navbar';
 import CheckoutPage from './pages/CheckoutPage';
 import { Routes, Route, useLocation} from 'react-router-dom';
@@ -10,6 +9,7 @@ import Checkout from './components/Checkout/Checkout';
 import NotFound from './pages/NotFound';
 import useAuth from './hooks/useAuth';
 import CarouselComponent from './components/Carousel';
+import Home from './pages/HomePage';
 
 
 
@@ -34,7 +34,9 @@ function App() {
         <Route path='/admin/*' element={admin ? <Dashboard /> : <NotFound />} />
         <Route path='*' element={ <NotFound/> } />
       </Routes>
-      <Products />
+      <Home />
+
+     
     </div >
   );
 }
