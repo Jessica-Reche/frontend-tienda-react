@@ -36,8 +36,9 @@ const StyledAppBar = styled(AppBar)({
     '.button': {
         ' .MuiButton-root': {
             marginLeft: '0.3em',
-            fontSize: '0.8rem',
+            fontSize: '0.7rem',
             backgroundColor: '#F1225F',
+            width: '7rem',
            
            
         }
@@ -115,7 +116,7 @@ export default function Navbar() {
                         {!isMobile && <Link to="/signin"  onClick={handleAuth}>
 
                             <Button size="small" variant="contained"  href="#contained-buttons">
-                                <strong>{isLogged ? "Cerrar sesión" : "Iniciar sesión"}</strong>
+                                <strong>{isLogged ? "Cerrar sesión" : "Inicia Sesión"}</strong>
                             </Button>
 
                         </Link>}

@@ -8,13 +8,13 @@ import { useState, useEffect } from 'react';
 
 const items = [
   {
-    name: "Disfruta de nuestros postres orgánicos y respetuosos con el medio ambiente, además de ser deliciosos",
+    name: "Disfruta de nuestros postres orgánicos y respetuosos con el medio ambiente, además son deliciosos",
     description: "¡No te quedes sin tu postre favorito!",
     image: "https://i.ibb.co/sKKR2z9/befunky-collage-7.jpg"
     
   },
  {
-    name: "Tartas de cumpleaños, tartas de boda, tartas de comunión, cuidamos cada detalle para que tu evento sea único, todo hecho a mano y con mucho amor",
+    name: "Tartas de cumpleaños, tartas de boda, tartas de comunión, cuidamos cada detalle para que tu evento sea único",
     description: "Añade un toque especial a tu evento, ¡pide tu tarta personalizada!",
 
     image: "https://i.ibb.co/mCww6y3/tarta-abecedario-01b.jpg"
@@ -45,22 +45,22 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
   },
   
   '& .CarouselItem h2': {
-    fontSize: '32px',
+    fontSize: '25px',
     fontWeight: 'bold',
     marginBottom: theme.spacing(2),
     position: 'absolute', // posición absoluta para el título
-    top: '40%', // centrado verticalmente
+    top: '30%', // centrado verticalmente
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
     color: '#AEB6F1',
     '-webkit-text-stroke': '1px black', // agregar borde negro al texto
   },
   '& .CarouselItemP': {
-    fontSize: '25px',
+    fontSize: '20px',
     fontWeight: 'bold',
     marginBottom: theme.spacing(2),
     position: 'absolute', // posición absoluta para la descripción
-    top: '75%', // debajo del título
+    top: '60%', // debajo del título
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
     '-webkit-text-stroke': '1px black', // agregar borde negro al texto
@@ -68,11 +68,12 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
   },
   '& .buttonVerMas': {
     position: 'absolute', // posición absoluta para el botón
-    top: '83%', // debajo de la descripción
+    top: '73%', // debajo de la descripción
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
   },
   '.buttoRegister':{
+ 
 
      backgroundColor: '#F1225F'
   } 
