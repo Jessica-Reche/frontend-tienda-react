@@ -89,12 +89,14 @@ export default function Navbar() {
                             <MenuIcon />
                         </IconButton>
                     )}
+                    
                     <Link to="/">
                         <IconButton>
                             <img className='image' src={logo} alt="logo" />
                         </IconButton>
                     </Link>
-
+                
+                    {!isMobile && (
                     <Link to="/products">
                         <MenuItem>
                             <Link to="/products"><StorefrontIcon /></Link>
@@ -103,6 +105,7 @@ export default function Navbar() {
                             </Typography>
                         </MenuItem>
                     </Link>
+                    )}
                     <div className='grow' />
                     <Typography variant="h6" color="textPrimary" component="p">
                         Hello {user ? user : 'Guest'}
