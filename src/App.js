@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound';
 import useAuth from './hooks/useAuth';
 import CarouselComponent from './components/Carousel';
 import Home from './pages/HomePage';
+import Products from './pages/ProductsPage';
 
 
 
@@ -21,23 +22,31 @@ function App() {
   return (
     <div className="App">
      {location.pathname.startsWith("/admin") ? null : <Navbar />}
+      
       <Routes>
-        <Route index path='/' element={<CarouselComponent/>} />
-        {/* TODO:Falta añadir componentes de las secciones de la página principal
-        y añadir la sección de productos y sus respectivas rutas */}
-        {/* <Route path='/products' element={<Products />} /> */}
-
+        <Route path='/' element={<Index />} />
+        <Route path='/products' element={<Products />} /> 
         <Route path='/checkout-page' element={<CheckoutPage />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/admin/*' element={admin ? <Dashboard /> : <NotFound />} />
-        <Route path='*' element={ <NotFound/> } />
+        <Route path='*' element={<NotFound />} />
       </Routes>
-      <Home />
-
-     
-    </div >
+    </div>
   );
 }
+
+function Index() {
+  return (
+    <>
+      <CarouselComponent />
+      <Home />
+    </>
+  );
+}
+
+
+
+
 export default App;

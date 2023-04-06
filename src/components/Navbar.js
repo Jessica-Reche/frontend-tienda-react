@@ -39,8 +39,8 @@ const StyledAppBar = styled(AppBar)({
             fontSize: '0.7rem',
             backgroundColor: '#F1225F',
             width: '7rem',
-           
-           
+
+
         }
     },
     '.image': {
@@ -94,6 +94,15 @@ export default function Navbar() {
                             <img className='image' src={logo} alt="logo" />
                         </IconButton>
                     </Link>
+
+                    <Link to="/products">
+                        <MenuItem>
+                            <Link to="/products"><StorefrontIcon /></Link>
+                            <Typography variant="h6" color="textPrimary" component="p">
+                                Postres
+                            </Typography>
+                        </MenuItem>
+                    </Link>
                     <div className='grow' />
                     <Typography variant="h6" color="textPrimary" component="p">
                         Hello {user ? user : 'Guest'}
@@ -113,9 +122,9 @@ export default function Navbar() {
                                 </Badge>
                             </IconButton>
                         </Link>
-                        {!isMobile && <Link to="/signin"  onClick={handleAuth}>
+                        {!isMobile && <Link to="/signin" onClick={handleAuth}>
 
-                            <Button size="small" variant="contained"  href="#contained-buttons">
+                            <Button size="small" variant="contained" href="#contained-buttons">
                                 <strong>{isLogged ? "Cerrar sesión" : "Inicia Sesión"}</strong>
                             </Button>
 
