@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel';
-import { Paper,Grid, Button, Typography, Input } from '@mui/material';
+import { Paper, Grid, Button, Typography, Input } from '@mui/material';
 import useAuth from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Snackbar, Alert } from "@mui/material";
+
 
 const items = [
   {
     name: "Disfruta de nuestros postres orgánicos y respetuosos con el medio ambiente, además son deliciosos",
     description: "¡No te quedes sin tu postre favorito!",
     image: "https://i.ibb.co/sKKR2z9/befunky-collage-7.jpg"
-    
+
   },
- {
+  {
     name: "Tartas de cumpleaños, tartas de boda, tartas de comunión, cuidamos cada detalle para que tu evento sea único",
     description: "Añade un toque especial a tu evento, ¡pide tu tarta personalizada!",
 
@@ -43,7 +45,7 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
     height: '30rem',
     maxWidth: '100%', // máximo ancho de la imagen
   },
-  
+
   '& .CarouselItem h2': {
     fontSize: '25px',
     fontWeight: 'bold',
@@ -72,22 +74,21 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
   },
-  '.buttoRegister':{
- 
+  '.buttoRegister': {
 
-     backgroundColor: '#F1225F'
-  } 
+
+    backgroundColor: '#F1225F'
+  }
 
 }));
 
 const CarouselItem = ({ item }) => {
-  const { register, login, isLogged } = useAuth();
+  const { register, login, } = useAuth();
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isLogged) navigate('/')
-  }, [isLogged, navigate])
+  const [showNotification, setShowNotification] = useState(false);
+
+  // const navigate = useNavigate();
 
   const handleSignUp = async (event) => {
     const actionStatusTrue = (email, password) => {
@@ -104,9 +105,13 @@ const CarouselItem = ({ item }) => {
       const { email, password } = userData;
       console.log(userData);
       let result = await register(userData);
-      result.status === true
-        ? actionStatusTrue(email, password)
-        : setMessage(result.message);
+      if (result.status === true) {
+        actionStatusTrue(email, password);
+        setMessage(result.message);
+        setShowNotification(true);
+      } else {
+        setMessage(result.message);
+      }
     } catch (error) {
       setMessage(error.message);
     }
@@ -137,9 +142,27 @@ const CarouselItem = ({ item }) => {
             </Grid>
           </Grid>
 
-          <Typography sx={{ textTransform: "none" }} className='errorMessage' color="error" variant="body2">
+          {showNotification && <Typography sx={{ textTransform: "none" }} color="green" variant="body2">
             {message}
-          </Typography>
+          </Typography>}
+          {!showNotification && <Typography sx={{ textTransform: "none" }} color="error" variant="body2">
+            {message}
+          </Typography>}
+          <Snackbar
+            open={showNotification}
+            autoHideDuration={3000}
+            onClose={() => setShowNotification(false)}
+          >
+            <Alert
+              onClose={() => setShowNotification(false)}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              User created successfully
+            </Alert>
+          </Snackbar>
+
+
         </form>
       </div>
     </Paper>

@@ -17,7 +17,7 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useEffect } from 'react';
 import { Input } from '@mui/material';
-
+import { Snackbar, Alert } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -39,13 +39,15 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
   const { isLogged, isLoginLoading, login, register } = useAuth();
 
   //useEffecte para redirigir a la pagina de inicio si el usuario esta logueado
   useEffect(() => {
-    if (isLogged) navigate('/')
-  }, [isLogged, navigate])
+    if (isLogged)
+    navigate("/", { state: { message: message } });
+  }, [isLogged, navigate, message]);
 
 
   const handleSignUp = async (event) => {
@@ -63,6 +65,9 @@ export default function SignUp() {
 
       if (result.status === true) {
         login(email, password);
+        setShowNotification(true);
+        setMessage(result.message);
+       
       } else {
         setMessage(result.message);
       }
@@ -95,7 +100,7 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  color="secondary" 
+                  color="secondary"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="given-username"
@@ -126,7 +131,7 @@ export default function SignUp() {
 
 
               <Grid item xs={12}>
-                <Input   
+                <Input
                   color="secondary"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -137,28 +142,28 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                   placeholder="Email"
-                    
-                    />
-               
-              
+
+                />
+
+
               </Grid>
               <Grid item xs={12}>
-          
-                  <Input
 
-                    color="secondary"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
-                    placeholder="Password"
-                  />
-           
+                <Input
+
+                  color="secondary"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  placeholder="Password"
+                />
+
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -167,9 +172,25 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Typography color="error" variant="body2">
+            {showNotification && <Typography sx={{ textTransform: "none" }} color="green" variant="body2">
               {message}
-            </Typography>
+            </Typography>}
+            {!showNotification && <Typography sx={{ textTransform: "none" }} color="error" variant="body2">
+              {message}
+            </Typography>}
+            <Snackbar
+              open={showNotification}
+              autoHideDuration={3000}
+              onClose={() => setShowNotification(false)}
+            >
+              <Alert
+                onClose={() => setShowNotification(false)}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                User created successfully
+              </Alert>
+            </Snackbar>
             <Button
 
               type="submit"

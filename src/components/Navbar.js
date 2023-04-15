@@ -128,7 +128,7 @@ export default function Navbar() {
                         {!isMobile && <Link to="/signin" onClick={handleAuth}>
 
                             <Button size="small" variant="contained" href="#contained-buttons">
-                                <strong>{isLogged ? "Cerrar sesión" : "Inicia Sesión"}</strong>
+                                <strong>{isLogged ? "Cierra Sesión" : "Inicia Sesión"}</strong>
                             </Button>
 
                         </Link>}

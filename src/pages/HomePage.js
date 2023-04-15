@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Container, Grid, Paper } from "@mui/material";
+import { Alert, Container, Grid, Paper, Snackbar } from "@mui/material";
 import { useProducts } from '../context/productsContext';
+import { Link, useLocation } from "react-router-dom";
 
 
 const SectionContainer = styled(Container)`
@@ -43,6 +44,23 @@ const ProductDescription = styled.p`
   font-size: 1.2rem;
   color: #8f8f8f;
 `;
+const ProductButton = styled.button`
+    display: block;
+    margin: 0 auto;
+    background: #2f4858;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: #1a2a35;
+    }
+`;
+
 
 const ProductCard = styled(Paper)`
   padding: 30px;
@@ -67,19 +85,14 @@ const HeroTitle = styled.h1`
   margin-bottom: 2rem;
 `;
 
-// const HeroImage = styled.img`
-//   width: 100%;
-//   max-width: 10rem;
-//   height: auto;
-// `;
 const PromoSection = styled.section`
-  display: flex
-  y justify-content: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 2rem;
 `;
-const PromoTitle = styled.h2 `font-size: 2rem; margin-bottom: 1rem; text-align: center`;
+const PromoTitle = styled.h2`font-size: 2rem; margin-bottom: 1rem; text-align: center`;
 
 const Section = ({ title, subtitle, children }) => {
 
@@ -94,97 +107,77 @@ const Section = ({ title, subtitle, children }) => {
     );
 };
 
+const ProductList = ({ products, urlBase }) => {
+
+ 
+    return (
+        products.map((product) => (
+            <Grid item key={product.id} xs={6} sm={6} md={4}>
+                <ProductCard>
+                    <ProductImage src={`${urlBase}${product.poster.link}`} alt={product.name} />
+                    <ProductName>{product.category}</ProductName>
+                    <ProductDescription>Extensa selección de {product.category} </ProductDescription>
+
+                    <Link to="/products" state={{ category: product.category }}>
+                        <ProductButton >Ver más</ProductButton>
+                    </Link>
+
+                </ProductCard>
+
+            </Grid>
+        ))
+    );
+};
+
 const Home = () => {
-    const { products } = useProducts(); 
+    const { state } = useLocation();
+    const [mensaje, setMensaje] = useState('');
+    const [showNotification, setShowNotification] = useState(false);
+    const { products } = useProducts();
     const baseImageUrl = 'https://mundo-tarta-server.up.railway.app';
-
-    const productList = products.map((product) => {
-        return {
-            ...product,
-            poster: `${baseImageUrl}${product.poster.link}`,
-        };
+    // Filtrar el primer producto  de cada categoría
+    const filteredProducts = products.filter((product, index, self) => {
+        return index === self.findIndex((t) => (t.category === product.category));
     });
-   
 
+
+
+    useEffect(() => {
+        if (state && state.message) {
+            setShowNotification(true);
+            setMensaje(state.message);
+        }
+
+    }, [state]);
 
     return (
         <>
+            <Snackbar
+                open={showNotification}
+                autoHideDuration={6000}
+                onClose={() => setShowNotification(false)}
+            >
+                <Alert
+                    onClose={() => setShowNotification(false)}
+                    severity="success"
+                    sx={{ width: "100%" }}
+                >
+                    {mensaje}
+                </Alert>
+            </Snackbar>
+
             <HeroSection>
                 <HeroTitle>Bienvenido a Natural Cherry!</HeroTitle>
                 {/* <HeroImage src={logo} alt="Cake" /> */}
             </HeroSection>
 
-            <Section title="Tartas">
-                {productList
-                    .filter((product) => product.category === "tartas")
-                    .map((product) => (
-                        <Grid item key={product.id} xs sm={6}
-                            md={4}
-                        >
-                            <ProductCard>
-                                <ProductImage src={product.poster} alt={product.name} />
-                                <ProductName>{product.name}</ProductName>
-                                <ProductDescription>{product.description}</ProductDescription>
-                            </ProductCard>
-                        </Grid>
-                    ))}
-            </Section>
-            <Section title="Cupcakes">
-                {productList
-                    .filter((product) => product.category === "cupcakes")
-                    .map((product) => (
-                        <Grid item key={product.id} xs={6} sm={6} md={4}>
-                            <ProductCard>
-                                <ProductImage src={product.poster} alt={product.name} />
-                                <ProductName>{product.name}</ProductName>
-                                <ProductDescription>{product.description}</ProductDescription>
-                            </ProductCard>
-                        </Grid>
-                    ))}
-            </Section>
-            <Section title="Donnuts">
-                {productList
-                    .filter((product) => product.category === "donnuts")
-                    .map((product) => (
-                        <Grid item key={product.id} xs={6} sm={6} md={4}>
-                            <ProductCard>
-                                <ProductImage src={product.poster} alt={product.name} />
-                                <ProductName>{product.name}</ProductName>
-                                <ProductDescription>{product.description}</ProductDescription>
-                            </ProductCard>
-                        </Grid>
-                    ))}
-            </Section>
-            <Section title="Cookies">
-                {productList
-                    .filter((product) => product.category === "cookies")
-                    .map((product) => (
-                        <Grid item key={product.id} xs={6} sm={6} md={4}>
-                            <ProductCard>
-                                <ProductImage src={product.poster} alt={product.name} />
-                                <ProductName>{product.name}</ProductName>
-                                <ProductDescription>{product.description}</ProductDescription>
-                            </ProductCard>
-                        </Grid>
-                    ))}
+            <Section title="Categorías" subtitle="Encuentra lo que buscas">
+                <ProductList products={filteredProducts} urlBase={baseImageUrl} />
             </Section>
             <PromoSection>
                 <PromoTitle>¡Obtén un 10% de descuento en tu primer pedido!</PromoTitle>
-               
+
             </PromoSection>
-            <Section title="Cajas Dulces" subtitle="Una selección de nuestras deliciosas creaciones dulces.">
-                {productList
-                    .filter((product) => product.category === "cajasdulces")
-                    .map((product) => (
-                        <Grid item key={product.id} xs={6} sm={6} md={4}>
-                            <ProductCard>
-                                <ProductImage src={product.poster} alt={product.name} />
-                                <ProductName>{product.name}</ProductName>
-                                <ProductDescription>{product.description}</ProductDescription>
-                            </ProductCard>
-                        </Grid>
-                    ))}
-            </Section>
         </>
     );
 };
