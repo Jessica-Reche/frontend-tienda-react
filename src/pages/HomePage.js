@@ -114,7 +114,7 @@ const ProductList = ({ products, urlBase }) => {
         products.map((product) => (
             <Grid item key={product.id} xs={6} sm={6} md={4}>
                 <ProductCard>
-                    <ProductImage src={`${urlBase}${product.poster.link}`} alt={product.name} />
+                    <ProductImage src={`${urlBase}/${product.poster.link}`} alt={product.name} />
                     <ProductName>{product.category}</ProductName>
                     <ProductDescription>Extensa selección de {product.category} </ProductDescription>
 

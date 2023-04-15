@@ -6,13 +6,12 @@ import { useProducts } from '../context/productsContext';
 import { MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 export default function Products() {
   const {state} = useLocation();
-
   const { products, handleDeleteProduct } = useProducts();
-
   const productList = products.map((product) => {
     return {
       ...product,
@@ -23,9 +22,13 @@ export default function Products() {
   const [category, setCategory] = useState('all');
   const handleChange = (event) => { setCategory(event.target.value); };
 
+  useEffect(() => {
+    if (state) {
+      setCategory(state.category);
+    }
+    
+  }, [state]);
   const filteredProducts = productList.filter((product) => {
-   const category = state?.category || 'all';
-
     if (category === 'all') {
       return product;
     } else {
@@ -34,12 +37,13 @@ export default function Products() {
   });
 
 
+
   return (
  
     <>
       <Box sx={{ flexGrow: 1, padding: '4rem', marginTop: '12rem' }}>
        
-        <Select sx={{ width: 200 }} value={category} onChange={handleChange}>
+        <Select sx={{ width: 200 }} value={category} onChange={handleChange || category}>
           <MenuItem value="all">All</MenuItem>
           <MenuItem value="tartas">Tartas</MenuItem>
           <MenuItem value="cupcakes">Cookies</MenuItem>

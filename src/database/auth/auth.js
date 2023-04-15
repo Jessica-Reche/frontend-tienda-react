@@ -3,7 +3,7 @@
   export const registerUser = async (userData) => {
     //registro de usuario
   
-      const URI = "http://localhost:4000/user/register";
+      const URI = "https://mundo-tarta-server.up.railway.app/user/register";
       const headers = {
         "Content-Type": "application/json",
       };
@@ -25,7 +25,7 @@
 export const loginUser = (email, password) => {
 
  
-  return fetch("http://localhost:4000/user/login", {
+  return fetch("https://mundo-tarta-server.up.railway.app/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const loginUser = (email, password) => {
 };
 
 export const getUsers = (token) => {
-  return fetch("http://localhost:4000/user/users", {
+  return fetch("https://mundo-tarta-server.up.railway.app/user/users", {
 
     method: "GET",
     headers: { 
@@ -67,7 +67,7 @@ export const getUsers = (token) => {
 
 export const deleteUser = async(id, token) => {
   const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-  const ENDPOINT = `http://localhost:4000/user/deleteUser/${id}`;
+  const ENDPOINT = `https://mundo-tarta-server.up.railway.app/user/deleteUser/${id}`;
   const response = await fetch(ENDPOINT, { method: 'DELETE', headers: headers });
   const data = await response.json();
   return data;
@@ -75,7 +75,7 @@ export const deleteUser = async(id, token) => {
 
 export const updateUser = async(id, userData,token) => {
   const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-  const ENDPOINT = `http://localhost:4000/user/updateUser/${id}`;
+  const ENDPOINT = `https://mundo-tarta-server.up.railway.app/user/updateUser/${id}`;
   const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: JSON.stringify(userData) }); 
   console.log(response);
   const data = await response.json();
@@ -106,7 +106,7 @@ export const updateUser = async(id, userData,token) => {
 
 //Metodo temporal para obtener los productos hay que quitarlo de LoginUser
 // export const getProducts = () => {
-//   return fetch("http://localhost:4000/product/getProducts", {
+//   return fetch("https://mundo-tarta-server.up.railway.app/product/getProducts", {
 //     method: "GET",
 //     headers: { "Content-Type": "application/json" },
 //   })

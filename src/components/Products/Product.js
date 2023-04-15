@@ -36,7 +36,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
-  const baseImageUrl = 'http://localhost:4000';
+  const baseImageUrl = 'https://mundo-tarta-server.up.railway.app';
   poster = `${baseImageUrl}${poster.link}`;
 
 
@@ -60,7 +60,6 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   created_at = `${day}/${month}/${year}`;
-  
 
 
   return (
