@@ -44,7 +44,6 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(email, password)
     login( email, password );
   };
 
@@ -71,7 +70,7 @@ export default function SignIn() {
           {!isLoginLoading && <Box component="form" onSubmit={handleSubmit}  noValidate sx={{ mt: 1 }}>
             <TextField
             color="secondary" 
-             
+              data-cy="signin-email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               margin="normal"
@@ -84,6 +83,7 @@ export default function SignIn() {
               autoFocus
             />
             <TextField
+              data-cy="signin-password"
               color="secondary" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -101,6 +101,7 @@ export default function SignIn() {
               label="Remember me"
             />
             <Button
+              data-cy="signin-submit"
             
               type="submit"
               fullWidth

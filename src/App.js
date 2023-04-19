@@ -5,7 +5,6 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import SignIn from './components/authenticate/Signin';
 import SignUp from './components/authenticate/Signup';
 import Dashboard from './components/Dashboard/Dashboard';
-
 import NotFound from './pages/NotFound';
 import useAuth from './hooks/useAuth';
 import CarouselComponent from './components/Carousel';
@@ -15,13 +14,12 @@ import Checkout from './components/Checkout/Checkout';
 
 
 
-
-
 function App() {
   const { admin } = useAuth();
   const location = useLocation();
   return (
     <div className="App">
+
       {location.pathname.startsWith("/admin") ? null : <Navbar />}
 
       <Routes>
@@ -41,8 +39,8 @@ function App() {
 function Index() {
   return (
     <>
-      <CarouselComponent />
-      <Home />
+        <CarouselComponent />
+        <Home />
     </>
   );
 }

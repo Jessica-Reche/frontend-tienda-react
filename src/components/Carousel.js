@@ -73,10 +73,9 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
     top: '73%', // debajo de la descripción
     left: '50%', // centrado horizontalmente
     transform: 'translate(-50%, -50%)', // centrado exacto
+    
   },
-  '.buttoRegister': {
-
-
+  ' .buttonRegister': {
     backgroundColor: '#F1225F'
   }
 
@@ -123,7 +122,7 @@ const CarouselItem = ({ item }) => {
       <img src={item.image} alt={item.name} />
       <h2>{item.name}</h2>
       <p className='CarouselItemP'>{item.description}</p>
-      <Button className="buttonVerMas" variant="contained">Ver más</Button>
+      <Button  className="buttonVerMas" variant="contained">Ver más</Button>
       <div className="marketing-info" sx={{ display: 'flex' }}>
         <h3>¡Regístrate ahora y obtén un 10% de descuento en tu primer pedido!</h3>
         <form onSubmit={handleSignUp}>
@@ -135,10 +134,10 @@ const CarouselItem = ({ item }) => {
               <Input name='email' type="email" placeholder="Email" sx={{ backgroundColor: '#f5f5f5' }} />
             </Grid>
             <Grid item xs={6} sm={3} >
-              <Input name="password" type="text" placeholder="contraseña" sx={{ backgroundColor: '#f5f5f5' }} />
+              <Input name="password" type="password" placeholder="contraseña" sx={{ backgroundColor: '#f5f5f5' }} />
             </Grid>
             <Grid item xs={6} sm={3}>
-              <Button className='buttoRegister' variant='contained' type="submit">Registrarse</Button>
+              <Button className='buttonRegister' variant='contained' type="submit">Registrarse</Button>
             </Grid>
           </Grid>
 

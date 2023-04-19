@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -55,7 +56,9 @@ const StyledAppBar = styled(AppBar)({
 });
 
 export default function Navbar() {
-    const [{ basket }, dispatch] = useStateValue();
+   
+      // eslint-disable-next-line 
+    let [{ basket }, dispatch] = useStateValue();
     const { isLogged, logout, user, admin } = useAuth();
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -76,7 +79,7 @@ export default function Navbar() {
     };
     return (
 
-        <Box className='root'>
+        <Box className='root' data-cy='navbar'>
             <StyledAppBar position="fixed">
                 <Toolbar>
                     {isMobile && (
