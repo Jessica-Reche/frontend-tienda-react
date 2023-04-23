@@ -1,6 +1,6 @@
 import AuthContext from "../context/authContext";
 import { useContext, useCallback, useState } from "react";
-import { loginUser, registerUser, getUsers, deleteUser, updateUser } from "../database/auth/auth";
+import { loginUser, registerUser, getUsers, deleteUser, updateUser } from "../database/auth";
 import { useEffect } from "react";
 
 export default function useAuth() {

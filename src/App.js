@@ -1,17 +1,18 @@
 import './App.css';
-import Navbar from './components/Navbar';
-import CheckoutPage from './pages/CheckoutPage';
+import Navbar from './components/NavBar/Navbar';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import SignIn from './components/authenticate/Signin';
 import SignUp from './components/authenticate/Signup';
 import Dashboard from './components/Dashboard/Dashboard';
 import NotFound from './pages/NotFound';
 import useAuth from './hooks/useAuth';
-import CarouselComponent from './components/Carousel';
-import Home from './pages/HomePage';
+import CarouselComponent from './components/Carousel/Carousel';
+
 import Products from './pages/ProductsPage';
 import Checkout from './components/Checkout/Checkout';
-import Footer from './components/Footerl';
+import Footer from './components/Footer';
+import Home from './pages/HomePage/HomePage';
 
 
 
@@ -42,8 +43,8 @@ function App() {
 function Index() {
   return (
     <>
-        <CarouselComponent />
-        <Home />
+      <CarouselComponent />
+      <Home />
     </>
   );
 }

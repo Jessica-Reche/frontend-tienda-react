@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,33 +9,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box } from "@mui/material";
 
 import Grid from "@mui/material/Grid";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
+import { BoxStyled } from "./usersAdminStyles";
 
-const BoxStyled = styled(Box)({
-  ".root": {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "2rem",
-  },
-  tableContainer: {
-    marginTop: "4rem",
-    overflowX: "auto",
-  },
-  marginTop:"2rem"
-});
 
 export default function AdminProducts() {
-  const { users,deleteUserById, isLoginLoading  } = useAuth();
+  const { users, deleteUserById, isLoginLoading } = useAuth();
   const usersList = users.map((user) => {
     return {
       ...user,
       handleDelete: () => {
         deleteUserById(user._id);
-    
+
       }
     };
   });
@@ -46,8 +33,8 @@ export default function AdminProducts() {
       <Button variant="contained" component={Link} to="/admin/users/new">
         Añadir nuevo usuario
       </Button>
-      <br/>
-      {isLoginLoading &&<strong> Loading users...</strong>}
+      <br />
+      {isLoginLoading && <strong> Loading users...</strong>}
       {!isLoginLoading && <TableContainer component={Paper} className="tableContainer">
         <Table aria-label="Productos">
           <TableHead>
@@ -55,8 +42,8 @@ export default function AdminProducts() {
               <TableCell>ID</TableCell>
               <TableCell>Nombre</TableCell>
               <TableCell>Username</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Rol</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Rol</TableCell>
               <TableCell>Acciones</TableCell>
             </TableRow>
           </TableHead>
@@ -99,7 +86,7 @@ export default function AdminProducts() {
           </TableBody>
         </Table>
       </TableContainer>}
-      
+
     </BoxStyled>
   );
 }

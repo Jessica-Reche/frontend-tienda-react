@@ -18,17 +18,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-//import Chart from './Chart';
-//import Deposits from './Deposits';
 import { Routes, Route } from 'react-router-dom';
-import ProductsAdmin from './ProductsAdmin';
+import ProductsAdmin from './ProductsAdmin/ProductsAdmin';
 import CreateProductForm from './forms/CreateProductForm';
 import UpdateProductForm from './forms/UpdateProductForm';
 import { useMediaQuery } from '@mui/material';
-
-// import {UpdateUserForm} from './forms/UpdateUserForm';
-
-import UsersAdmin from './UsersAdmin';
+import UsersAdmin from './UsersAdmin/UsersAdmin';
 import CreateUserForm from './forms/CreateUserForm';
 import UpdateUserForm from './forms/UpdateUserForm';
 
@@ -97,7 +92,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  
+
     const isMobile = useMediaQuery('(max-width:768px)');
     const [open, setOpen] = React.useState(!isMobile);
     const toggleDrawer = () => {
@@ -197,7 +192,7 @@ function DashboardContent() {
                                         <Route path='products/edit/:id' element={<UpdateProductForm />} />
                                         <Route path='users' element={<UsersAdmin />} />
                                         <Route path='users/new' element={<CreateUserForm />} />
-                                        <Route path='users/edit/:id' element={<UpdateUserForm />} /> 
+                                        <Route path='users/edit/:id' element={<UpdateUserForm />} />
 
                                     </Routes>
                                 </Paper>

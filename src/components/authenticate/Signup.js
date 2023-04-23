@@ -18,6 +18,7 @@ import useAuth from '../../hooks/useAuth';
 import { useEffect } from 'react';
 import { Input } from '@mui/material';
 import { Snackbar, Alert } from "@mui/material";
+const theme = createTheme();
 
 function Copyright(props) {
   return (
@@ -32,7 +33,7 @@ function Copyright(props) {
   );
 };
 
-const theme = createTheme();
+
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +47,7 @@ export default function SignUp() {
   //useEffecte para redirigir a la pagina de inicio si el usuario esta logueado
   useEffect(() => {
     if (isLogged)
-    navigate("/", { state: { message: message } });
+      navigate("/", { state: { message: message } });
   }, [isLogged, navigate, message]);
 
 
@@ -67,7 +68,7 @@ export default function SignUp() {
         login(email, password);
         setShowNotification(true);
         setMessage(result.message);
-       
+
       } else {
         setMessage(result.message);
       }

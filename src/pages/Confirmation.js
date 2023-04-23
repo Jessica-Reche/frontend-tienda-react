@@ -11,8 +11,6 @@ const Confirmation = ({ message }) => {
         <Divider />
         <br />
         <Typography variant='subtitle2' gutterBottom>
-
-        
           {
 
             message === "Payment successful"
@@ -20,7 +18,6 @@ const Confirmation = ({ message }) => {
               : ""
               
           }
-
 
         </Typography>
       </div>

@@ -2,13 +2,13 @@
 import { useCallback } from 'react'
 import { useStateValue } from '../context/StateProvider';
 import { useState } from 'react';
-import { actionTypes, getBasketTotal } from '../utils';
+import { actionTypes, getBasketTotal } from '../reducer';
 import { createPayment } from '../database/stripe';
 
 export default function useStripeCustom() {
     const [{ basket, paymentMessage }, dispatch] = useStateValue();
     const [loading, setLoading] = useState(false);
-    
+
     const createPaymentMethod = useCallback(async (stripe, elements, cardElement) => {
         const paymentMethodData = await stripe.createPaymentMethod({
             type: 'card',
@@ -52,8 +52,8 @@ export default function useStripeCustom() {
             }
         }
         setLoading(false);
-   
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return { handlePayment, loading, getBasketTotal };
 

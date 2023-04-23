@@ -1,9 +1,7 @@
-//footer
+
 import React from 'react';
 import {  Container, Grid, Link, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-//import { useMediaQuery } from '@mui/material';
-//import { useTheme } from '@mui/material/styles';
 
 const StyledFooter = styled('footer')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -11,10 +9,6 @@ const StyledFooter = styled('footer')(({ theme }) => ({
 }));
 
 const Footer = () => {
-   // const theme = useTheme();
-    //const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
-
 
     return (
         <StyledFooter>

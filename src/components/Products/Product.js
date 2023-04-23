@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart, Delete } from "@mui/icons-material";
 import accounting from "accounting";
-import { actionTypes } from "../../utils";
+import { actionTypes } from "../../reducer";
 import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
 const GLOBALENDPOINT = 'https://natural-cherry-server.up.railway.app';
@@ -36,7 +36,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
-  const baseImageUrl =GLOBALENDPOINT;
+  const baseImageUrl = GLOBALENDPOINT;
   poster = `${baseImageUrl}${poster.link}`;
 
 
