@@ -1,78 +1,78 @@
-export const getProducts = () => {
-  return fetch("https://mundo-tarta-server.up.railway.app/product/getProducts", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.data);
-      return data.data;
-    })
-    .catch((error) => {
-      console.error(error);
-      return error;
+import axios from 'axios';
+
+const GLOBALENDPOINT = "https://natural-cherry-server.up.railway.app/";
+
+export const getProducts = async () => {
+  try {
+    const response = await axios.get(`${GLOBALENDPOINT}product/getProducts`, {
+      headers: { "Content-Type": "application/json" },
     });
+    console.log(response.data.data);
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };
 
 //Delete product
 export const deleteProduct = async(id, token) => {
   console.log(id);
   const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-  const ENDPOINT = `https://mundo-tarta-server.up.railway.app/product/deleteProduct/${id}`;
+  const ENDPOINT = `${GLOBALENDPOINT}product/deleteProduct/${id}`;
 
-  const response = await fetch(ENDPOINT, { method: 'DELETE', headers: headers });
-  const data = await response.json();
-  if (data.error) {
-    console.log(data.error);
-    return data.error;
+  try {
+    const response = await axios.delete(ENDPOINT, { headers });
+    console.log(response.data);
+    return response.data.message;
+  } catch (error) {
+    console.log(error.response.data.error);
+    return error.response.data.error;
   }
-  console.log(data);
-  return data.message;
 };
 
 //Add product
 export const addProduct = async(product, token) => {
 
   const headers = { 'Authorization': `${token}`};
-  const ENDPOINT = `https://mundo-tarta-server.up.railway.app/product/createProduct`;
-  const response = await fetch(ENDPOINT, { method: 'POST', headers: headers, body: product });
-  const data = await response.json();
-  console.log(data);
-  return data;
-
+  const ENDPOINT = `${GLOBALENDPOINT}product/createProduct`;
+  try {
+    const response = await axios.post(ENDPOINT, product, { headers });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data.error);
+    return error.response.data.error;
+  }
 };
 
 //Update poster
 export const updatePoster = async(id, posterData, token) => {
-  const posterResponse = await fetch(`https://mundo-tarta-server.up.railway.app/product/updateProductPoster/${id}`, {
-        method: "PUT", 
-        headers: { Authorization: `${token}` },
-        body: posterData,
-      });
-      const posterResult = await posterResponse.json();
-      console.log(posterResult);
-      return posterResult;
+  try {
+    const response = await axios.put(`${GLOBALENDPOINT}product/updateProductPoster/${id}`, posterData, {
+      headers: { Authorization: `${token}` },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data.error);
+    return error.response.data.error;
+  }
 };
 
 //Update product
 export const updateProduct = async(id, productData,token) => {
   const data = Object.fromEntries(productData);
-    const requestOptions = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': ` ${token}`
-      },
-      body: JSON.stringify(data)
-    };
-    const response = await fetch( `https://mundo-tarta-server.up.railway.app/product/updateProduct/${id}`, requestOptions);
-    const result = await response.json();
-    console.log(result);
-    return result;
-  
-  
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': ` ${token}`
+  };
+  try {
+    const response = await axios.put(`${GLOBALENDPOINT}product/updateProduct/${id}`, data, { headers });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data.error);
+    return error.response.data.error;
+  }
 }
-
-
-
-

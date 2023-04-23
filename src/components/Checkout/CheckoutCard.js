@@ -37,11 +37,7 @@ const CardStyled = styled(Card)({
 
 
 export default function CheckoutCard({ product: { _id, name, poster, price, rating } }) {
-    console.log(_id);
-    console.log(name);
-    console.log(poster);
-    console.log(price);
-    console.log(rating);
+
   // eslint-disable-next-line no-unused-vars
     const [{ basket }, dispatch] = useStateValue();
     const removeItem = () => {

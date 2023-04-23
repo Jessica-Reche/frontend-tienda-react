@@ -11,6 +11,7 @@ import CarouselComponent from './components/Carousel';
 import Home from './pages/HomePage';
 import Products from './pages/ProductsPage';
 import Checkout from './components/Checkout/Checkout';
+import Footer from './components/Footerl';
 
 
 
@@ -31,7 +32,9 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/admin/*' element={admin ? <Dashboard /> : <NotFound />} />
         <Route path='*' element={<NotFound />} />
+
       </Routes>
+      <Footer />
     </div>
   );
 }

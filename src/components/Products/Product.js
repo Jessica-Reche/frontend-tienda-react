@@ -14,7 +14,7 @@ import accounting from "accounting";
 import { actionTypes } from "../../utils";
 import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
-
+const GLOBALENDPOINT = 'https://natural-cherry-server.up.railway.app';
 
 
 
@@ -36,7 +36,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
 
-  const baseImageUrl = 'https://mundo-tarta-server.up.railway.app/';
+  const baseImageUrl =GLOBALENDPOINT;
   poster = `${baseImageUrl}${poster.link}`;
 
 

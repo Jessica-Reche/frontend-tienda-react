@@ -1,124 +1,82 @@
+import axios from "axios";
 
-//registro de usuario
-  export const registerUser = async (userData) => {
-    //registro de usuario
-  
-      const URI = "https://mundo-tarta-server.up.railway.app/user/register";
-      const headers = {
-        "Content-Type": "application/json",
-      };
-      const body = JSON.stringify(userData);
-      const options = {
-        method: "POST",
-        headers,
-        body,
-      };
-      const response = await fetch(URI, options);
-      const data = await response.json();
-      
-      return data;
-    
-    
+const GLOBALENDPOINT = "https://natural-cherry-server.up.railway.app/";
+
+export const registerUser = async (userData) => {
+  const URI = `${GLOBALENDPOINT}user/register`;
+  const headers = {
+    "Content-Type": "application/json",
   };
-
-
-export const loginUser = (email, password) => {
-
- 
-  return fetch("https://mundo-tarta-server.up.railway.app/user/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error('Response is NOT ok')
-      return res.json()
-    })
-    .then((data) => {
-
-    
-   return  data;
-      
-    });
+  const body = JSON.stringify(userData);
+  try {
+    const response = await axios.post(URI, body, { headers });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };
 
-export const getUsers = (token) => {
-  return fetch("https://mundo-tarta-server.up.railway.app/user/users", {
-
-    method: "GET",
-    headers: { 
-      "Content-Type": "application/json", 
-      'Authorization': `${token}`},
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error(error);
-      return error;
-    });
+export const loginUser = async (email, password) => {
+  const URI = `${GLOBALENDPOINT}user/login`;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  const body = JSON.stringify({
+    email,
+    password,
+  });
+  try {
+    const response = await axios.post(URI, body, { headers });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };
 
-export const deleteUser = async(id, token) => {
-  const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-  const ENDPOINT = `https://mundo-tarta-server.up.railway.app/user/deleteUser/${id}`;
-  const response = await fetch(ENDPOINT, { method: 'DELETE', headers: headers });
-  const data = await response.json();
-  return data;
+export const getUsers = async (token) => {
+  const URI = `${GLOBALENDPOINT}user/users`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: token,
+  };
+  try {
+    const response = await axios.get(URI, { headers });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };
 
-export const updateUser = async(id, userData,token) => {
-  const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-  const ENDPOINT = `https://mundo-tarta-server.up.railway.app/user/updateUser/${id}`;
-  const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: JSON.stringify(userData) }); 
-  console.log(response);
-  const data = await response.json();
-  console.log(data);
-  return data;
+export const deleteUser = async (id, token) => {
+  const URI = `${GLOBALENDPOINT}user/deleteUser/${id}`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: token,
+  };
+  try {
+    const response = await axios.delete(URI, { headers });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };
-   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Metodo temporal para obtener los productos hay que quitarlo de LoginUser
-// export const getProducts = () => {
-//   return fetch("https://mundo-tarta-server.up.railway.app/product/getProducts", {
-//     method: "GET",
-//     headers: { "Content-Type": "application/json" },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-     
-//       return data;
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       return error;
-//     });
-// };
-
-
+export const updateUser = async (id, userData, token) => {
+  const URI = `${GLOBALENDPOINT}user/updateUser/${id}`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: token,
+  };
+  const body = JSON.stringify(userData);
+  try {
+    const response = await axios.put(URI, body, { headers });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};

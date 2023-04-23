@@ -2,6 +2,7 @@ import AuthContext from "../context/authContext";
 import { useContext, useCallback, useState } from "react";
 import { loginUser, registerUser, getUsers, deleteUser, updateUser } from "../database/auth/auth";
 import { useEffect } from "react";
+
 export default function useAuth() {
     const { token, setToken, user, setUser, admin, setAdmin } = useContext(AuthContext);
     const [state, setState] = useState({ loading: false, error: true });
@@ -65,30 +66,24 @@ export default function useAuth() {
     }, [token]);
 
     const deleteUserById = useCallback(async (id) => {
-       const response = await deleteUser(id, token);
+        const response = await deleteUser(id, token);
         const updatedUsers = users.filter(user => user._id !== id);
         setUsers(updatedUsers);
         return response;
 
     }, [token, users]);
 
-  const updateUserById = useCallback(async (id, userData) => {
-   const response = await updateUser(id, userData, token);
-    const updatedUsers = users.map(user => user._id === id ? userData : user);
-    setUsers(updatedUsers);
-    console.log(response);
-    return response;
+    const updateUserById = useCallback(async (id, userData) => {
+        const response = await updateUser(id, userData, token);
+        const updatedUsers = users.map(user => user._id === id ? userData : user);
+        setUsers(updatedUsers);
+        console.log(response);
+        return response;
     }, [token, users]);
 
-
-
-
-
-
     useEffect(() => {
-        getUsersCallback();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if(admin)getUsersCallback();
+    }, [register, admin, getUsersCallback]);
 
     return {
         isLogged: Boolean(token),

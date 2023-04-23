@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Product from '../components/Products/Product';
-import { useProducts } from '../context/productsContext';
+import { useProducts } from '../hooks/useProducts';
 import { MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';

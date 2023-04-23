@@ -31,13 +31,13 @@ export default function CheckoutPage() {
 
     function FormRow() {
         return (
-            <React.Fragment>
+            <>
                 {basket?.map((item) => (
                     <Grid item xs={12} sm={8} md={8} lg={4}>
                         <CheckoutCard key={item._id} product={item} />
                     </Grid>
                 ))}
-            </React.Fragment>
+            </>
         );
     }
     return (

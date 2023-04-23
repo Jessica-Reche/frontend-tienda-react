@@ -1,6 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import { useProducts } from "../../../context/productsContext";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -14,6 +14,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import useProducts from "../../../hooks/useProducts";
 
 const FormBox = styled(Box)({
   display: "flex",

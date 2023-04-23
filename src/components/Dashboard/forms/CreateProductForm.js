@@ -1,6 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import { useProducts } from "../../../context/productsContext";
+
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import useProducts from "../../../hooks/useProducts";
 
 
 
