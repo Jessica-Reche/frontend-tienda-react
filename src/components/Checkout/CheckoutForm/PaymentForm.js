@@ -7,9 +7,12 @@ import { Button, CircularProgress, Divider, Typography } from '@mui/material'
 import { useStateValue } from '../../../context/StateProvider'
 import accounting from 'accounting'
 import useStripeCustom from '../../../hooks/useStripeCustom'
+import config from "../../../config";
+const API_KEY = config.STRIPE_API_KEY_DEV;
 
 
-const stripePromise = loadStripe("pk_test_51MzSpXGewgqc010reXlgyGZzygjLjgCQgg0qxkKIveMu3G2ykU7oLfzwGBacK7wRJ81W5Eew71YrUNXN9rP7GGi800RzmRHxlC")
+
+const stripePromise = loadStripe(API_KEY);
 const CARD_ELEMENT_OPTIONS = {
   iconStyle: "solid",
   hidePostalCode: true,

@@ -1,10 +1,11 @@
 import axios from 'axios';
+import config from "../config";
+const urlBase = config.API_URL;
 
-const GLOBALENDPOINT = "https://natural-cherry-server.up.railway.app/";
 
 export const getProducts = async () => {
   try {
-    const response = await axios.get(`${GLOBALENDPOINT}product/getProducts`, {
+    const response = await axios.get(`${urlBase}product/getProducts`, {
       headers: { "Content-Type": "application/json" },
     });
     console.log(response.data.data);
@@ -16,10 +17,10 @@ export const getProducts = async () => {
 };
 
 //Delete product
-export const deleteProduct = async(id, token) => {
+export const deleteProduct = async (id, token) => {
   console.log(id);
   const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-  const ENDPOINT = `${GLOBALENDPOINT}product/deleteProduct/${id}`;
+  const ENDPOINT = `${urlBase}product/deleteProduct/${id}`;
 
   try {
     const response = await axios.delete(ENDPOINT, { headers });
@@ -32,10 +33,10 @@ export const deleteProduct = async(id, token) => {
 };
 
 //Add product
-export const addProduct = async(product, token) => {
+export const addProduct = async (product, token) => {
 
-  const headers = { 'Authorization': `${token}`};
-  const ENDPOINT = `${GLOBALENDPOINT}product/createProduct`;
+  const headers = { 'Authorization': `${token}` };
+  const ENDPOINT = `${urlBase}product/createProduct`;
   try {
     const response = await axios.post(ENDPOINT, product, { headers });
     console.log(response.data);
@@ -47,9 +48,9 @@ export const addProduct = async(product, token) => {
 };
 
 //Update poster
-export const updatePoster = async(id, posterData, token) => {
+export const updatePoster = async (id, posterData, token) => {
   try {
-    const response = await axios.put(`${GLOBALENDPOINT}product/updateProductPoster/${id}`, posterData, {
+    const response = await axios.put(`${urlBase}product/updateProductPoster/${id}`, posterData, {
       headers: { Authorization: `${token}` },
     });
     console.log(response.data);
@@ -61,14 +62,14 @@ export const updatePoster = async(id, posterData, token) => {
 };
 
 //Update product
-export const updateProduct = async(id, productData,token) => {
+export const updateProduct = async (id, productData, token) => {
   const data = Object.fromEntries(productData);
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': ` ${token}`
   };
   try {
-    const response = await axios.put(`${GLOBALENDPOINT}product/updateProduct/${id}`, data, { headers });
+    const response = await axios.put(`${urlBase}product/updateProduct/${id}`, data, { headers });
     console.log(response.data);
     return response.data;
   } catch (error) {

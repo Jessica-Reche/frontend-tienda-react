@@ -14,8 +14,9 @@ import accounting from "accounting";
 import { actionTypes } from "../../reducer";
 import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
-const GLOBALENDPOINT = 'https://natural-cherry-server.up.railway.app';
+import config from "../../config";
 
+const urlBase = config.API_URL_PROD;
 
 
 const ExpandMoreButton = styled((props) => {
@@ -35,10 +36,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
   // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
-
-  const baseImageUrl = GLOBALENDPOINT;
-  poster = `${baseImageUrl}${poster.link}`;
-
+  poster = `${urlBase}${poster.link}`;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

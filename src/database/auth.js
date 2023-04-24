@@ -1,9 +1,9 @@
 import axios from "axios";
-
-const GLOBALENDPOINT = "https://natural-cherry-server.up.railway.app/";
+import config from "../config";
+const urlBase = config.API_URL;
 
 export const registerUser = async (userData) => {
-  const URI = `${GLOBALENDPOINT}user/register`;
+  const URI = `${urlBase}user/register`;
   const headers = {
     "Content-Type": "application/json",
   };
@@ -18,7 +18,7 @@ export const registerUser = async (userData) => {
 };
 
 export const loginUser = async (email, password) => {
-  const URI = `${GLOBALENDPOINT}user/login`;
+  const URI = `${urlBase}user/login`;
   const headers = {
     "Content-Type": "application/json",
   };
@@ -36,7 +36,7 @@ export const loginUser = async (email, password) => {
 };
 
 export const getUsers = async (token) => {
-  const URI = `${GLOBALENDPOINT}user/users`;
+  const URI = `${urlBase}user/users`;
   const headers = {
     "Content-Type": "application/json",
     Authorization: token,
@@ -51,7 +51,7 @@ export const getUsers = async (token) => {
 };
 
 export const deleteUser = async (id, token) => {
-  const URI = `${GLOBALENDPOINT}user/deleteUser/${id}`;
+  const URI = `${urlBase}user/deleteUser/${id}`;
   const headers = {
     "Content-Type": "application/json",
     Authorization: token,
@@ -66,7 +66,7 @@ export const deleteUser = async (id, token) => {
 };
 
 export const updateUser = async (id, userData, token) => {
-  const URI = `${GLOBALENDPOINT}user/updateUser/${id}`;
+  const URI = `${urlBase}user/updateUser/${id}`;
   const headers = {
     "Content-Type": "application/json",
     Authorization: token,

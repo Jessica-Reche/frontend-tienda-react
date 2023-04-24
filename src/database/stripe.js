@@ -1,10 +1,11 @@
 
 import axios from 'axios';
-const GLOBALENDPOINT ='https://natural-cherry-server.up.railway.app/';
+import config from "../config";
+const urlBase = config.API_URL;
 
-export const createPayment = async ( paymentMethod, amount) => {
+export const createPayment = async (paymentMethod, amount) => {
     const { id } = paymentMethod;
-    const { data } = await axios.post(`${GLOBALENDPOINT}stripe`, { id, amount });
+    const { data } = await axios.post(`${urlBase}stripe`, { id, amount });
     return data;
 };
 

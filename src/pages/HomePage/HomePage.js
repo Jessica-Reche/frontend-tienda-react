@@ -3,8 +3,7 @@ import { Alert, Grid, Snackbar } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import Carousel from 'react-material-ui-carousel';
 import { useMediaQuery } from '@mui/material';
-
-import { 
+import {
   SectionContainer,
   SectionTitle,
   SectionSubtitle,
@@ -18,18 +17,14 @@ import {
   PromoSection,
   CarouselContainer,
   PromoTitle,
- } from "./homePageStyles";
+} from "./homePageStyles";
 import useProducts from "../../hooks/useProducts";
-
-
-const GLOBALENDPOINT = "https://natural-cherry-server.up.railway.app";
+import config from "../../config";
+const urlBase = config.API_URL;
 
 
 const Section = ({ title, subtitle, children }) => {
-
   return (
-
-
     <SectionContainer data-cy='category-test-section' >
       <SectionTitle>{title}</SectionTitle>
       {subtitle && <SectionSubtitle>{subtitle}</SectionSubtitle>}
@@ -37,19 +32,13 @@ const Section = ({ title, subtitle, children }) => {
         {children}
       </Grid>
     </SectionContainer>
-
-
-
   );
 };
 
 const ProductList = ({ products, urlBase }) => {
-
-
   const isMobile = {
     xs: useMediaQuery("(max-width:600px)"),
     sm: useMediaQuery("(max-width:960px)"),
-
   }
   const chunk = (arr, size) =>
     arr.reduce(
@@ -57,7 +46,6 @@ const ProductList = ({ products, urlBase }) => {
       []
     );
   const productGroups = chunk(products, isMobile.xs ? 1 : 3);
-
   return (
     <CarouselContainer data-cy="category-test-categories" style={{ marginLeft: '2rem' }}>
       <Carousel
@@ -97,21 +85,14 @@ const ProductList = ({ products, urlBase }) => {
   );
 
 };
-
 const Home = () => {
-
-
   const { state } = useLocation();
   const [mensaje, setMensaje] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   const { products } = useProducts();
-  const baseImageUrl = GLOBALENDPOINT;
-  // Filtrar el primer producto  de cada categoría
   const filteredProducts = products.filter((product, index, self) => {
     return index === self.findIndex((t) => (t.category === product.category));
   });
-
-
 
   useEffect(() => {
     if (state && state.message) {
@@ -120,7 +101,6 @@ const Home = () => {
     }
 
   }, [state]);
-
   return (
     <>
       <Snackbar
@@ -142,16 +122,14 @@ const Home = () => {
         {/* <HeroImage src={logo} alt="Cake" /> */}
       </HeroSection>
       <Section title="Categorías" subtitle="Encuentra lo que buscas">
-        <ProductList products={filteredProducts} urlBase={baseImageUrl} />
+        <ProductList products={filteredProducts} urlBase={urlBase} />
       </Section>
       <PromoSection>
         <PromoTitle>¡Obtén un 10% de descuento en tu primer pedido!</PromoTitle>
-
       </PromoSection>
     </>
   );
 };
-
 export default Home;
 
 

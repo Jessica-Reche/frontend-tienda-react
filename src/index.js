@@ -19,8 +19,6 @@ root.render(
         </StateProvider>
       </AuthProvider>
     </BrowserRouter>
-
-
   </React.StrictMode>
 );
 
