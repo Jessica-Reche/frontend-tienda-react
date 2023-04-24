@@ -15,7 +15,6 @@ import { actionTypes } from "../../reducer";
 import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
 import config from "../../config";
-
 const urlBase = config.API_URL;
 
 
@@ -107,9 +106,6 @@ export default function Product({ product: { _id, name, poster, price, descripti
         {admin && <IconButton aria-label="Delete" onClick={handleDeleteClick}>
           <Delete fontSize="large" />
         </IconButton>}
-
-
-
 
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

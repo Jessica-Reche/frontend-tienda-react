@@ -8,7 +8,7 @@ import { useStateValue } from '../../../context/StateProvider'
 import accounting from 'accounting'
 import useStripeCustom from '../../../hooks/useStripeCustom'
 import config from "../../../config";
-const API_KEY = config.STRIPE_API_KEY_DEV;
+const API_KEY = config.STRIPE_API_KEY;
 
 
 
