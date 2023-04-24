@@ -16,7 +16,7 @@ import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
 import config from "../../config";
 
-const urlBase = config.API_URL_PROD;
+const urlBase = config.API_URL;
 
 
 const ExpandMoreButton = styled((props) => {
