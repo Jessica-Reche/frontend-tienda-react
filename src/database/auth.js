@@ -3,9 +3,7 @@ const urlBase = config.API_URL;
 
 //registro de usuario
 export const registerUser = async (userData) => {
-  //registro de usuario
-
-    const URI = "https://natural-cherry-server.up.railway.app/user/register";
+    const URI = `${urlBase}user/register`;
     const headers = {
       "Content-Type": "application/json",
     };
@@ -17,17 +15,12 @@ export const registerUser = async (userData) => {
     };
     const response = await fetch(URI, options);
     const data = await response.json();
-    
     return data;
-  
-  
 };
 
 
 export const loginUser = (email, password) => {
-
-
-return fetch("https://natural-cherry-server.up.railway.app/user/login", {
+return fetch(`${urlBase}user/login`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -44,12 +37,10 @@ return fetch("https://natural-cherry-server.up.railway.app/user/login", {
   .then((data) => { 
     return data;
   })
-
-  
 };
 
 export const getUsers = (token) => {
-return fetch("https://natural-cherry-server.up.railway.app/user/users", {
+return fetch(`${urlBase}user/users`, {
 
   method: "GET",
   headers: { 
@@ -68,7 +59,7 @@ return fetch("https://natural-cherry-server.up.railway.app/user/users", {
 
 export const deleteUser = async(id, token) => {
 const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-const ENDPOINT = `https://natural-cherry-server.up.railway.app/user/deleteUser/${id}`;
+const ENDPOINT = `${urlBase}user/deleteUser/${id}`;
 const response = await fetch(ENDPOINT, { method: 'DELETE', headers: headers });
 const data = await response.json();
 return data;
@@ -76,7 +67,7 @@ return data;
 
 export const updateUser = async(id, userData,token) => {
 const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
-const ENDPOINT = `https://natural-cherry-server.up.railway.app/user/updateUser/${id}`;
+const ENDPOINT = `${urlBase}user/updateUser/${id}`;
 const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: JSON.stringify(userData) }); 
 console.log(response);
 const data = await response.json();
@@ -107,7 +98,7 @@ return data;
 
 //Metodo temporal para obtener los productos hay que quitarlo de LoginUser
 // export const getProducts = () => {
-//   return fetch("https://natural-cherry-server.up.railway.app/product/getProducts", {
+//   return fetch("${urlBase}product/getProducts", {
 //     method: "GET",
 //     headers: { "Content-Type": "application/json" },
 //   })
