@@ -26,12 +26,14 @@ const FormBox = styled(Box)({
 
 const CreateUserForm = () => {
    const { register, isLoginLoading } = useAuth();
+   
     const [name, setName] = useState("");
     const [username, setUsername] =useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rolID, setRolID] = useState("63ed70c9bc14ae28b2162da1");
     const [message, setMessage] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -50,9 +52,14 @@ const CreateUserForm = () => {
     try {
       const result = await register(userData);
       console.log(result.status);
-      result.status === true
-        ? navigate("/admin/users")
-        : setMessage(result.message);
+      if (result.status === true) {
+        setMessage(result.message);
+        navigate("/admin/users", { state: { message: result.message } })
+        
+      }
+      else {
+        setMessage(result.message);
+      }
 
     } catch (error) {
       setMessage(error.message);

@@ -13,9 +13,10 @@ export const useProducts = () => {
   const [state, setState] = useState({ loading: false, error: true });
 
   const handleDeleteProduct = async (id) => {
-    await deleteProduct(id, token);
+   let message= await deleteProduct(id, token);
     const updatedProducts = await getProducts();
     setProducts(updatedProducts);
+    return message;
   };
 
   const handleCreateProduct = async (productData) => {

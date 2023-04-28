@@ -10,20 +10,30 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import useProducts from "../../../hooks/useProducts";
-import {BoxStyled} from "./productsAdminStyles";
+import { BoxStyled } from "./productsAdminStyles";
+import { useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
 
 
 
 export default function AdminProducts() {
   const { products, handleDeleteProduct, isLoginLoading } = useProducts();
+  const [message, setMessage] = React.useState("");
+  const [showNotification, setShowNotification] = useState(false);
+
+
   const productList = products.map((product) => {
     return {
       ...product,
-      handleDelete: () => {
-        handleDeleteProduct(product._id);
+      handleDelete: async () => {
+        let response = await handleDeleteProduct(product._id);
+        console.log(response);
+        setMessage(response);
+        setShowNotification(true);
       },
     };
   });
+
 
   return (
     <BoxStyled className="root">
@@ -83,6 +93,29 @@ export default function AdminProducts() {
             ))}
           </TableBody>
         </Table>
+        {message && (
+          <Snackbar
+            key={message}
+            open={showNotification}
+            autoHideDuration={6000}
+            onClose={() => setShowNotification(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+            <Alert
+              onClose={() => setShowNotification(false)}
+              severity="success"
+              sx={{
+                width: "100%",
+                fontSize: "1.2rem",
+                padding: "1.5rem",
+                border: "2px solid black",
+              }}
+            >
+              {message}
+            </Alert>
+          </Snackbar>
+
+        )}
       </TableContainer>}
 
 

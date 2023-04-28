@@ -43,6 +43,7 @@ const UpdateProductForm = () => {
   const { products, handleUpdateProduct, handleUpdatePoster } = useProducts()
   const [posterMsg, setPosterMsg] = useState("");
   const [isPoster, setIsposter] = useState(false);
+  
 
   useEffect(() => {
     const product = products.find((product) => product._id === id);
@@ -62,6 +63,7 @@ const UpdateProductForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     const { name, description, poster, price, stock, sku, rating, discount, category } = product;
     const productData = new FormData();
     productData.append("name", name);
@@ -95,7 +97,7 @@ const UpdateProductForm = () => {
     };
 
     if (allUpdatesSuccessful) {
-      navigate("/admin/products");
+      navigate("/admin/products", { state: { message: resProduct.message } });
     } else {
       //concatenar los mensajes de error de los dos fetch
       const mensaje = resProduct.message + ',' + posterMsg;
@@ -117,7 +119,7 @@ const UpdateProductForm = () => {
             label="Categoría"
             name="category"
             onChange={handleInputChange}
-            value={product.category }
+            value={product?.category }
             variant="outlined"
             margin="normal"
           >
@@ -138,7 +140,7 @@ const UpdateProductForm = () => {
             label="Nombre"
             name="name"
             onChange={handleInputChange}
-            value={product.name}
+            value={product?.name}
             variant="outlined"
             margin="normal"
           />
@@ -147,7 +149,7 @@ const UpdateProductForm = () => {
             label="Descripción"
             name="description"
             onChange={handleInputChange}
-            value={product.description}
+            value={product?.description}
             variant="outlined"
             margin="normal"
           />
@@ -169,7 +171,7 @@ const UpdateProductForm = () => {
             label="Precio"
             name="price"
             onChange={handleInputChange}
-            value={product.price}
+            value={product?.price}
             variant="outlined"
             margin="normal"
             type="number"
@@ -179,7 +181,7 @@ const UpdateProductForm = () => {
             label="Descuento"
             name="discount"
             onChange={handleInputChange}
-            value={product.discount}
+            value={product?.discount}
             variant="outlined"
             margin="normal"
             type="number"
@@ -190,7 +192,7 @@ const UpdateProductForm = () => {
             label="Stock"
             name="stock"
             onChange={handleInputChange}
-            value={product.stock}
+            value={product?.stock}
             variant="outlined"
             margin="normal"
             type="number"
@@ -200,7 +202,7 @@ const UpdateProductForm = () => {
             label="SKU"
             name="sku"
             onChange={handleInputChange}
-            value={product.sku}
+            value={product?.sku}
             variant="outlined"
             margin="normal"
           />
@@ -209,7 +211,7 @@ const UpdateProductForm = () => {
             label="Rating"
             name="rating"
             onChange={handleInputChange}
-            value={product.rating}
+            value={product?.rating}
             variant="outlined"
             margin="normal"
             type="number"

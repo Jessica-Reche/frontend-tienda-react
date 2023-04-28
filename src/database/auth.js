@@ -1,82 +1,125 @@
-import axios from "axios";
 import config from "../config";
 const urlBase = config.API_URL;
 
+//registro de usuario
 export const registerUser = async (userData) => {
-  const URI = `${urlBase}user/register`;
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  const body = JSON.stringify(userData);
-  try {
-    const response = await axios.post(URI, body, { headers });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+  //registro de usuario
+
+    const URI = "https://natural-cherry-server.up.railway.app/user/register";
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const body = JSON.stringify(userData);
+    const options = {
+      method: "POST",
+      headers,
+      body,
+    };
+    const response = await fetch(URI, options);
+    const data = await response.json();
+    
+    return data;
+  
+  
 };
 
-export const loginUser = async (email, password) => {
-  const URI = `${urlBase}user/login`;
-  const headers = {
+
+export const loginUser = (email, password) => {
+
+
+return fetch("https://natural-cherry-server.up.railway.app/user/login", {
+  method: "POST",
+  headers: {
     "Content-Type": "application/json",
-  };
-  const body = JSON.stringify({
+  },
+  body: JSON.stringify({
     email,
     password,
+  }),
+})
+  .then((res) => {
+    if (!res.ok)  return res.json()
+    return res.json()
+  })
+  .then((data) => { 
+    return data;
+  })
+
+  
+};
+
+export const getUsers = (token) => {
+return fetch("https://natural-cherry-server.up.railway.app/user/users", {
+
+  method: "GET",
+  headers: { 
+    "Content-Type": "application/json", 
+    'Authorization': `${token}`},
+})
+  .then((response) => response.json())
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    console.error(error);
+    return error;
   });
-  try {
-    const response = await axios.post(URI, body, { headers });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
 };
 
-export const getUsers = async (token) => {
-  const URI = `${urlBase}user/users`;
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: token,
-  };
-  try {
-    const response = await axios.get(URI, { headers });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+export const deleteUser = async(id, token) => {
+const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
+const ENDPOINT = `https://natural-cherry-server.up.railway.app/user/deleteUser/${id}`;
+const response = await fetch(ENDPOINT, { method: 'DELETE', headers: headers });
+const data = await response.json();
+return data;
 };
 
-export const deleteUser = async (id, token) => {
-  const URI = `${urlBase}user/deleteUser/${id}`;
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: token,
-  };
-  try {
-    const response = await axios.delete(URI, { headers });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+export const updateUser = async(id, userData,token) => {
+const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
+const ENDPOINT = `https://natural-cherry-server.up.railway.app/user/updateUser/${id}`;
+const response = await fetch(ENDPOINT, { method: 'PUT', headers: headers, body: JSON.stringify(userData) }); 
+console.log(response);
+const data = await response.json();
+console.log(data);
+return data;
 };
+ 
 
-export const updateUser = async (id, userData, token) => {
-  const URI = `${urlBase}user/updateUser/${id}`;
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: token,
-  };
-  const body = JSON.stringify(userData);
-  try {
-    const response = await axios.put(URI, body, { headers });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Metodo temporal para obtener los productos hay que quitarlo de LoginUser
+// export const getProducts = () => {
+//   return fetch("https://natural-cherry-server.up.railway.app/product/getProducts", {
+//     method: "GET",
+//     headers: { "Content-Type": "application/json" },
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+   
+//       return data;
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       return error;
+//     });
+// };
+
+

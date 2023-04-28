@@ -8,22 +8,16 @@ import Dashboard from './components/Dashboard/Dashboard';
 import NotFound from './pages/NotFound';
 import useAuth from './hooks/useAuth';
 import CarouselComponent from './components/Carousel/Carousel';
-
 import Products from './pages/ProductsPage';
 import Checkout from './components/Checkout/Checkout';
 import Footer from './components/Footer';
 import Home from './pages/HomePage/HomePage';
-
-
-
 function App() {
   const { admin } = useAuth();
   const location = useLocation();
   return (
     <div className="App">
-
       {location.pathname.startsWith("/admin") ? null : <Navbar />}
-
       <Routes>
         <Route path='/' element={<Index />} />
         <Route path='/products' element={<Products />} />
@@ -33,13 +27,11 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/admin/*' element={admin ? <Dashboard /> : <NotFound />} />
         <Route path='*' element={<NotFound />} />
-
       </Routes>
       <Footer />
     </div>
   );
 }
-
 function Index() {
   return (
     <>
@@ -48,8 +40,5 @@ function Index() {
     </>
   );
 }
-
-
-
 
 export default App;

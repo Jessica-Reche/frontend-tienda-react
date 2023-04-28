@@ -87,7 +87,7 @@ const ProductList = ({ products, urlBase }) => {
 };
 const Home = () => {
   const { state } = useLocation();
-  const [mensaje, setMensaje] = useState('');
+  const [message, setMessage] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   const { products } = useProducts();
   const filteredProducts = products.filter((product, index, self) => {
@@ -95,27 +95,37 @@ const Home = () => {
   });
 
   useEffect(() => {
+    console.log(state);
     if (state && state.message) {
       setShowNotification(true);
-      setMensaje(state.message);
+      setMessage(state.message);
     }
 
   }, [state]);
   return (
     <>
-      <Snackbar
-        open={showNotification}
-        autoHideDuration={6000}
-        onClose={() => setShowNotification(false)}
-      >
-        <Alert
+      {message && (
+        <Snackbar
+          key={message}
+          open={showNotification}
+          autoHideDuration={6000}
           onClose={() => setShowNotification(false)}
-          severity="success"
-          sx={{ width: "100%" }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
-          {mensaje}
-        </Alert>
-      </Snackbar>
+          <Alert
+            onClose={() => setShowNotification(false)}
+            severity="success"
+            sx={{
+              width: "100%",
+              fontSize: "1.2rem",
+              padding: "1.5rem",
+              border: "2px solid black",
+            }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
 
       <HeroSection>
         <HeroTitle>Bienvenido a Natural Cherry!</HeroTitle>

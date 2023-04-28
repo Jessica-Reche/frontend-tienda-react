@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import useProducts from "../../../hooks/useProducts";
+import {Snackbar, Alert} from '@mui/material';
 
 
 
@@ -35,9 +36,14 @@ const CreateProductForm = () => {
   const [stock, setStock] = React.useState("");
   const [rating, setRating] = React.useState("");
   const [category, setCategory] = React.useState("tartas");
-  const [error, setError] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [error, setError] = React.useState(false);
   const [sku, setSku] = React.useState("");
   const navigate = useNavigate();
+  const [showNotification, setShowNotification] = React.useState(false);
+  
+
+
 
   const handlePosterFileChange = (event) => {
     const [file] = event.target.files;
@@ -61,16 +67,24 @@ const CreateProductForm = () => {
     productData.append("category", category);
 
     console.log(productData);
- //si algún campo está vacío, no se envía el formulario
+    //si algún campo está vacío, no se envía el formulario
     if (!name || !description || !poster || !price || !stock || !rating || !sku || !category) {
-      setError("Rellena los campos obligatorios");
+      setMessage("Rellena los campos obligatorios");
+      setError(true);
+      setShowNotification(true);
       return;
     }
- 
-    
+
+
     const result = await handleCreateProduct(productData);
-    console.log("reeees:"+result);
-    result.status === true? navigate("/admin/products"): setError(result.message);
+    if (result.status ===true) {
+      navigate("/admin/products", { state: { message: result.message } });
+    }else{
+      setShowNotification(true);
+      setError(true);
+      setMessage(result.message);
+    }
+
   };
 
 
@@ -98,7 +112,7 @@ const CreateProductForm = () => {
             <MenuItem value="cookies">Cookies</MenuItem>
             <MenuItem value="cajasdulces">Cajadulce</MenuItem>
           </Select>
-      
+
           <TextField
             required
             fullWidth
@@ -155,7 +169,7 @@ const CreateProductForm = () => {
           />
 
           <TextField
-          required
+            required
             fullWidth
             label="Stock"
             name="stock"
@@ -196,11 +210,33 @@ const CreateProductForm = () => {
           >
             Crear Producto
           </Button>
-          {error && (
+          {message && (
             <Typography variant="body1" color="error" align="center">
-              {error}
+              {message}
             </Typography>
           )}
+            {error && message &&  (
+        <Snackbar
+          key={message}
+          open={showNotification}
+          autoHideDuration={6000}
+          onClose={() => setShowNotification(false)}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert
+            onClose={() => setShowNotification(false)}
+            severity="error"
+            sx={{
+              width: "100%",
+              fontSize: "1.2rem",
+              padding: "1.5rem",
+              border: "2px solid black",
+            }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
 
         </FormBox>
       </form>

@@ -10,46 +10,46 @@ const StyledFooter = styled('footer')(({ theme }) => ({
 
 const Footer = () => {
 
-    return (
-        <StyledFooter>
-            <Container maxWidth="lg">
-                <Grid container spacing={4} justifyContent="space-evenly">
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Typography variant="h6" color="text.primary" gutterBottom>
-                            About Us 
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                            We are a team of developers who are passionate about building great products.
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Typography variant="h6" color="text.primary" gutterBottom>
-                            Contact Us
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                            <Link href="mailto:
-                            ">Email Us</Link>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Typography variant="h6" color="text.primary" gutterBottom>
-                            Terms and Conditions
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                            <Link href="/terms">Terms and Conditions</Link>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Typography variant="h6" color="text.primary" gutterBottom>
-                            Privacy Policy  
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                            <Link href="/privacy">Privacy Policy</Link>
-                        </Typography>
-                    </Grid>
+    return (<StyledFooter>
+        <Container maxWidth="lg">
+            <Grid container spacing={4} justifyContent="space-evenly">
+                <Grid item xs={12} sm={6} md={3}>
+                    <Typography variant="h6" color="text.primary" gutterBottom>
+                        Acerca de Natural Cherry
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                        Somos una tienda de postres ecológicos comprometidos con el medio ambiente y la salud de nuestros clientes.
+                    </Typography>
                 </Grid>
-            </Container>
-        </StyledFooter>
+                <Grid item xs={12} sm={6} md={3}>
+                    <Typography variant="h6" color="text.primary" gutterBottom>
+                        Contacto
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                        <Link href="mailto:info@naturalcherry.com">info@naturalcherry.com</Link>
+                    </Typography>
+                    
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                    <Typography variant="h6" color="text.primary" gutterBottom>
+                        Términos y condiciones
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                        <Link href="/terminos">Términos y condiciones</Link>
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                    <Typography variant="h6" color="text.primary" gutterBottom>
+                        Política de privacidad
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                        <Link href="/privacidad">Política de privacidad</Link>
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Container>
+    </StyledFooter>
+    
     );
 };
 

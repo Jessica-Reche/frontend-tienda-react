@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 
 export const mainListItems = (
-    <React.Fragment>
+    <>
         {/* <ListItemButton>
             <ListItemIcon>
                 <DashboardIcon />
@@ -39,7 +39,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Integrations" /> */}
         </ListItemButton>
-    </React.Fragment>
+    </>
 );
 
 export const secondaryListItems = (

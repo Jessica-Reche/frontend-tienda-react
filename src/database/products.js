@@ -1,79 +1,76 @@
-import axios from 'axios';
 import config from "../config";
 const urlBase = config.API_URL;
-
-
-export const getProducts = async () => {
-  try {
-    const response = await axios.get(`${urlBase}product/getProducts`, {
-      headers: { "Content-Type": "application/json" },
+export const getProducts = () => {
+  return fetch(`${urlBase}product/getProducts`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.data);
+      return data.data;
+    })
+    .catch((error) => {
+      console.error(error);
+      return error;
     });
-    console.log(response.data.data);
-    return response.data.data;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
 };
 
 //Delete product
-export const deleteProduct = async (id, token) => {
+export const deleteProduct = async(id, token) => {
   console.log(id);
   const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
   const ENDPOINT = `${urlBase}product/deleteProduct/${id}`;
 
-  try {
-    const response = await axios.delete(ENDPOINT, { headers });
-    console.log(response.data);
-    return response.data.message;
-  } catch (error) {
-    console.log(error.response.data.error);
-    return error.response.data.error;
-  }
+  const response = await fetch(ENDPOINT, { method: 'DELETE', headers: headers });
+  const data = await response.json();
+  console.log(data);
+  return data.message;
 };
 
 //Add product
-export const addProduct = async (product, token) => {
+export const addProduct = async(product, token) => {
 
-  const headers = { 'Authorization': `${token}` };
+  const headers = { 'Authorization': `${token}`};
   const ENDPOINT = `${urlBase}product/createProduct`;
-  try {
-    const response = await axios.post(ENDPOINT, product, { headers });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data.error);
-    return error.response.data.error;
-  }
+  const response = await fetch(ENDPOINT, { method: 'POST', headers: headers, body: product });
+  const data = await response.json();
+  console.log(data);
+  return data;
+
 };
 
 //Update poster
-export const updatePoster = async (id, posterData, token) => {
-  try {
-    const response = await axios.put(`${urlBase}product/updateProductPoster/${id}`, posterData, {
-      headers: { Authorization: `${token}` },
-    });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data.error);
-    return error.response.data.error;
-  }
+export const updatePoster = async(id, posterData, token) => {
+  const posterResponse = await fetch(`${urlBase}product/updateProductPoster/${id}`, {
+        method: "PUT", 
+        headers: { Authorization: `${token}` },
+        body: posterData,
+      });
+      const posterResult = await posterResponse.json();
+      console.log(posterResult);
+      return posterResult;
 };
 
 //Update product
-export const updateProduct = async (id, productData, token) => {
+export const updateProduct = async(id, productData,token) => {
   const data = Object.fromEntries(productData);
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': ` ${token}`
-  };
-  try {
-    const response = await axios.put(`${urlBase}product/updateProduct/${id}`, data, { headers });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data.error);
-    return error.response.data.error;
-  }
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ` ${token}`
+      },
+      body: JSON.stringify(data)
+    };
+    const response = await fetch( `${urlBase}product/updateProduct/${id}`, requestOptions);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  
+  
 }
+
+
+
+

@@ -18,14 +18,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ProductsAdmin from './ProductsAdmin/ProductsAdmin';
 import CreateProductForm from './forms/CreateProductForm';
 import UpdateProductForm from './forms/UpdateProductForm';
-import { useMediaQuery } from '@mui/material';
+import { Alert, Snackbar, useMediaQuery } from '@mui/material';
 import UsersAdmin from './UsersAdmin/UsersAdmin';
 import CreateUserForm from './forms/CreateUserForm';
 import UpdateUserForm from './forms/UpdateUserForm';
+import { useState } from 'react';
 
 
 
@@ -90,21 +91,32 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const mdTheme = createTheme();
-
 function DashboardContent() {
 
     const isMobile = useMediaQuery('(max-width:768px)');
     const [open, setOpen] = React.useState(!isMobile);
+    const { state, status } = useLocation();
+    const [showNotification, setShowNotification] = useState(false);
+    const [message, setMessage] = useState('');
     const toggleDrawer = () => {
         setOpen(!open);
     };
+ 
+    const finalStatus = status ? status : true;
     React.useEffect(() => {
         if (isMobile) {
             setOpen(false);
         } else {
             setOpen(true);
         }
-    }, [isMobile]);
+
+        if (state && state.message) {
+            setShowNotification(true);
+            setMessage(state.message);
+        }
+
+
+    }, [isMobile, state]);
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -153,7 +165,6 @@ function DashboardContent() {
                             alignItems: 'center',
                             justifyContent: 'flex-end',
                             px: [1],
-
                         }}
                     >
                         <IconButton onClick={toggleDrawer}>
@@ -177,7 +188,6 @@ function DashboardContent() {
                         flexGrow: 1,
                         height: '100vh',
                         overflow: 'auto',
-
                     }}
                 >
                     <Toolbar />
@@ -186,18 +196,41 @@ function DashboardContent() {
                             <Grid item xs={12}>
                                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                                     <Routes>
-
                                         <Route path='products' element={<ProductsAdmin />} />
                                         <Route path='products/new' element={<CreateProductForm />} />
                                         <Route path='products/edit/:id' element={<UpdateProductForm />} />
                                         <Route path='users' element={<UsersAdmin />} />
                                         <Route path='users/new' element={<CreateUserForm />} />
                                         <Route path='users/edit/:id' element={<UpdateUserForm />} />
-
                                     </Routes>
                                 </Paper>
                             </Grid>
                         </Grid>
+                        {message && (
+                            <Snackbar
+                                key={message}
+                                open={showNotification}
+                                autoHideDuration={6000}
+                                onClose={() => setShowNotification(false)}
+                                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            >
+                                <Alert
+                                    onClose={() => setShowNotification(false)}
+                                    severity={finalStatus === true ? "success" : "error"}
+                                    sx={{
+                                        width: "100%",
+                                        fontSize: "1.2rem",
+                                        padding: "1.5rem",
+                                        border: "2px solid black",
+                                    }}
+                                >
+                                    {message}
+                                </Alert>
+                            </Snackbar>
+                        )}
+
+
+
                         <Copyright sx={{ pt: 4 }} />
                     </Container>
                 </Box>

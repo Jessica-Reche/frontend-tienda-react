@@ -73,19 +73,28 @@ const CarouselItem = ({ item }) => {
           {!showNotification && <Typography sx={{ textTransform: "none" }} color="error" variant="body2">
             {message}
           </Typography>}
-          <Snackbar
-            open={showNotification}
-            autoHideDuration={3000}
-            onClose={() => setShowNotification(false)}
-          >
-            <Alert
+          {message && (
+            <Snackbar
+              key={message}
+              open={showNotification}
+              autoHideDuration={6000}
               onClose={() => setShowNotification(false)}
-              severity="success"
-              sx={{ width: "100%" }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-              User created successfully
-            </Alert>
-          </Snackbar>
+              <Alert
+                onClose={() => setShowNotification(false)}
+                severity="success"
+                sx={{
+                  width: "100%",
+                  fontSize: "1.2rem",
+                  padding: "1.5rem",
+                  border: "2px solid black",
+                }}
+              >
+                {message}
+              </Alert>
+            </Snackbar>
+          )}
 
 
         </form>

@@ -13,15 +13,23 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import useAuth from "../../../hooks/useAuth";
 import { BoxStyled } from "./usersAdminStyles";
+import { Snackbar, Alert } from "@mui/material";
 
 
 export default function AdminProducts() {
   const { users, deleteUserById, isLoginLoading } = useAuth();
+  const [message, setMessage] = React.useState("");
+  const [showNotification, setShowNotification] = React.useState(false);
   const usersList = users.map((user) => {
     return {
       ...user,
-      handleDelete: () => {
-        deleteUserById(user._id);
+      handleDelete: async () => {
+        let response = await deleteUserById(user._id);
+        console.log(response);
+
+        setMessage(response.message);
+        setShowNotification(true);
+
 
       }
     };
@@ -86,6 +94,29 @@ export default function AdminProducts() {
           </TableBody>
         </Table>
       </TableContainer>}
+      {message && (
+        <Snackbar
+          key={message}
+          open={showNotification}
+          autoHideDuration={6000}
+          onClose={() => setShowNotification(false)}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert
+            onClose={() => setShowNotification(false)}
+            severity="success"
+            sx={{
+              width: "100%",
+              fontSize: "1.2rem",
+              padding: "1.5rem",
+              border: "2px solid black",
+            }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
+
+      )}
 
     </BoxStyled>
   );

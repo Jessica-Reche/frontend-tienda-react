@@ -4,11 +4,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { useForm, FormProvider } from 'react-hook-form';
-import AddressInput from './AddressInput';
+
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useStateValue } from '../../../context/StateProvider';
 import { actionTypes } from '../../../reducer';
+import CustomInput from '../../CustomInput';
 
 
 
@@ -36,13 +37,13 @@ const AddressForm = ({ nextStep }) => {
         }
         )}>
           <Grid container spacing={3}>
-            <AddressInput required name="firstName" label="First name" />
-            <AddressInput required name="lastName" label="Last name" />
-            <AddressInput required name="address1" label="Address line 1" />
-            <AddressInput required name="city" label="City" />
-            <AddressInput required name="zip" label="Zip / Postal code" />
-            <AddressInput required name="country" label="Country" />
-            <AddressInput required name="state" label="State" />
+            <CustomInput required name="firstName" label="First name" type="text"/>
+            <CustomInput required name="lastName" label="Last name" type="text"/>
+            <CustomInput required name="address1" label="Address line 1" type="text"/>
+            <CustomInput required name="city" label="City" type="text"/>
+            <CustomInput required name="zip" label="Zip / Postal code" type="number"/>
+            <CustomInput required name="country" label="Country" type="text"/>
+            <CustomInput required name="state" label="State" type="text"/>
           </Grid>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
@@ -58,7 +59,6 @@ const AddressForm = ({ nextStep }) => {
 };
 
 export default AddressForm;
-
 
 
 

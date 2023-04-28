@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import { getBasketTotal } from "../../reducer";
 import { useStateValue } from "../../context/StateProvider";
 
-
-
 const BoxStyled = styled(Box)({
     'root': {
         display: "flex",
@@ -18,16 +16,12 @@ const BoxStyled = styled(Box)({
     },
     'button': {
         marginTop: '2rem',
-
     },
-
-
 });
 
 const Total = () => {
     // eslint-disable-next-line no-unused-vars
     const [{ basket }, dispatch] = useStateValue();
-
     return (
         <BoxStyled className="root">
             <h5>Total items: {basket?.length}</h5>

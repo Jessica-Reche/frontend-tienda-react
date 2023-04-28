@@ -7,35 +7,28 @@ export default function useAuth() {
     const { token, setToken, user, setUser, admin, setAdmin } = useContext(AuthContext);
     const [state, setState] = useState({ loading: false, error: true });
     const [users, setUsers] = useState([]);
-    const login = useCallback((email, password) => {
-        setState({ loading: true, error: false })
-        loginUser(email, password).then((data) => {
-            window.sessionStorage.setItem('token', data.token);
-            window.sessionStorage.setItem('user', data.user.username);
-
-            setState({ loading: false, error: false })
-            setToken(data.token);
-            setUser(data.user.username);
-            if (data.user.rol.name === "admin") {
+    const login = useCallback(async(email, password) => {
+        const  response = await loginUser(email, password);
+        console.log(response);
+        if (response.status === true) {
+            window.sessionStorage.setItem('token', response.token);
+            window.sessionStorage.setItem('user', response.user.username);
+            setToken(response.token);
+            setUser(response.user.username);
+            if (response.user.rol.name === "admin") {
                 window.sessionStorage.setItem('admin', true);
                 setAdmin(true);
             }
-        })
-            .catch((error) => {
-                window.sessionStorage.removeItem('token');
-                window.sessionStorage.removeItem('user');
-                window.sessionStorage.removeItem('admin');
-                setState({ loading: false, error: true })
-                console.error(error);
-            }
-            );
-
+            setState({ loading: false, error: false });
+        } else {
+            console.log(response);
+            setState({ loading: false, error: true });
+        }
+        return response;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setToken]);
-
     const register = useCallback(async (objectData) => {
         setState({ loading: true, error: false });
-
         const response = await registerUser(objectData);
         if (response.status === true) {
             setState({ loading: false, error: false });
@@ -45,7 +38,6 @@ export default function useAuth() {
         return response;
         // eslint-disable-next-line react-hooks/exhaustive-deps    
     }, []);
-
 
     const logout = useCallback(() => {
         window.sessionStorage.removeItem('user');
@@ -82,7 +74,7 @@ export default function useAuth() {
     }, [token, users]);
 
     useEffect(() => {
-        if(admin)getUsersCallback();
+        if (admin) getUsersCallback();
     }, [register, admin, getUsersCallback]);
 
     return {

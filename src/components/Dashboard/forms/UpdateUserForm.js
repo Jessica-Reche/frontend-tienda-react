@@ -58,7 +58,7 @@ useEffect(() => {
       const result = await updateUserById(id,userData);
       console.log(result.status);
       result.status === true
-        ? navigate("/admin/users")
+        ? navigate("/admin/users", { state: { message: result.message } })
         : setMessage(result.message);
 
     } catch (error) {
@@ -70,7 +70,7 @@ useEffect(() => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
-        Crear usuario
+        Editar usuarios
       </Typography>
       {isLoginLoading && <strong> Checking credentials...</strong>}
       {!isLoginLoading && <form  onSubmit={handleSubmit}>
@@ -140,15 +140,13 @@ useEffect(() => {
             variant="contained"
             onClick={handleSubmit}
           > 
-            Crear Usuario
+           Actualizar usuario
           </Button>
           {message && (
             <Typography variant="body1" color="error" align="center">
               {message}
             </Typography>
           )}
-     
-
         </FormBox>
         </form> }
     </Container>
