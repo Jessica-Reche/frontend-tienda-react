@@ -1,19 +1,13 @@
 import config from "../config";
 const urlBase = config.API_URL;
 export const getProducts = () => {
-  return fetch(`${urlBase}product/getProducts`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  })
+  const ENDPOINT = `${urlBase}product/getProducts`;
+  const HEADERS = { 'Content-Type': 'application/json' };
+  const OPTIONS = { method: 'GET', headers: HEADERS };
+  return fetch(ENDPOINT, OPTIONS)
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data.data);
-      return data.data;
-    })
-    .catch((error) => {
-      console.error(error);
-      return error;
-    });
+    .then((data) => { return data.data; })
+    .catch((error) => { console.error(error); return error; });
 };
 
 //Delete product

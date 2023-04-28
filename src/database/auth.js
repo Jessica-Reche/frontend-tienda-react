@@ -3,58 +3,34 @@ const urlBase = config.API_URL;
 
 //registro de usuario
 export const registerUser = async (userData) => {
-    const URI = `${urlBase}user/register`;
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    const body = JSON.stringify(userData);
-    const options = {
-      method: "POST",
-      headers,
-      body,
-    };
-    const response = await fetch(URI, options);
-    const data = await response.json();
-    return data;
+  const ENDPOINT = `${urlBase}user/register`;
+  const headers = { 'Content-Type': 'application/json' };
+  const body = JSON.stringify(userData);
+  const options = { method: 'POST', headers, body };
+  const response = await fetch(ENDPOINT, options);
+  const data = await response.json();
+  return data;
 };
 
-
 export const loginUser = (email, password) => {
-return fetch(`${urlBase}user/login`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email,
-    password,
-  }),
-})
-  .then((res) => {
-    if (!res.ok)  return res.json()
-    return res.json()
-  })
-  .then((data) => { 
-    return data;
-  })
+  const ENDPOINT = `${urlBase}user/login`;
+  const headers = { 'Content-Type': 'application/json' };
+  const body = JSON.stringify({ email, password });
+  const options = { method: 'POST', headers, body };
+  return fetch(ENDPOINT, options)
+    .then((res) =>{if(!res.ok)res.json() 
+     return res.json()})
+    .then((data) => data)
+    .catch((error) => { console.error(error); return error; });
 };
 
 export const getUsers = (token) => {
-return fetch(`${urlBase}user/users`, {
-
-  method: "GET",
-  headers: { 
-    "Content-Type": "application/json", 
-    'Authorization': `${token}`},
-})
-  .then((response) => response.json())
-  .then((data) => {
-    return data;
-  })
-  .catch((error) => {
-    console.error(error);
-    return error;
-  });
+  const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
+  const ENDPOINT = `${urlBase}user/users`;
+  return fetch(ENDPOINT, { method: 'GET', headers: headers })
+    .then((response) => response.json())
+    .then((data) => { return data; })
+    .catch((error) => { console.error(error);return error; });
 };
 
 export const deleteUser = async(id, token) => {
