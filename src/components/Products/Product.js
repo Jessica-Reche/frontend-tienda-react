@@ -15,6 +15,9 @@ import { actionTypes } from "../../reducer";
 import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
 import config from "../../config";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+
 const urlBase = config.API_URL;
 
 
@@ -36,6 +39,8 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [{ basket }, dispatch] = useStateValue();
   const { admin } = useAuth();
   poster = `${urlBase}${poster.link}`;
+
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -71,12 +76,14 @@ export default function Product({ product: { _id, name, poster, price, descripti
         alt={name}
         subheader={created_at}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={poster}
-        alt={name}
-      />
+      <Link to={`/details/${_id}`} >
+        <CardMedia
+          component="img"
+          height="194"
+          image={poster}
+          alt={name}
+        />
+      </Link>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {category}
@@ -106,6 +113,9 @@ export default function Product({ product: { _id, name, poster, price, descripti
         {admin && <IconButton aria-label="Delete" onClick={handleDeleteClick}>
           <Delete fontSize="large" />
         </IconButton>}
+        <Button variant="contained" color="primary">
+          Añadir al carrito
+        </Button>
 
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

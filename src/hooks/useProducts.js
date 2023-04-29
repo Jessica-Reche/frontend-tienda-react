@@ -21,7 +21,7 @@ export const useProducts = () => {
 
   const handleCreateProduct = async (productData) => {
     setState({ loading: true, error: false });
-    console.log(productData);
+    console.log( 'product',productData);
     let result = await addProduct(productData, token);
     console.log(result);
     setState({ loading: false, error: false });

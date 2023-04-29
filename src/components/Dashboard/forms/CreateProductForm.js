@@ -13,7 +13,9 @@ import {
   Typography,
 } from "@mui/material";
 import useProducts from "../../../hooks/useProducts";
-import {Snackbar, Alert} from '@mui/material';
+import { Snackbar, Alert } from '@mui/material';
+//import { useDropzone } from 'react-dropzone'
+
 
 
 
@@ -31,6 +33,7 @@ const CreateProductForm = () => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [poster, setPoster] = React.useState("");
+  
   const [price, setPrice] = React.useState("");
   const [discount, setDiscount] = React.useState("");
   const [stock, setStock] = React.useState("");
@@ -41,34 +44,51 @@ const CreateProductForm = () => {
   const [sku, setSku] = React.useState("");
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = React.useState(false);
-  
-
-
+  const productData = new FormData();
 
   const handlePosterFileChange = (event) => {
     const [file] = event.target.files;
     setPoster(file);
-
   };
+
+
+
+
+  const handleGallery = (event) => {
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      productData.append("gallery[]", files[i]);
+    }
+
+  
+  };
+
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     //formData
-    const productData = new FormData();
+
     productData.append("name", name);
     productData.append("description", description);
     productData.append("poster", poster);
+
     productData.append("price", price);
     productData.append("discount", discount);
     productData.append("stock", stock);
     productData.append("rating", rating);
     productData.append("sku", sku);
     productData.append("category", category);
+    const object = Object.fromEntries(productData.entries());
 
-    console.log(productData);
+    console.log(object);
+
+
     //si algún campo está vacío, no se envía el formulario
-    if (!name || !description || !poster || !price || !stock || !rating || !sku || !category) {
+    if (!name || !description || !poster || !price || !stock || !rating || !sku || !category ) {
+      console.log('falleryyyyyyy')
       setMessage("Rellena los campos obligatorios");
       setError(true);
       setShowNotification(true);
@@ -77,9 +97,9 @@ const CreateProductForm = () => {
 
 
     const result = await handleCreateProduct(productData);
-    if (result.status ===true) {
+    if (result.status === true) {
       navigate("/admin/products", { state: { message: result.message } });
-    }else{
+    } else {
       setShowNotification(true);
       setError(true);
       setMessage(result.message);
@@ -132,19 +152,10 @@ const CreateProductForm = () => {
             value={description}
             variant="outlined"
             margin="normal"
+            multiline
+            rows={4}
           />
-          <TextField
-            required
-            fullWidth
-            label="Imagen principal"
-            name="poster"
-            // onChange={handlePosterChange}
-            variant="outlined"
-            margin="normal"
-            type="file"
 
-            onChange={handlePosterFileChange}
-          />
 
           <TextField
             required
@@ -192,7 +203,7 @@ const CreateProductForm = () => {
           <TextField
             required
             fullWidth
-            label="Rating"
+            label="Valoración"
             name="rating"
             onChange={(event) => setRating(event.target.value)}
             value={rating}
@@ -200,43 +211,46 @@ const CreateProductForm = () => {
             margin="normal"
             type="number"
           />
-          <Button
-            color="primary"
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            onClick={handleSubmit}
-          >
-            Crear Producto
-          </Button>
+          <Box mt={2}>
+            <Typography variant="subtitle1">Imagen de Portada</Typography>
+            <input type="file" accept="image/*" onChange={handlePosterFileChange} />
+          </Box>
+          <Box mt={2}>
+            <Typography variant="subtitle1">Galería de Imágenes</Typography>
+            <input type="file" name="gallery[]" accept="image/*"  enctype="multipart/form-data" multiple onChange={handleGallery} />
+          </Box>
+          <Box mt={2}>
+            <Button type="submit" variant="contained" onClick={handleSubmit}>
+              Crear
+            </Button>
+          </Box>
           {message && (
             <Typography variant="body1" color="error" align="center">
               {message}
             </Typography>
           )}
-            {error && message &&  (
-        <Snackbar
-          key={message}
-          open={showNotification}
-          autoHideDuration={6000}
-          onClose={() => setShowNotification(false)}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert
-            onClose={() => setShowNotification(false)}
-            severity="error"
-            sx={{
-              width: "100%",
-              fontSize: "1.2rem",
-              padding: "1.5rem",
-              border: "2px solid black",
-            }}
-          >
-            {message}
-          </Alert>
-        </Snackbar>
-      )}
+          {error && message && (
+            <Snackbar
+              key={message}
+              open={showNotification}
+              autoHideDuration={6000}
+              onClose={() => setShowNotification(false)}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+              <Alert
+                onClose={() => setShowNotification(false)}
+                severity="error"
+                sx={{
+                  width: "100%",
+                  fontSize: "1.2rem",
+                  padding: "1.5rem",
+                  border: "2px solid black",
+                }}
+              >
+                {message}
+              </Alert>
+            </Snackbar>
+          )}
 
         </FormBox>
       </form>

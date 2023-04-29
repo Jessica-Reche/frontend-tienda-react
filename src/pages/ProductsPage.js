@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
-export default function Products() {
+export default function ProductPage() {
   const {state} = useLocation();
   const { products, handleDeleteProduct } = useProducts();
   const productList = products.map((product) => {
@@ -36,10 +36,7 @@ export default function Products() {
     }
   });
 
-
-
   return (
- 
     <>
       <Box sx={{ flexGrow: 1, padding: '4rem', marginTop: '12rem' }}>
        
@@ -53,7 +50,6 @@ export default function Products() {
         <br />
         <br />
         <Grid container spacing={1}>
-      
           {filteredProducts.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
               <Product key={product._id} product={product} handleDelete={product.handleDelete} />

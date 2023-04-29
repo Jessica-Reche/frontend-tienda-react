@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Container, Paper } from "@mui/material";
+import { Container, Grid, Paper } from "@mui/material";
+
 
 const SectionContainer = styled(Container)`
   padding: 80px 0;
@@ -104,6 +105,17 @@ const CarouselContainer = styled.div`
 
 
 const PromoTitle = styled.h2`font-size: 2rem; margin-bottom: 1rem; text-align: center`;
+const Section = ({ title, subtitle, children }) => {
+  return (
+      <SectionContainer data-cy='category-test-section' >
+          <SectionTitle>{title}</SectionTitle>
+          {subtitle && <SectionSubtitle>{subtitle}</SectionSubtitle>}
+          <Grid container spacing={4}>
+              {children}
+          </Grid>
+      </SectionContainer>
+  );
+};
 
 
 export {
@@ -119,5 +131,6 @@ export {
     HeroTitle,
     PromoSection,
     CarouselContainer,
-    PromoTitle
+    PromoTitle,
+    Section,
 }

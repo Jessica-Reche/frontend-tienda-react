@@ -15,7 +15,6 @@ export const deleteProduct = async(id, token) => {
   console.log(id);
   const headers = { 'Authorization': `${token}`, 'Content-Type': 'application/json' };
   const ENDPOINT = `${urlBase}product/deleteProduct/${id}`;
-
   const response = await fetch(ENDPOINT, { method: 'DELETE', headers: headers });
   const data = await response.json();
   console.log(data);
@@ -61,8 +60,6 @@ export const updateProduct = async(id, productData,token) => {
     const result = await response.json();
     console.log(result);
     return result;
-  
-  
 }
 
 

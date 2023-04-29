@@ -43,7 +43,7 @@ const UpdateProductForm = () => {
   const { products, handleUpdateProduct, handleUpdatePoster } = useProducts()
   const [posterMsg, setPosterMsg] = useState("");
   const [isPoster, setIsposter] = useState(false);
-  
+  const productData = new FormData();
 
   useEffect(() => {
     const product = products.find((product) => product._id === id);
@@ -60,12 +60,20 @@ const UpdateProductForm = () => {
     setIsposter(true);
   };
 
+  const handleGallery = (event) => {
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      productData.append("gallery[]", files[i]);
+    }
+  };
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const { name, description, poster, price, stock, sku, rating, discount, category } = product;
-    const productData = new FormData();
+
     productData.append("name", name);
     productData.append("description", description);
     productData.append("price", price);
@@ -88,7 +96,7 @@ const UpdateProductForm = () => {
 
 
       const resPoster = await handleUpdatePoster(id, posterData);
-    
+
       if (resPoster.status === false) {
         allUpdatesSuccessful = false;
         setPosterMsg(resPoster.message);
@@ -114,23 +122,23 @@ const UpdateProductForm = () => {
 
       <form onSubmit={handleSubmit}>
         <FormBox>
-        <Select
+          <Select
             fullWidth
             label="Categoría"
             name="category"
             onChange={handleInputChange}
-            value={product?.category }
+            value={product?.category}
             variant="outlined"
             margin="normal"
           >
 
-        <MenuItem value="tartas">Tartas</MenuItem>
+            <MenuItem value="tartas">Tartas</MenuItem>
             <MenuItem value="cupcakes">Cupcakes</MenuItem>
             <MenuItem value="donnuts">Donnuts</MenuItem>
             <MenuItem value="cookies">Cookies</MenuItem>
             <MenuItem value="cajasdulces">Cajadulce</MenuItem>
           </Select>
- 
+
 
 
 
@@ -145,6 +153,7 @@ const UpdateProductForm = () => {
             margin="normal"
           />
           <TextField
+            required
             fullWidth
             label="Descripción"
             name="description"
@@ -152,19 +161,10 @@ const UpdateProductForm = () => {
             value={product?.description}
             variant="outlined"
             margin="normal"
+            multiline
+            rows={4}
           />
-          <TextField
-            fullWidth
-            label="Imagen principal"
 
-            variant="outlined"
-            margin="normal"
-            type="file"
-            accept="image/*"
-            name="poster"
-
-            onChange={handleImageChange}
-          />
 
           <TextField
             fullWidth
@@ -216,16 +216,19 @@ const UpdateProductForm = () => {
             margin="normal"
             type="number"
           />
-          <Button
-            color="primary"
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            onClick={handleSubmit}
-          >
-            Editar Producto
-          </Button>
+          <Box mt={2}>
+            <Typography variant="subtitle1">Imagen de Portada</Typography>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+          </Box>
+          <Box mt={2}>
+            <Typography variant="subtitle1">Galería de Imágenes</Typography>
+            <input type="file" name="gallery[]" accept="image/*" enctype="multipart/form-data" multiple onChange={handleGallery} />
+          </Box>
+          <Box mt={2}>
+            <Button type="submit" variant="contained" onClick={handleSubmit}>
+              Actualizar
+            </Button>
+          </Box>
           {error && (
             <Typography variant="body1" color="error" align="center">
               {error}
