@@ -51,24 +51,16 @@ const CreateProductForm = () => {
     setPoster(file);
   };
 
-
-
-
   const handleGallery = (event) => {
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
       productData.append("gallery[]", files[i]);
     }
-
-  
   };
-
-
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     //formData
 
     productData.append("name", name);

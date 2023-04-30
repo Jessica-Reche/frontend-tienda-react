@@ -45,6 +45,19 @@ export const updatePoster = async(id, posterData, token) => {
       return posterResult;
 };
 
+export const updateGallery = async(id, galleryData, token) => {
+  const galleryResponse = await fetch(`${urlBase}product/updateProductGallery/${id}`, {
+        method: "PUT",
+        headers: { Authorization: `${token}` },
+        body: galleryData,
+      });
+
+      const galleryResult = await galleryResponse.json();
+      console.log(galleryResult);
+      return galleryResult;
+
+};
+
 //Update product
 export const updateProduct = async(id, productData,token) => {
   const data = Object.fromEntries(productData);

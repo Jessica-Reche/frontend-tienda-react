@@ -1,8 +1,7 @@
 
 
 import { useState, useEffect } from "react";
-import { getProducts, updatePoster, updateProduct } from "../database/products";
-import { deleteProduct, addProduct } from "../database/products";
+import {getProducts, deleteProduct, addProduct, updateGallery, updatePoster, updateProduct } from "../database/products";
 import useAuth from "./useAuth";
 
 
@@ -11,6 +10,7 @@ export const useProducts = () => {
   const {token} = useAuth();
   const [products, setProducts] = useState([]);
   const [state, setState] = useState({ loading: false, error: true });
+
 
   const handleDeleteProduct = async (id) => {
    let message= await deleteProduct(id, token);
@@ -44,6 +44,12 @@ export const useProducts = () => {
     setProducts(updatedProducts);
     return result;
   };
+  const handleUpdateGallery = async (id, galleryData) => {
+    const result = await updateGallery(id, galleryData, token);
+    const updatedProducts = await getProducts();
+    setProducts(updatedProducts);
+    return result;
+  };
 
   useEffect(() => {
     async function fetchProducts() {
@@ -57,7 +63,7 @@ export const useProducts = () => {
   }, []);
 
     return (
-        { products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct, handleUpdatePoster,  isLoginLoading: state.loading,}
+        { products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct, handleUpdatePoster, handleUpdateGallery, isLoginLoading: state.loading,}
     )
 };
 

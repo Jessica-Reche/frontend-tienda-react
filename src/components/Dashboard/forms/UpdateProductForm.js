@@ -36,19 +36,31 @@ const UpdateProductForm = () => {
     rating: "",
     discount: "",
     category: "",
+
+
   });
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { id } = useParams();
-  const { products, handleUpdateProduct, handleUpdatePoster } = useProducts()
-  const [posterMsg, setPosterMsg] = useState("");
+  const { products, handleUpdateProduct, handleUpdatePoster, handleUpdateGallery } = useProducts()
   const [isPoster, setIsposter] = useState(false);
+  const [isGallery, setIsGallery] = useState(false);
+  const [allUpdatesSuccessful, setAllUpdatesSuccessful] = useState(true);
+  const [galleryData, setGalleryData] = useState(new FormData());
+  const [posterData, setPosterData] = useState(new FormData());
+
+
   const productData = new FormData();
+
+
+
 
   useEffect(() => {
     const product = products.find((product) => product._id === id);
+
     setProduct(product);
   }, [id, products]);
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -57,23 +69,31 @@ const UpdateProductForm = () => {
   const handleImageChange = (event) => {
     const [file] = event.target.files;
     setProduct((prevProduct) => ({ ...prevProduct, poster: file }));
+
     setIsposter(true);
   };
 
   const handleGallery = (event) => {
     const files = event.target.files;
-    for (let i = 0; i < files.length; i++) {
-      productData.append("gallery[]", files[i]);
+    console.log('fileeeeesEvent', files);
+    for (const file of files) {
+      galleryData.append("gallery[]", file);
     }
+    const formDataObject = Object.fromEntries(galleryData.entries());
+    console.log(formDataObject);
+    setGalleryData(galleryData);
+    setIsGallery(true);
+
   };
+
+
+
 
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const { name, description, poster, price, stock, sku, rating, discount, category } = product;
-
     productData.append("name", name);
     productData.append("description", description);
     productData.append("price", price);
@@ -83,35 +103,43 @@ const UpdateProductForm = () => {
     productData.append("discount", discount);
     productData.append("category", category);
 
+
     const resProduct = await handleUpdateProduct(id, productData);
-    let allUpdatesSuccessful = true;
-
+    setAllUpdatesSuccessful(true);
     if (resProduct.status === false) {
-      allUpdatesSuccessful = false;
+      setAllUpdatesSuccessful(false);
     }
+
+
     if (isPoster) {
-
-      const posterData = new FormData();
       posterData.append("poster", poster);
-
-
+      setPosterData(posterData);
       const resPoster = await handleUpdatePoster(id, posterData);
-
       if (resPoster.status === false) {
-        allUpdatesSuccessful = false;
-        setPosterMsg(resPoster.message);
+        setAllUpdatesSuccessful(false);
+        setError(prevError => prevError + ',' + resPoster.message);
       };
-
+    };
+    if (isGallery) {
+      const formDataObject = Object.fromEntries(galleryData.entries());
+      console.log(formDataObject);
+      const resGallery = await handleUpdateGallery(id, galleryData);
+      if (resGallery.status === false) {
+        setAllUpdatesSuccessful(false);
+        setError(prevError => prevError + ',' + resGallery.message);
+      };
     };
 
     if (allUpdatesSuccessful) {
       navigate("/admin/products", { state: { message: resProduct.message } });
     } else {
-      //concatenar los mensajes de error de los dos fetch
-      const mensaje = resProduct.message + ',' + posterMsg;
-      setError(mensaje);
+      setError(prevError => prevError + ',' + resProduct.message);
     }
   };
+
+
+
+
 
 
   return (
@@ -138,11 +166,6 @@ const UpdateProductForm = () => {
             <MenuItem value="cookies">Cookies</MenuItem>
             <MenuItem value="cajasdulces">Cajadulce</MenuItem>
           </Select>
-
-
-
-
-
           <TextField
             fullWidth
             label="Nombre"
@@ -225,7 +248,7 @@ const UpdateProductForm = () => {
             <input type="file" name="gallery[]" accept="image/*" enctype="multipart/form-data" multiple onChange={handleGallery} />
           </Box>
           <Box mt={2}>
-            <Button type="submit" variant="contained" onClick={handleSubmit}>
+            <Button type="submit" variant="contained">
               Actualizar
             </Button>
           </Box>
