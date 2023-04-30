@@ -48,10 +48,7 @@ const UpdateProductForm = () => {
   const [allUpdatesSuccessful, setAllUpdatesSuccessful] = useState(true);
   const [galleryData, setGalleryData] = useState(new FormData());
   const [posterData, setPosterData] = useState(new FormData());
-
-
-  const productData = new FormData();
-
+  const [productData, setproductData] = useState(new FormData());
 
 
 
@@ -102,7 +99,7 @@ const UpdateProductForm = () => {
     productData.append("rating", rating);
     productData.append("discount", discount);
     productData.append("category", category);
-
+    setproductData(productData);
 
     const resProduct = await handleUpdateProduct(id, productData);
     setAllUpdatesSuccessful(true);
