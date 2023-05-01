@@ -3,14 +3,14 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Product from '../components/Products/Product';
 import { useProducts } from '../hooks/useProducts';
-import { MenuItem, Select } from '@mui/material';
+import { MenuItem, Pagination, Select } from '@mui/material';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
 export default function ProductPage() {
-  const {state} = useLocation();
+  const { state } = useLocation();
   const { products, handleDeleteProduct } = useProducts();
   const productList = products.map((product) => {
     return {
@@ -26,7 +26,7 @@ export default function ProductPage() {
     if (state) {
       setCategory(state.category);
     }
-    
+
   }, [state]);
   const filteredProducts = productList.filter((product) => {
     if (category === 'all') {
@@ -36,26 +36,43 @@ export default function ProductPage() {
     }
   });
 
+  //paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = filteredProducts.slice(startIndex, endIndex);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+  //fin paginación
+
   return (
     <>
       <Box sx={{ flexGrow: 1, padding: '4rem', marginTop: '12rem' }}>
-       
         <Select sx={{ width: 200 }} value={category} onChange={handleChange || category}>
           <MenuItem value="all">All</MenuItem>
           <MenuItem value="tartas">Tartas</MenuItem>
           <MenuItem value="cupcakes">Cookies</MenuItem>
           <MenuItem value="donnuts">Donuts</MenuItem>
-          <MenuItem value="cajasdulces">Cajas Dulces</MenuItem>
+          <MenuItem value="eventos">Eventos</MenuItem>
         </Select>
         <br />
         <br />
         <Grid container spacing={1}>
-          {filteredProducts.map((product) => (
+          {currentItems.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
               <Product key={product._id} product={product} handleDelete={product.handleDelete} />
             </Grid>
           ))}
         </Grid>
+        <Box sx={{ display:'flex',justifyContent:'center'}}>
+          <Pagination variant="outlined" color="secondary" size='large'
+            sx={{ '& button': { fontSize: 24, marginTop: '3rem' } }}
+            count={pageCount} page={currentPage} onChange={handleChangePage} />
+        </Box>
       </Box>
     </>
   );

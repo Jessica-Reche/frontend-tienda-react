@@ -12,14 +12,14 @@ import Grid from "@mui/material/Grid";
 import useProducts from "../../../hooks/useProducts";
 import { BoxStyled } from "./productsAdminStyles";
 import { useState } from "react";
-import { Snackbar, Alert } from "@mui/material";
-
-
+import { Snackbar, Alert, Pagination, Box } from "@mui/material";
 
 export default function AdminProducts() {
   const { products, handleDeleteProduct, isLoginLoading } = useProducts();
   const [message, setMessage] = React.useState("");
   const [showNotification, setShowNotification] = useState(false);
+
+
 
 
   const productList = products.map((product) => {
@@ -33,6 +33,18 @@ export default function AdminProducts() {
       },
     };
   });
+  //paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(productList.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = productList.slice(startIndex, endIndex);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+  //fin paginación
 
 
   return (
@@ -43,82 +55,85 @@ export default function AdminProducts() {
       </Button>
       <br />
       {isLoginLoading && <strong> Loading products...</strong>}
-      {!isLoginLoading && <TableContainer component={Paper} className="tableContainer">
-        <Table aria-label="Productos">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Categoría</TableCell>
-              <TableCell>Nombre</TableCell>
-              <TableCell>Precio</TableCell>
-              <TableCell>Descripción</TableCell>
-              <TableCell>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {productList.map((product) => (
-              <TableRow key={product._id}>
-                <TableCell component="th" scope="row">
-                  {product._id}
-                </TableCell>
-                <TableCell>{product.category}</TableCell>
-                <TableCell>{product.name}</TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell>{product.description}</TableCell>
-                <TableCell>
-                  <Grid container spacing={1} justifyContent="center">
-                    <Grid item>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        component={Link}
-                        to={`/admin/products/edit/${product._id}`}
-                      >
-                        Editar
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        size="small"
-                        onClick={product.handleDelete}
-                      >
-                        Eliminar
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        {message && (
-          <Snackbar
-            key={message}
-            open={showNotification}
-            autoHideDuration={6000}
-            onClose={() => setShowNotification(false)}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          >
-            <Alert
+      {!isLoginLoading && (
+        <>
+          <TableContainer component={Paper} className="tableContainer">
+            <Table aria-label="Productos">
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Categoría</TableCell>
+                  <TableCell>Nombre</TableCell>
+                  <TableCell>Precio</TableCell>
+                  <TableCell>Descripción</TableCell>
+                  <TableCell>Acciones</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {currentItems.map((product) => (
+                  <TableRow key={product._id}>
+                    <TableCell component="th" scope="row">
+                      {product._id}
+                    </TableCell>
+                    <TableCell>{product.category}</TableCell>
+                    <TableCell>{product.name}</TableCell>
+                    <TableCell>{product.price}</TableCell>
+                    <TableCell>{product.description}</TableCell>
+                    <TableCell>
+                      <Grid container spacing={1} justifyContent="center">
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            component={Link}
+                            to={`/admin/products/edit/${product._id}`}
+                          >
+                            Editar
+                          </Button>
+                        </Grid>
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            color="error"
+                            size="small"
+                            onClick={product.handleDelete}
+                          >
+                            Eliminar
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {message && (
+            <Snackbar
+              key={message}
+              open={showNotification}
+              autoHideDuration={6000}
               onClose={() => setShowNotification(false)}
-              severity="success"
-              sx={{
-                width: "100%",
-                fontSize: "1.2rem",
-                padding: "1.5rem",
-                border: "2px solid black",
-              }}
             >
-              {message}
-            </Alert>
-          </Snackbar>
-
-        )}
-      </TableContainer>}
-
-
+              <Alert
+                onClose={() => setShowNotification(false)}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                {message}
+              </Alert>
+            </Snackbar>
+          )}
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Pagination variant="outlined" color="secondary" size='large'
+              sx={{ '& button': { fontSize: 24, marginTop: '3rem' } }}
+              count={pageCount} page={currentPage} onChange={handleChangePage} />
+          </Box>
+        </>
+      )}
     </BoxStyled>
   );
 }
+
+
+

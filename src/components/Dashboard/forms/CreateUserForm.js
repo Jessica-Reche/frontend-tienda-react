@@ -127,13 +127,10 @@ const CreateUserForm = () => {
             margin="normal"
             type="select"
           >   
-
-
             <MenuItem  value="63ed70c9bc14ae28b2162da1">Cliente</MenuItem>
             <MenuItem  value="63ed70d5bc14ae28b2162da3">Administrador</MenuItem>
 
           </Select>
-        
           <Button
             color="primary"
             fullWidth
@@ -149,8 +146,6 @@ const CreateUserForm = () => {
               {message}
             </Typography>
           )}
-     
-
         </FormBox>
         </form> }
     </Container>

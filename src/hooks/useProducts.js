@@ -63,7 +63,7 @@ export const useProducts = () => {
   }, []);
 
     return (
-        { products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct, handleUpdatePoster, handleUpdateGallery, isLoginLoading: state.loading,}
+        { products, handleDeleteProduct, handleCreateProduct,handleUpdateProduct, handleUpdatePoster, handleUpdateGallery, isLoginLoading: state.loading}
     )
 };
 

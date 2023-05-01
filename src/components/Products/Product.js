@@ -16,7 +16,6 @@ import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
 import config from "../../config";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
 
 const urlBase = config.API_URL;
 
@@ -37,10 +36,9 @@ export default function Product({ product: { _id, name, poster, price, descripti
   const [expanded, setExpanded] = React.useState(false);
   // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
+  const [quantity, setQuantity] = React.useState(1);
   const { admin } = useAuth();
   poster = `${urlBase}${poster.link}`;
-
-
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -50,10 +48,17 @@ export default function Product({ product: { _id, name, poster, price, descripti
   };
 
   const addToBasket = () => {
+    setQuantity(quantity + 1);
     dispatch({
       type: actionTypes.ADD_TO_BASKET,
       item: { _id, name, poster, price, description, rating, discount, category, created_at },
+
     });
+    dispatch({
+      type: actionTypes.SET_QUANTITY,
+      quantity: quantity,
+    });
+
   };
 
   // dar formato a la fecha
@@ -113,9 +118,7 @@ export default function Product({ product: { _id, name, poster, price, descripti
         {admin && <IconButton aria-label="Delete" onClick={handleDeleteClick}>
           <Delete fontSize="large" />
         </IconButton>}
-        <Button variant="contained" color="primary">
-          Añadir al carrito
-        </Button>
+     
 
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

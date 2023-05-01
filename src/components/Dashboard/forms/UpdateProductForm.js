@@ -36,9 +36,8 @@ const UpdateProductForm = () => {
     rating: "",
     discount: "",
     category: "",
-
-
   });
+  
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { id } = useParams();
@@ -49,8 +48,6 @@ const UpdateProductForm = () => {
   const [galleryData, setGalleryData] = useState(new FormData());
   const [posterData, setPosterData] = useState(new FormData());
   const [productData, setproductData] = useState(new FormData());
-
-
 
   useEffect(() => {
     const product = products.find((product) => product._id === id);
@@ -83,11 +80,6 @@ const UpdateProductForm = () => {
 
   };
 
-
-
-
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { name, description, poster, price, stock, sku, rating, discount, category } = product;
@@ -106,7 +98,6 @@ const UpdateProductForm = () => {
     if (resProduct.status === false) {
       setAllUpdatesSuccessful(false);
     }
-
 
     if (isPoster) {
       posterData.append("poster", poster);
@@ -133,11 +124,6 @@ const UpdateProductForm = () => {
       setError(prevError => prevError + ',' + resProduct.message);
     }
   };
-
-
-
-
-
 
   return (
     <Container maxWidth="sm">

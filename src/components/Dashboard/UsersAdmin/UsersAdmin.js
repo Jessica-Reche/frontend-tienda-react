@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,12 +8,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import useAuth from "../../../hooks/useAuth";
 import { BoxStyled } from "./usersAdminStyles";
-import { Snackbar, Alert } from "@mui/material";
-
+import { Snackbar, Alert, Pagination } from "@mui/material";
+import { useState } from "react";
 
 export default function AdminProducts() {
   const { users, deleteUserById, isLoginLoading } = useAuth();
@@ -25,15 +24,24 @@ export default function AdminProducts() {
       ...user,
       handleDelete: async () => {
         let response = await deleteUserById(user._id);
-        console.log(response);
-
         setMessage(response.message);
         setShowNotification(true);
-
-
       }
     };
   });
+
+  //paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(usersList.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = usersList.slice(startIndex, endIndex);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+  //fin paginación
 
   return (
     <BoxStyled className="root">
@@ -56,7 +64,7 @@ export default function AdminProducts() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {usersList.map((user) => (
+            {currentItems.map((user) => (
               <TableRow key={user._id}>
                 <TableCell component="th" scope="row">
                   {user._id}
@@ -117,7 +125,11 @@ export default function AdminProducts() {
         </Snackbar>
 
       )}
-
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Pagination variant="outlined" color="secondary" size='large'
+          sx={{ '& button': { fontSize: 24, marginTop: '3rem' } }}
+          count={pageCount} page={currentPage} onChange={handleChangePage} />
+      </Box>
     </BoxStyled>
   );
 }

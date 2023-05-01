@@ -8,15 +8,37 @@ import accounting from 'accounting'
 const Review = () => {
 
   const [{ basket }, dispatch] = useStateValue()
+  const [quantity, setQuantity] = React.useState(1);
+
+
+  const uniqueProducts = [...new Set(basket?.map(item => item._id))];
+  const filteredBasket = uniqueProducts.map(id => {
+    return {
+      ...basket.find(item => item._id === id),
+      quantity: basket.reduce((count, item) => {
+        if (item._id === id) {
+          return count + 1;
+        } else {
+          return count;
+        }
+      }
+        , 0)
+    }
+  });
+
+
+
+
   return (
     <>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
 
-      {basket?.map((product) => (
+      {filteredBasket?.map((product) => (
         <ListItem key={product.name}>
-          <ListItemText primary={product.name} secondary={`Quantity: ${1}`} />
+       <ListItemText primary={product.name} secondary={`Quantity: ${product.quantity}`} />
+
           <Typography variant="body2">{accounting.formatMoney(product.price, "€")}</Typography>
         </ListItem>
       ))

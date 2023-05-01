@@ -12,7 +12,9 @@ import Products from './pages/ProductsPage';
 import Checkout from './components/Checkout/Checkout';
 import Footer from './components/Footer';
 import Home from './pages/HomePage/HomePage';
-import ProductPage from './pages/HomePage/ProductPage';
+import ProductPage from './pages/ProductPage';
+
+
 function App() {
   const { admin } = useAuth();
   const location = useLocation();

@@ -13,16 +13,15 @@ export const actionTypes = {
     //SET_USER: "SET_USER",
     SET_SHIPPING_DATA: "SET_SHIPPINGDATA",
     SET_PAYMENT_MESSAGE: "SET_PAYMENT_MESSAGE",
-
-
+    SET_QUANTITY: "SET_QUANTITY",
+    
 };
 
 export const getBasketTotal = (basket) => basket?.reduce((amount, item) => item.price + amount, 0);
-
 const reducer = (state, action) => {
-
     switch (action.type) {
         case "ADD_TO_BASKET":
+            
             return {
                 ...state,
                 basket: [...state.basket, action.item],
@@ -47,9 +46,8 @@ const reducer = (state, action) => {
             return { ...state, shippingData: action.shippingData };
         case "SET_PAYMENT_MESSAGE":
 
-            return { ...state, paymentMessage: action.paymentMessage };         
-
-
+            return { ...state, paymentMessage: action.paymentMessage };
+     
         default:
             return state;
     }

@@ -31,9 +31,6 @@ export default function Checkout() {
       <PaymentForm backStep={backStep} nextStep={nextStep} />
     );
 
-
-
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

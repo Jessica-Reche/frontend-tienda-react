@@ -44,8 +44,7 @@ const CreateProductForm = () => {
   const [sku, setSku] = React.useState("");
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = React.useState(false);
-  const productData = new FormData();
-
+const [productData, setProductData] = React.useState(new FormData());
   const handlePosterFileChange = (event) => {
     const [file] = event.target.files;
     setPoster(file);
@@ -55,28 +54,22 @@ const CreateProductForm = () => {
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
       productData.append("gallery[]", files[i]);
+      setProductData(productData);
     }
   };
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    //formData
-
     productData.append("name", name);
     productData.append("description", description);
     productData.append("poster", poster);
-
     productData.append("price", price);
     productData.append("discount", discount);
     productData.append("stock", stock);
     productData.append("rating", rating);
     productData.append("sku", sku);
     productData.append("category", category);
-    const object = Object.fromEntries(productData.entries());
-
-    console.log(object);
-
 
     //si algún campo está vacío, no se envía el formulario
     if (!name || !description || !poster || !price || !stock || !rating || !sku || !category ) {
@@ -96,16 +89,13 @@ const CreateProductForm = () => {
       setError(true);
       setMessage(result.message);
     }
-
   };
-
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
         Crear Producto
       </Typography>
-
       <form>
         <FormBox>
           <Select
@@ -122,7 +112,7 @@ const CreateProductForm = () => {
             <MenuItem value="cupcakes">Cupcakes</MenuItem>
             <MenuItem value="donnuts">Donnuts</MenuItem>
             <MenuItem value="cookies">Cookies</MenuItem>
-            <MenuItem value="cajasdulces">Cajadulce</MenuItem>
+            <MenuItem value="eventos">Eventos</MenuItem>
           </Select>
 
           <TextField
@@ -147,8 +137,6 @@ const CreateProductForm = () => {
             multiline
             rows={4}
           />
-
-
           <TextField
             required
             fullWidth
@@ -170,7 +158,6 @@ const CreateProductForm = () => {
             margin="normal"
             type="number"
           />
-
           <TextField
             required
             fullWidth
