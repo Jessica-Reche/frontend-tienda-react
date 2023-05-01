@@ -1,12 +1,25 @@
 import styled from "@emotion/styled";
-import { Container, Grid, Paper } from "@mui/material";
+import { Container, Grid, Paper, TextField,Button } from "@mui/material";
 
 
 const SectionContainer = styled(Container)`
-  padding: 80px 0;
+
+  width: 100%;
   background-color:  #e8e9ef;
+
   
 `;
+const SectionContainerNewsletter = styled(Container)`
+  padding: 80px 0;
+  background-color:  #e8e9ef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+`;
+
+
+
 
 const SectionTitle = styled.h2`
   text-align: center;
@@ -101,6 +114,28 @@ const CarouselContainer = styled.div`
     margin: 0 auto;
     max-width: 1200px;
 `;
+const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #f0f0f0;
+  border-radius: 1rem;
+`;
+
+const StyledTextField = styled(TextField)`
+  width: 100%;
+`;
+
+const StyledButton = styled(Button)`
+  background-color: #0077cc;
+  color: white;
+  &:hover {
+    background-color: #0065a8;
+  }
+`;
+
 
 
 
@@ -117,6 +152,20 @@ const Section = ({ title, subtitle, children }) => {
   );
 };
 
+const SectionNewsletter = ({ title, subtitle, children }) => {
+  return (
+      <SectionContainerNewsletter data-cy='category-test-section' >
+          <SectionTitle>{title}</SectionTitle>
+          {subtitle && <SectionSubtitle>{subtitle}</SectionSubtitle>}
+          <Grid container spacing={4}>
+              {children}
+          </Grid>
+      </SectionContainerNewsletter>
+  );
+};
+
+
+
 
 export {
     SectionContainer,
@@ -132,5 +181,9 @@ export {
     PromoSection,
     CarouselContainer,
     PromoTitle,
+    FormContainer,
+    StyledTextField,
+    StyledButton,
     Section,
+    SectionNewsletter
 }

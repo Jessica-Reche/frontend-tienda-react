@@ -72,7 +72,7 @@ const PaymentForm = ({ backsTep, nextStep }) => {
       <Review />
       <Divider />
       <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>
-        Payment method
+        Método de pago
       </Typography>
       <Elements stripe={stripePromise}>
         <CheckoutForm backsTep={backsTep} nextStep={nextStep} />

@@ -1,17 +1,18 @@
 
 import React from 'react';
-import {  Container, Grid, Link, Typography } from '@mui/material';
+import {  Grid, Link, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const StyledFooter = styled('footer')(({ theme }) => ({
-    backgroundColor: theme.palette.background.paper,
+   //color bonito
+    backgroundColor: '#f5f5f5',
     padding: theme.spacing(6),
 }));
 
 const Footer = () => {
 
     return (<StyledFooter>
-        <Container maxWidth="lg">
+        <section maxWidth="lg">
             <Grid container spacing={4} justifyContent="space-evenly">
                 <Grid item xs={12} sm={6} md={3}>
                     <Typography variant="h6" color="text.primary" gutterBottom>
@@ -47,7 +48,7 @@ const Footer = () => {
                     </Typography>
                 </Grid>
             </Grid>
-        </Container>
+        </section>
     </StyledFooter>
     
     );

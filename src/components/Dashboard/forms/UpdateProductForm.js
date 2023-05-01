@@ -1,10 +1,7 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-
 import {
   Box,
   Button,
@@ -15,6 +12,7 @@ import {
   Select,
 } from "@mui/material";
 import useProducts from "../../../hooks/useProducts";
+import config from "../../../config";
 
 const FormBox = styled(Box)({
   display: "flex",
@@ -24,7 +22,7 @@ const FormBox = styled(Box)({
   border: "1px solid #ccc",
   borderRadius: "4px",
 });
-
+const urlBase = config.API_URL;
 
 const UpdateProductForm = () => {
   const [product, setProduct] = useState({
@@ -36,8 +34,9 @@ const UpdateProductForm = () => {
     rating: "",
     discount: "",
     category: "",
+    poster: "",
   });
-  
+
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { id } = useParams();
@@ -79,6 +78,7 @@ const UpdateProductForm = () => {
     setIsGallery(true);
 
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -222,13 +222,43 @@ const UpdateProductForm = () => {
             margin="normal"
             type="number"
           />
-          <Box mt={2}>
-            <Typography variant="subtitle1">Imagen de Portada</Typography>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+          <Box mt={2} >
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+            <Typography variant="subtitle1">Poster</Typography>
+            <Box mr={2} style={{ display: 'flex', justifyContent: 'center' }}>
+             
+              {product?.poster && (
+                <img
+                  src={`${urlBase}${product?.poster.link}`}
+
+                  alt="poster"
+                  style={{ maxWidth: "100px", maxHeight: "100px", margin: "0.5rem", objectFit: "cover" }}
+                />
+              )}
+
+            </Box>
           </Box>
+
+
           <Box mt={2}>
             <Typography variant="subtitle1">Galería de Imágenes</Typography>
             <input type="file" name="gallery[]" accept="image/*" enctype="multipart/form-data" multiple onChange={handleGallery} />
+            <Box mt={2} style={{ display: 'flex', justifyContent: 'center' }}>
+              {product?.gallery &&
+                product?.gallery.map((image, index) => (
+
+
+                  <img
+                    key={index}
+                    src={`${urlBase}${image.link}`}
+                    alt={`Imagen ${index}`}
+                    style={{ maxWidth: "100px", maxHeight: "100px", margin: "0.5rem", objectFit: "cover" }}
+                  />
+
+                ))}
+
+            </Box>
+
           </Box>
           <Box mt={2}>
             <Button type="submit" variant="contained">

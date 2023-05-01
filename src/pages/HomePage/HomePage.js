@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 
 import {
   PromoTitle,
   PromoSection,
   HeroSection,
   HeroTitle,
-  Section
+  FormContainer,
+  StyledTextField,
+  StyledButton,
+  Section,
+  SectionNewsletter,
+
+
 
 } from "./homePageStyles";
 
@@ -33,6 +40,29 @@ const Home = () => {
     }
 
   }, [state]);
+
+  const NewsletterForm = () => {
+    return (
+      <FormContainer >
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <StyledTextField label="Name" variant="outlined" required />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <StyledTextField label="Email" variant="outlined" required />
+          </Grid>
+          <Grid item xs={12}>
+            <StyledButton variant="contained" type="submit">
+              Subscribe
+            </StyledButton>
+          </Grid>
+        </Grid>
+      </FormContainer>
+    );
+  };
+
+
+
   return (
     <>
       {message && (
@@ -68,6 +98,9 @@ const Home = () => {
       <PromoSection>
         <PromoTitle>¡Obtén un 10% de descuento en tu primer pedido!</PromoTitle>
       </PromoSection>
+      <SectionNewsletter title="Newsletter" subtitle="Suscríbete a nuestro newsletter para recibir las últimas noticias y ofertas">
+        <NewsletterForm />
+      </SectionNewsletter>
     </>
   );
 };

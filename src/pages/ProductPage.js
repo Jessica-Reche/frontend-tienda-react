@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import Carousel from "react-material-ui-carousel";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import useProducts from "../hooks/useProducts";
 import config from "../config";
 import { useStateValue } from "../context/StateProvider";
@@ -23,13 +23,16 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
-
-
+  const [loaded, setLoaded] = useState(false);
+  const handleImageLoad = () => {
+    setLoaded(true);
+  };
 
   // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
   //si  hay imagenes en el array gallery, entonces mapea el array y devuelve un nuevo array con las imagenes
   const galleryImages = gallery && gallery.length ? gallery.map((img) => `${urlBase}${img.link}`) : [];
+
 
 
   const handleAddToCart = () => {
@@ -43,47 +46,44 @@ const ProductPage = () => {
 
   };
 
-
   const CarouselComponent = ({ galleryImages }) => {
-
-
     const chunk = (arr, size) =>
       arr.reduce(
         (acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]),
         []
       );
     const imageGroups = chunk(galleryImages, 3);
-
-
     return (
-      <Carousel
-        animation="slide"
+    
+     
+     <Carousel
+   
         autoPlay={false}
         swipe={true}
         navButtonsAlwaysVisible={true}
         indicators={true}
+      
         slidesPerPage={3}>
         {imageGroups.map((imageGroup, index) => (
           <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
             {imageGroup.map((image, index) => (
-              <div key={index} onClick={() => { setSelectedImage(image); setOpenModal(true) }} style={{ width: 'calc(100% / 3)', paddingRight: '10px' }}>
-                <img loading="lazy" src={image} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-
+              <div key={index} onClick={() => { setSelectedImage(image); setOpenModal(true) }} style={{ width: 'calc(100% / 3)', paddingRight: '10px', display: loaded ? "block" : "none"  }}>
+                <Image   onLoad={handleImageLoad} src={image} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
             ))}
           </div>
         ))}
       </Carousel>
+      
     );
   };
 
+  
 
   return (
     <Container maxWidth="lg">
       <Box sx={{ my: 4, marginTop: '10rem' }}>
-        {!isLoginLoading && !product && (
-          <Typography variant="h4">Product not found</Typography>
-        )}
+      
         {
           isLoginLoading ? (<Typography variant="h4">Loading...</Typography>)
             : (
@@ -110,9 +110,7 @@ const ProductPage = () => {
                     <Image src={selectedImage} />
                     <button onClick={() => setOpenModal(false)}></button>
                   </div>
-
                 </Modal>
-
                 <Typography variant="h6" component="h2" gutterBottom>
                   Price: {product?.price}
                 </Typography>
@@ -127,11 +125,15 @@ const ProductPage = () => {
                   <Typography variant="h6" component="span" sx={{ mx: 2 }}>
                     {quantity}
                   </Typography>
-                  <Button variant="outlined" onClick={() => setQuantity(quantity + 1)}>+</Button>
+                  <Button  variant="outlined" onClick={() => setQuantity(quantity + 1)}>+</Button>
+                  
                 </Box>
                 <>
+
                   <Button variant="contained" onClick={handleAddToCart}>Añadir al carrito</Button>
                 </>
+
+                
               </>
             )
         }
@@ -139,6 +141,4 @@ const ProductPage = () => {
     </Container>
   );
 };
-
 export default ProductPage;
-

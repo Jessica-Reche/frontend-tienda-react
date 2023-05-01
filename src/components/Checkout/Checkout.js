@@ -13,7 +13,7 @@ import AddressForm from './CheckoutForm/AddressForm';
 import Confirmation from '../../pages/Confirmation';
 import { useStateValue } from '../../context/StateProvider'
 
-const steps = ['Shipping address', 'Payment details'];
+const steps = ['Dirección de envío', 'Detalles de pago'];
 const theme = createTheme();
 
 export default function Checkout() {
@@ -37,7 +37,7 @@ export default function Checkout() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4, mt: 30 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Pedido
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (

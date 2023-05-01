@@ -8,8 +8,6 @@ import accounting from 'accounting'
 const Review = () => {
 
   const [{ basket }, dispatch] = useStateValue()
-  const [quantity, setQuantity] = React.useState(1);
-
 
   const uniqueProducts = [...new Set(basket?.map(item => item._id))];
   const filteredBasket = uniqueProducts.map(id => {
@@ -26,13 +24,10 @@ const Review = () => {
     }
   });
 
-
-
-
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Resumen del pedido
       </Typography>
 
       {filteredBasket?.map((product) => (
