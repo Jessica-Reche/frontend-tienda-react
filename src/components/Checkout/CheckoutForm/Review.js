@@ -34,7 +34,7 @@ const Review = () => {
         <ListItem key={product.name}>
        <ListItemText primary={product.name} secondary={`Quantity: ${product.quantity}`} />
 
-          <Typography variant="body2">{accounting.formatMoney(product.price, "€")}</Typography>
+          <Typography variant="body2">{accounting.formatMoney(product.price*product.quantity, "€")}</Typography>
         </ListItem>
       ))
       }

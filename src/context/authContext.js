@@ -1,9 +1,6 @@
 //context 
 import { createContext, useState, useEffect } from "react";
-
 const AuthContext = createContext({});
-
-
 export function AuthProvider({ children }) {
 
     const [token, setToken] = useState(() => window.sessionStorage.getItem('token'));

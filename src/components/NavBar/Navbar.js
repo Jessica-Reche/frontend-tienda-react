@@ -19,11 +19,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import HomeIcon from '@mui/icons-material/Home';
-
-
 import useAuth from '../../hooks/useAuth';
 import { StyledAppBar } from './navbarStyles';
-
 
 export default function Navbar() {
 
@@ -35,7 +32,6 @@ export default function Navbar() {
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
     };
-
     const handleAuth = () => {
         if (isLogged) {
             dispatch({
@@ -43,12 +39,10 @@ export default function Navbar() {
                 basket: [],
             });
             logout();
-
             // dispatch({ type: actionTypes.SET_USER, user: null });
         }
     };
     return (
-
         <Box className='root' data-cy='navbar'>
             <StyledAppBar position="fixed">
                 <Toolbar>
@@ -68,7 +62,6 @@ export default function Navbar() {
                             <img className='image' src={logo} alt="logo" />
                         </IconButton>
                     </Link>
-
                     {!isMobile && (
                         <Link to="/products">
                             <MenuItem>
@@ -114,7 +107,6 @@ export default function Navbar() {
 
                     <Drawer anchor='left' open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
                         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-
                             <MenuItem>
                                 <Link to="/"><HomeIcon /></Link>
                             </MenuItem>
@@ -122,11 +114,8 @@ export default function Navbar() {
                             {admin && <MenuItem>
                                 <Link to="/admin/products"><DashboardIcon /></Link>
                             </MenuItem>}
-
-
                             <MenuItem>
                                 <Link to="/products"><StorefrontIcon /></Link>
-
                             </MenuItem>
                             <MenuItem>
                                 <Link onClick={handleAuth} to="/signin">{isLogged ? <LoginIcon /> : <LogoutIcon />} </Link>

@@ -12,8 +12,6 @@ import {
 } from './checkoutPageStyles';
 import { useState } from 'react';
 
-
-
 export default function CheckoutPage() {
     // eslint-disable-next-line no-unused-vars
     const [{ basket }, dispatch] = useStateValue();
@@ -35,8 +33,6 @@ export default function CheckoutPage() {
     };
     //fin paginación
 
-
-
     function FormRow() {
         return (
             <>
@@ -55,7 +51,6 @@ export default function CheckoutPage() {
                     <Typography sx={titleStyle} align='center' gutterBottom variant='h4'>
                         Checkout
                     </Typography>
-
                 </Grid>
                 <Grid item xs={12} sm={8} md={6} container spacing={2}>
                     <FormRow />
