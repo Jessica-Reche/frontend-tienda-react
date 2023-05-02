@@ -12,7 +12,8 @@ import Products from './pages/ProductsPage';
 import Checkout from './components/Checkout/Checkout';
 import Footer from './components/Footer';
 import Home from './pages/HomePage/HomePage';
-import ProductPage from './pages/ProductPage';
+import ProductPage from './pages/ProductDetail';
+import EventDetail from './pages/EventDetail';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path='/' element={<Index />} />
         <Route path='/products' element={<Products />} />
         <Route  path='/details/:id' element={<ProductPage/>} />
+        <Route  path='/event/:id' element={<EventDetail/>} />
         <Route path='/checkout-page' element={<CheckoutPage />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/signin' element={<SignIn />} />

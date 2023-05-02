@@ -9,6 +9,7 @@ import config from "../config";
 import { useStateValue } from "../context/StateProvider";
 import { actionTypes } from "../reducer";
 import { Modal } from "@mui/material";
+import EventDetail from "./EventDetail";
 const urlBase = config.API_URL;
 const Image = styled("img")({
   width: "100%",
@@ -32,16 +33,19 @@ const ProductPage = () => {
   const [{ basket }, dispatch] = useStateValue();
   //si  hay imagenes en el array gallery, entonces mapea el array y devuelve un nuevo array con las imagenes
   const galleryImages = gallery && gallery.length ? gallery.map((img) => `${urlBase}${img.link}`) : [];
+ const posterLink = `${urlBase}${product?.poster.link}`;
 
 
 
   const handleAddToCart = () => {
 
+
     for (let i = 0; i < quantity; i++) {
       dispatch({
         type: actionTypes.ADD_TO_BASKET,
-        item: { ...product },
+        item: { _id:product._id, name:product.name, porter:posterLink, price:product.price, description:product.description, rating:product.rating, discount:product.discount, category:product.category,created_at:product.created_at},
       });
+
     }
 
   };
@@ -81,6 +85,8 @@ const ProductPage = () => {
   
 
   return (
+
+  
     <Container maxWidth="lg">
       <Box sx={{ my: 4, marginTop: '10rem' }}>
       
@@ -128,8 +134,8 @@ const ProductPage = () => {
                   <Button  variant="outlined" onClick={() => setQuantity(quantity + 1)}>+</Button>
                   
                 </Box>
+               { product && product?.category==='eventos' &&(<EventDetail/>)}
                 <>
-
                   <Button variant="contained" onClick={handleAddToCart}>Añadir al carrito</Button>
                 </>
 
@@ -138,7 +144,9 @@ const ProductPage = () => {
             )
         }
       </Box>
+
     </Container>
+  
   );
 };
 export default ProductPage;

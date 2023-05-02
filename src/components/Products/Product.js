@@ -16,9 +16,7 @@ import { useStateValue } from "../../context/StateProvider";
 import useAuth from "../../hooks/useAuth";
 import config from "../../config";
 import { Link } from "react-router-dom";
-
 const urlBase = config.API_URL;
-
 
 const ExpandMoreButton = styled((props) => {
   const { expand, ...other } = props;
@@ -30,7 +28,6 @@ const ExpandMoreButton = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
 
 export default function Product({ product: { _id, name, poster, price, description, rating, discount, category, created_at }, handleDelete }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -99,27 +96,22 @@ export default function Product({ product: { _id, name, poster, price, descripti
         <IconButton aria-label="Add to Cart" onClick={addToBasket}>
           <AddShoppingCart fontSize="large" />
         </IconButton>
-
         {Array(rating)
           .fill()
           .map((_, i) => (
             <p>&#11088;</p>
           ))}
-
         <ExpandMoreButton
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
-
         >
           <ExpandMoreIcon />
         </ExpandMoreButton>
         {admin && <IconButton aria-label="Delete" onClick={handleDeleteClick}>
           <Delete fontSize="large" />
         </IconButton>}
-     
-
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

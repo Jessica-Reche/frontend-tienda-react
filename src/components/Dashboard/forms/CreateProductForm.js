@@ -44,7 +44,8 @@ const CreateProductForm = () => {
   const [sku, setSku] = React.useState("");
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = React.useState(false);
-const [productData, setProductData] = React.useState(new FormData());
+  const productData = new FormData();
+
   const handlePosterFileChange = (event) => {
     const [file] = event.target.files;
     setPoster(file);
@@ -54,7 +55,7 @@ const [productData, setProductData] = React.useState(new FormData());
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
       productData.append("gallery[]", files[i]);
-      setProductData(productData);
+    
     }
   };
 

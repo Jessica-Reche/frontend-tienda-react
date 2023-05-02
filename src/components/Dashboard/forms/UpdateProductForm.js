@@ -68,7 +68,6 @@ const UpdateProductForm = () => {
 
   const handleGallery = (event) => {
     const files = event.target.files;
-    console.log('fileeeeesEvent', files);
     for (const file of files) {
       galleryData.append("gallery[]", file);
     }
@@ -78,7 +77,6 @@ const UpdateProductForm = () => {
     setIsGallery(true);
 
   };
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -147,7 +145,7 @@ const UpdateProductForm = () => {
             <MenuItem value="cupcakes">Cupcakes</MenuItem>
             <MenuItem value="donnuts">Donnuts</MenuItem>
             <MenuItem value="cookies">Cookies</MenuItem>
-            <MenuItem value="cajasdulces">Cajadulce</MenuItem>
+            <MenuItem value="eventos">Eventos</MenuItem>
           </Select>
           <TextField
             fullWidth
@@ -170,7 +168,6 @@ const UpdateProductForm = () => {
             multiline
             rows={4}
           />
-
 
           <TextField
             fullWidth
@@ -223,43 +220,34 @@ const UpdateProductForm = () => {
             type="number"
           />
           <Box mt={2} >
-          <input type="file" accept="image/*" onChange={handleImageChange} />
             <Typography variant="subtitle1">Poster</Typography>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
             <Box mr={2} style={{ display: 'flex', justifyContent: 'center' }}>
-             
               {product?.poster && (
                 <img
                   src={`${urlBase}${product?.poster.link}`}
-
                   alt="poster"
                   style={{ maxWidth: "100px", maxHeight: "100px", margin: "0.5rem", objectFit: "cover" }}
                 />
               )}
-
             </Box>
           </Box>
-
-
-          <Box mt={2}>
-            <Typography variant="subtitle1">Galería de Imágenes</Typography>
-            <input type="file" name="gallery[]" accept="image/*" enctype="multipart/form-data" multiple onChange={handleGallery} />
-            <Box mt={2} style={{ display: 'flex', justifyContent: 'center' }}>
+           <Typography variant="subtitle1">Añade hasta 5 imágenes a la galería</Typography>
+           <input type="file" name="gallery[]" accept="image/*" enctype="multipart/form-data" multiple onChange={handleGallery} />
+            <Box mt={2} style={{ display: 'flex', justifyContent: 'center',  }}>
               {product?.gallery &&
                 product?.gallery.map((image, index) => (
-
-
-                  <img
-                    key={index}
-                    src={`${urlBase}${image.link}`}
-                    alt={`Imagen ${index}`}
-                    style={{ maxWidth: "100px", maxHeight: "100px", margin: "0.5rem", objectFit: "cover" }}
-                  />
-
+               <div key={index}>
+                    <img
+                      key={index}
+                      src={`${urlBase}${image.link}`}
+                      alt={`Imagen ${index}`}
+                      style={{ maxWidth: "100px", maxHeight: "100px", margin: "0.5rem", objectFit: "cover" }}
+                    />
+                  </div>
+                       
                 ))}
-
             </Box>
-
-          </Box>
           <Box mt={2}>
             <Button type="submit" variant="contained">
               Actualizar
@@ -270,7 +258,6 @@ const UpdateProductForm = () => {
               {error}
             </Typography>
           )}
-
         </FormBox>
       </form>
     </Container>
