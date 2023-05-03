@@ -30,22 +30,16 @@ function Copyright(props) {
     </Typography>
   );
 };
-
-
 const theme = createTheme();
-
 export default function SignIn() {
   const methods = useForm();
   const navigate = useNavigate();
   const { isLoginLoading, isLogged, login } = useAuth();
   const [message, setMessage] = useState("");
   const [showNotification, setShowNotification] = useState(false);
-
   useEffect(() => {
     if (isLogged) navigate('/', { state: { message: message } });
   }, [isLogged, navigate, message])
-
-
   const onSubmit = async (data) => {
     const { email, password } = data;
     let result = await login(email, password);
@@ -56,7 +50,6 @@ export default function SignIn() {
       setMessage(result.message);
     }
   }
-
   const boxStyled = {
     display: 'flex',
     flexDirection: 'column',
@@ -99,11 +92,7 @@ export default function SignIn() {
                     User created successfully
                   </Alert>
                 </Snackbar>
-
                 <br />
-
-
-
                 <Button data-cy="signin-submit" type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} >
                   Sign In
                 </Button>
@@ -115,8 +104,6 @@ export default function SignIn() {
                     <RouterLink href="#" variant="body2" to="/signup"> {"Don't have an account? Sign Up"}</RouterLink>
                   </Grid>
                 </Grid>
-
-
               </Box>
             </FormProvider>
           }

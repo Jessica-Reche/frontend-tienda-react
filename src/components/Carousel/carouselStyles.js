@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 import Carousel from "react-material-ui-carousel";
 
-
 const StyledCarousel = styled(Carousel)(({ theme }) => ({
     //definir el spacing sin spacint lo hago de otra manera porque si no me da error
-
-
     marginTop: ' 9rem',
     marginBottom:'2rem',
+    height: '100%',
+
     '& .CarouselItem': {
         textAlign: 'center',
         display: 'flex',
@@ -17,7 +16,7 @@ const StyledCarousel = styled(Carousel)(({ theme }) => ({
         backgroundColor: 'black', // fondo negro semitransparente
         color:' white',
         padding: '0.2rem',
-        minHeight: '500px',
+        minHeight: '00px',
         position: 'relative', // posición relativa para los elementos de texto y botón
     },
     '& .CarouselItem img': {

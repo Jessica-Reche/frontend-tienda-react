@@ -6,19 +6,14 @@ import { Snackbar, Alert } from "@mui/material";
 import { StyledCarousel } from './carouselStyles';
 import items from './options';
 
-
-
-
 const CarouselItem = ({ item }) => {
   const { register, login, } = useAuth();
   const [message, setMessage] = useState("");
   const [showNotification, setShowNotification] = useState(false);
 
-
   const handleSignUp = async (event) => {
     const actionStatusTrue = (email, password) => {
       login(email, password);
-      //navigate('/products'); TODO:Descomentar cuando esté habilitada la ruta de productos
     }
     event.preventDefault();
     const userData = {
@@ -44,10 +39,10 @@ const CarouselItem = ({ item }) => {
 
   return (
     <Paper className="CarouselItem">
-
       <img src={item.image} alt={item.name} />
       <h2>{item.name}</h2>
       <p className='CarouselItemP'>{item.description}</p>
+      
       <Button className="buttonVerMas" variant="contained">Ver más</Button>
       <div className="marketing-info" sx={{ display: 'flex' }}>
         <h3>¡Regístrate ahora y obtén un 10% de descuento en tu primer pedido!</h3>
@@ -66,7 +61,6 @@ const CarouselItem = ({ item }) => {
               <Button className='buttonRegister' variant='contained' type="submit">Registrarse</Button>
             </Grid>
           </Grid>
-
           {showNotification && <Typography sx={{ textTransform: "none" }} color="green" variant="body2">
             {message}
           </Typography>}
@@ -95,8 +89,6 @@ const CarouselItem = ({ item }) => {
               </Alert>
             </Snackbar>
           )}
-
-
         </form>
       </div>
     </Paper>
@@ -106,11 +98,15 @@ const CarouselItem = ({ item }) => {
 const CarouselComponent = () => {
   return (
     <StyledCarousel
+      className="Carousel"
       animation="slide"
       autoPlay={false}
       swipe={true}
       navButtonsAlwaysVisible={true}
       indicators={true}
+      navButtonsProps={{
+        style: { backgroundColor: '#f5f5f5', color: '#000' }
+      }}
     >
       {items.map((item, index) => (
         <CarouselItem key={index} item={item} />

@@ -35,8 +35,6 @@ const ProductPage = () => {
   const galleryImages = gallery && gallery.length ? gallery.map((img) => `${urlBase}${img.link}`) : [];
  const posterLink = `${urlBase}${product?.poster.link}`;
 
-
-
   const handleAddToCart = () => {
 
 
@@ -58,15 +56,11 @@ const ProductPage = () => {
       );
     const imageGroups = chunk(galleryImages, 3);
     return (
-    
-     
      <Carousel
-   
         autoPlay={false}
         swipe={true}
         navButtonsAlwaysVisible={true}
         indicators={true}
-      
         slidesPerPage={3}>
         {imageGroups.map((imageGroup, index) => (
           <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -81,15 +75,9 @@ const ProductPage = () => {
       
     );
   };
-
-  
-
   return (
-
-  
     <Container maxWidth="lg">
       <Box sx={{ my: 4, marginTop: '10rem' }}>
-      
         {
           isLoginLoading ? (<Typography variant="h4">Loading...</Typography>)
             : (
@@ -138,15 +126,12 @@ const ProductPage = () => {
                 <>
                   <Button variant="contained" onClick={handleAddToCart}>Añadir al carrito</Button>
                 </>
-
                 
               </>
             )
         }
       </Box>
-
     </Container>
-  
   );
 };
 export default ProductPage;
