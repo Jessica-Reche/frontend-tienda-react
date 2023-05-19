@@ -13,9 +13,6 @@ import {
   StyledButton,
   Section,
   SectionNewsletter,
-
-
-
 } from "./homePageStyles";
 
 import useProducts from "../../hooks/useProducts";

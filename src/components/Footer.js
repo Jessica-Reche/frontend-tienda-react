@@ -4,10 +4,11 @@ import {  Grid, Link, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const StyledFooter = styled('footer')(({ theme }) => ({
-   //color bonito
     backgroundColor: '#f5f5f5',
     padding: theme.spacing(6),
-}));
+    marginTop: 'auto',
+  }));
+  
 
 const Footer = () => {
 

@@ -95,8 +95,8 @@ const ProductPage = () => {
                   justifyContent: 'center',
                   outline: 'none',
                   '& img': {
-                    maxWidth: '100%',
-                    maxHeight: '100%',
+                    maxWidth: '70vh',
+                    maxHeight: '70vh',
                   },
                 }}
                   open={openModal} onClose={() => setOpenModal(false)}>

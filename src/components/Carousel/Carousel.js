@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Snackbar, Alert } from "@mui/material";
 import { StyledCarousel } from './carouselStyles';
 import items from './options';
+import { Link } from 'react-router-dom';
 
 const CarouselItem = ({ item }) => {
   const { register, login, } = useAuth();
@@ -43,7 +44,7 @@ const CarouselItem = ({ item }) => {
       <h2>{item.name}</h2>
       <p className='CarouselItemP'>{item.description}</p>
       
-      <Button className="buttonVerMas" variant="contained">Ver más</Button>
+      <Button component={Link} to="/products" className="buttonVerMas" variant="contained">Ver más</Button>
       <div className="marketing-info" sx={{ display: 'flex' }}>
         <h3>¡Regístrate ahora y obtén un 10% de descuento en tu primer pedido!</h3>
         <form onSubmit={handleSignUp}>
