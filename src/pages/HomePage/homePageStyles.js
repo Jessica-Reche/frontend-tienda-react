@@ -11,12 +11,14 @@ const SectionContainer = styled(Container)`
 `;
 const SectionContainerNewsletter = styled(Container)`
   padding: 80px 0;
-  background-color:  #e8e9ef;
+  background-color: #e8e9ef;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
- 
+  text-align: center;
 `;
+
 
 
 
@@ -157,7 +159,7 @@ const SectionNewsletter = ({ title, subtitle, children }) => {
       <SectionContainerNewsletter data-cy='category-test-section' >
           <SectionTitle>{title}</SectionTitle>
           {subtitle && <SectionSubtitle>{subtitle}</SectionSubtitle>}
-          <Grid container spacing={4}>
+          <Grid container>
               {children}
           </Grid>
       </SectionContainerNewsletter>
