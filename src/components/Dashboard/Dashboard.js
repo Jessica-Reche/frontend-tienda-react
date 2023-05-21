@@ -35,7 +35,7 @@ function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit">
+            <Link color="inherit"  href="https://naturalcherry.netlify.app/" >
                Natural Cherry
             </Link>{' '}
             {new Date().getFullYear()}

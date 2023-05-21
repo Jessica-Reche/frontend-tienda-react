@@ -22,8 +22,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <RouterLink color="inherit" href="https://mui.com/">
-        Your Website
+      <RouterLink color="inherit" href="https://naturalcherry.netlify.app/">
+        Natural Cherry
       </RouterLink>{' '}
       {new Date().getFullYear()}
       {'.'}
