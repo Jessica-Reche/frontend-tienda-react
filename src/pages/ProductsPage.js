@@ -28,7 +28,7 @@ export default function ProductPage() {
     }
 
   }, [state]);
-  const filteredProducts = productList.filter((product) => {
+  const filteredProducts = productList?.filter((product) => {
     if (category === 'all') {
       return product;
     } else {
@@ -55,14 +55,15 @@ export default function ProductPage() {
         <Select sx={{ width: 200 }} value={category} onChange={handleChange || category}>
           <MenuItem value="all">All</MenuItem>
           <MenuItem value="tartas">Tartas</MenuItem>
-          <MenuItem value="cupcakes">Cookies</MenuItem>
+          <MenuItem value="cupcakes">Cupcakes</MenuItem>
+          <MenuItem value="cookies">Cookies</MenuItem>
           <MenuItem value="donnuts">Donuts</MenuItem>
           <MenuItem value="eventos">Eventos</MenuItem>
         </Select>
         <br />
         <br />
         <Grid container spacing={1}>
-          {currentItems.map((product) => (
+          {currentItems?.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
               <Product key={product._id} product={product} handleDelete={product.handleDelete} />
             </Grid>
