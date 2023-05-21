@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import logo from '../../assets/logo-1.png';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -44,8 +44,8 @@ export default function SignIn() {
     const { email, password } = data;
     let result = await login(email, password);
     if (result === true) {
-    setMessage(result.message);
-    setShowNotification(true);
+      setMessage(result.message);
+      setShowNotification(true);
     } else {
       setMessage(result.message);
     }
@@ -61,8 +61,18 @@ export default function SignIn() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box sx={boxStyled}>
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><LockOutlinedIcon />  </Avatar>
-          <Typography component="h1" variant="h5">  Sign in </Typography>
+        <Avatar
+            sx={{
+              m: 1,
+              width: 100,
+              height: 100,
+      
+            }}
+            src={logo}
+            alt="Logo"
+          />
+
+          <Typography component="h1" variant="h5"> Iniciar sesión</Typography>
           {isLoginLoading && <strong> Checking credentials...</strong>}
           {!isLoginLoading &&
             <FormProvider {...methods}>

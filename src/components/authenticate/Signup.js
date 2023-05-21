@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import logo from '../../assets/logo-1.png';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -90,11 +90,20 @@ export default function SignUp() {
             marginTop: '13rem'
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <Avatar
+            sx={{
+              m: 1,
+              width: 100,
+              height: 100,
+
+            }}
+            src={logo}
+            alt="Logo"
+          />
+
+
           <Typography component="h1" variant="h5">
-            Sign up
+            Registrarse
           </Typography>
           {isLoginLoading && <strong> Checking credentials...</strong>}
           {!isLoginLoading && <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 3 }}>
