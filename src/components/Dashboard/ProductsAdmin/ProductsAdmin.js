@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,11 +7,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import useProducts from "../../../hooks/useProducts";
 import { BoxStyled } from "./productsAdminStyles";
 import { useState } from "react";
 import { Snackbar, Alert, Pagination, Box } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import { IconButton } from "@mui/material";
+
 
 export default function AdminProducts() {
   const { products, handleDeleteProduct, isLoginLoading } = useProducts();
@@ -49,11 +53,23 @@ export default function AdminProducts() {
 
   return (
     <BoxStyled className="root">
-      <h1>Administración de Productos</h1>
-      <Button variant="contained" component={Link} to="/admin/products/new">
-        Crear Nuevo Producto
-      </Button>
-      <br />
+<h1>Administración de productos</h1>
+
+<div style={{ display: 'flex', alignItems: 'center' }}>
+  <IconButton
+    aria-label="add"
+    color="secondary"
+    component={Link} to="/admin/products/new"
+  >
+    <AddBusinessIcon sx={{ fontSize: 50 }} /> 
+  </IconButton>
+  <span style={{ marginLeft: '10px' }}>Añadir producto nuevo</span>
+</div>
+
+<br />
+
+   
+
       {isLoginLoading && <strong> Loading products...</strong>}
       {!isLoginLoading && (
         <>
@@ -80,28 +96,22 @@ export default function AdminProducts() {
                     <TableCell>{product.price}</TableCell>
                     <TableCell>{product.description}</TableCell>
                     <TableCell>
-                      <Grid container spacing={1} justifyContent="center">
-                        <Grid item>
-                          <Button
-                            variant="contained"
-                            size="small"
-                            component={Link}
-                            to={`/admin/products/edit/${product._id}`}
-                          >
-                            Editar
-                          </Button>
-                        </Grid>
-                        <Grid item>
-                          <Button
-                            variant="contained"
-                            color="error"
-                            size="small"
-                            onClick={product.handleDelete}
-                          >
-                            Eliminar
-                          </Button>
-                        </Grid>
-                      </Grid>
+                      <ButtonGroup variant="text" aria-label="text button group">
+                        <IconButton
+                          aria-label="edit"
+                          color="secondary"
+                          component={Link}
+                          to={`/admin/products/edit/${product._id}`}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="delete"
+                          onClick={product.handleDelete}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </ButtonGroup>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,7 +8,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import { IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import useAuth from "../../../hooks/useAuth";
 import { BoxStyled } from "./usersAdminStyles";
 import { Snackbar, Alert, Pagination } from "@mui/material";
@@ -46,9 +49,19 @@ export default function AdminProducts() {
   return (
     <BoxStyled className="root">
       <h1>Administración de usuarios</h1>
-      <Button variant="contained" component={Link} to="/admin/users/new">
-        Añadir nuevo usuario
-      </Button>
+
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <IconButton
+          aria-label="add"
+          color="secondary"
+          component={Link}
+          to="/admin/users/new"
+        >
+          <PersonAddAltIcon sx={{ fontSize: 50 }} />
+        </IconButton>
+        <span style={{ marginLeft: '10px' }}>Añadir nuevo usuario</span>
+      </div>
+
       <br />
       {isLoginLoading && <strong> Loading users...</strong>}
       {!isLoginLoading && <TableContainer component={Paper} className="tableContainer">
@@ -74,7 +87,7 @@ export default function AdminProducts() {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.rol.name}</TableCell>
                 <TableCell>
-                  <Grid container spacing={1} justifyContent="center">
+                  {/* <Grid container spacing={1} justifyContent="center">
                     <Grid item>
                       <Button
                         variant="contained"
@@ -95,7 +108,27 @@ export default function AdminProducts() {
                         Eliminar
                       </Button>
                     </Grid>
-                  </Grid>
+                  </Grid> */}
+
+
+
+                  <ButtonGroup variant="text" aria-label="text button group">
+                    <IconButton
+                      aria-label="edit"
+                      color="secondary"
+                      component={Link}
+                      to={`/admin/users/edit/${user._id}`}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={user.handleDelete}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ButtonGroup>
+
                 </TableCell>
               </TableRow>
             ))}
